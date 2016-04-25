@@ -45,7 +45,10 @@ body {
   min-width: 240px;
 }
 .topmargin {
-  margin-top: 200px;
+  margin-top: 150px;
+}
+.toppadding {
+  padding-top:200px;
 }
 .bottommargin {
   margin-bottom: 200px;
@@ -68,7 +71,6 @@ body {
 }
 
 .footer {
-  margin-top: 200px;
   color: #f2f2f2;
 }
 
@@ -84,7 +86,18 @@ body {
     max-width: 250px;
     min-width: 240px;
   }
+  .toppadding {
+    padding-top: 50px;
+  }
 }
-@media(min-width:768px){}
-@media(min-width:992px){}
-@media(min-width:1200px){}
+@media(min-width:768px){
+  .toppadding {
+    padding-top: 80px;
+  }
+}
+@media(min-width:992px){
+
+}
+@media(min-width:1200px){
+
+}
