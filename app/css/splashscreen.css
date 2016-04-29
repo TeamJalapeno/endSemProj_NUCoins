@@ -13,26 +13,95 @@
   src: url(../fonts/Grotesk.otf); }
 
 html {
-  left: 0;
-  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 body {
   font-size: 26px;
   line-height: 1.2;
   color: #f2f2f2;
-  background-color: #0f0f0f;
-  font-family: Bebas;
-  text-align: center;
-  margin-top: 200px;
+  /*background-color: #0f0f0f;*/
+  font-family: Regencie;
+  background: url(../img/nust-bg.jpg) no-repeat center center fixed;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+
+}
+
+a {
+  color: rgba(0, 255, 255, 0.8);;
 }
 
 h1 {
   font-size: 55px;
 }
-/*@media(max-width:767px){
 
-}*/
+nav {
+  height: 80px;
+}
+
+.splashbar {
+  font-size: 22px;
+  font-family: Bebas;
+}
+.splashscreen {
+  margin-top: 12%;
+  background-color: rgba(0, 0, 0, 0.5);;
+}
+
+.logo {
+  max-width: 45px;
+  max-height: 45px;
+}
+
+.logobrand {
+  width: 50px;
+}
+
+.logodescription {
+  font-size: 30px;
+  margin-top: 15px;
+  margin-left: 5px;
+}
+
+.navbuttons {
+  font-size: 30px;
+  margin-top: 15px;
+}
+
+.navbar-toggle {
+  margin-top: 15px;
+}
+
+.footer {
+  height: 28px;
+  position: absolute;
+  left:0;
+  bottom:0;
+  width: 100%;
+  text-align: center;
+}
+
+.footertext {
+  background-color: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  padding-top: 5px;
+  padding-bottom: 100px;
+  font-size: 18px;
+}
+
+@media(max-width:767px){
+  .splashscreen {
+    margin-top: 35%;
+  }
+  .navcolour {
+    background-color: rgba(0 , 0, 0 , 0.7);
+  }
+}
 
 @media(min-width:768px){
 
