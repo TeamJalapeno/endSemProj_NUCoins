@@ -3,7 +3,7 @@
 /* Directives */
 
 //change background image for any element
-app.directive('myBackgroundImage', function () {
+LoginApp.directive('myBackgroundImage', function () {
         return function (scope, element, attrs) {
             element.css({
                 'background-image': 'url(' + attrs.myBackgroundImage + ')',

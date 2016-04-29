@@ -1,4 +1,4 @@
-/* app css stylesheet */
+/*CSS for the Splash Screen*/
 
 @font-face {
   font-family: Bebas;
@@ -18,17 +18,18 @@ html {
 }
 
 body {
-  font-size: 16px;
-  line-height: 1.4;
-  color: #0f0f0f;
-  background-color: #f2f2f2;
-  font-family: Grotesk;
+  font-size: 26px;
+  line-height: 1.2;
+  color: #f2f2f2;
+  background-color: #0f0f0f;
+  font-family: Bebas;
+  text-align: center;
+  margin-top: 200px;
 }
 
-.jumbotron {
-  padding: 20px;
+h1 {
+  font-size: 55px;
 }
-
 /*@media(max-width:767px){
 
 }*/
