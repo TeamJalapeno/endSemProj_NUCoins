@@ -12,8 +12,8 @@ MainApp.config(['$routeProvider',
         //controller: 'homePageControl'
       }).
       when('/otherpage', {
-        templateUrl: 'partials/page2.html'//,
-        //controller: 'mainPageControl'
+        templateUrl: 'partials/page2.html',
+        controller: 'EventListCtrl'
       }).
       otherwise({
         redirectTo: '/homepage'
