@@ -2,7 +2,7 @@
 
 /* App Module */
 
-var MainApp = angular.module("NCMainApp", ['ngRoute', 'NCAnimations', 'NCMainControllers']);
+var MainApp = angular.module("NCMainApp", ['ngRoute', 'NCAnimations', 'NCMainControllers','firebase']);
 
 MainApp.config(['$routeProvider',
   function($routeProvider) {
@@ -19,3 +19,7 @@ MainApp.config(['$routeProvider',
         redirectTo: '/homepage'
       });
   }]);
+
+  $('.navbar-collapse a:not(.dropdown-toggle)').click(function(){
+      $(".navbar-collapse").collapse('hide');
+  });

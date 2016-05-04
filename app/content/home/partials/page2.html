@@ -1,8 +1,8 @@
-<h1>Partial for page 2</h2>
+<h2>Available Events:</h2>
 
 <ul class="events">
   <li ng-repeat="event in events | filter:query | orderBy:orderProp" class="thumbnail">
-    <a href="#/events/{{event.id}}" class="thumb"><img ng-src="{{event.imageUrl}}" alt="{{event.name}}"></a>
+    <!-- <a href="#/events/{{event.id}}" class="thumb"><img ng-src="{{event.imageUrl}}" alt="{{event.name}}"></a> -->
     <a href="#/events/{{event.id}}">{{event.name}}</a>
     <p>{{event.snippet}}</p>
   </li>

@@ -13,6 +13,10 @@
   <script src="../../bower_components/angular-route/angular-route.min.js"></script>
   <script src="../../bower_components/angular-animate/angular-animate.min.js"></script>
   <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+  <!-- AngularFire -->
+  <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-fixed-top navbar-inverse navbar-right" role="navigation">
@@ -28,7 +32,7 @@
         <div class="collapse navbar-collapse navbar-main-collapse">
             <ul class="nav navbar-nav">
                 <li class=""><a href="#/homepage">Page 1</a></li>
-                <li class=""><a href="#/otherpage">Page 2</a></li>
+                <li class=""><a href="#/otherpage">Events</a></li>
             </ul>
             <div class="collapse navbar-collapse navbar-main-collapse navbar-right">
                 <ul class="nav navbar-nav">
@@ -37,12 +41,12 @@
             </div>
         </div>
 </nav>
-<div style="margin-top:200px;">
-<div ng-view>
-</div>
 
-<nav class="navbar navbar-fixed-bottom navbar-shadow-up text-center" role="navigation">
-  <div class = "navbar-brand text-center">
+  <div ng-view style="margin-top:100px;margin-bottom:100px">
+  </div>
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom navbar-shadow-up" role="navigation">
+  <div class = "navbar-brand">
     Created by Team Jalapeño
 </nav>
 
