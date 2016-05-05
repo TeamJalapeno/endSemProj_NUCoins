@@ -35,6 +35,10 @@ body {
   width: 250px;
 }
 
+.eventimage {
+  width:100px;
+}
+
 .loadingimg {
   width: 250px;
   height: 250px;

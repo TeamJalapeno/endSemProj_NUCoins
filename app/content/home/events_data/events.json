@@ -3,36 +3,21 @@
         "age": 0,
         "id": "robotics-workshop",
         "name": "CSP Robotics Workshop",
+        "imageUrl": "../../img/csp.jpg",
         "snippet": "Join CSP and take part in an amazing robotics filled event!"
     },
     {
         "age": 1,
-        "id": "robotics-workshop",
-        "name": "CSP Robotics Workshop",
-        "snippet": "Join CSP and take part in an amazing robotics filled event!"
+        "id": "entrepreneur-workshop",
+        "name": "YES Entrepreneurship Workshop",
+        "imageUrl": "../../img/yes.jpg",
+        "snippet": "Get to know tips and tricks to become an amazing entrepreneur!"
     },
     {
         "age": 2,
-        "id": "robotics-workshop",
-        "name": "CSP Robotics Workshop",
-        "snippet": "Join CSP and take part in an amazing robotics filled event!"
-    },
-    {
-        "age": 3,
-        "id": "robotics-workshop",
-        "name": "CSP Robotics Workshop",
-        "snippet": "Join CSP and take part in an amazing robotics filled event!"
-    },
-    {
-        "age": 4,
-        "id": "robotics-workshop",
-        "name": "CSP Robotics Workshop",
-        "snippet": "Join CSP and take part in an amazing robotics filled event!"
-    },
-    {
-        "age": 5,
-        "id": "robotics-workshop",
-        "name": "CSP Robotics Workshop",
-        "snippet": "Join CSP and take part in an amazing robotics filled event!"
+        "id": "photography-workshop",
+        "name": "NMC Photography Workshop",
+        "imageUrl": "../../img/nmc.png",
+        "snippet": "Take amazing pictures after attending this fun-filled and educational event!"
     }
 ]
