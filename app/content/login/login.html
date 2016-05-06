@@ -10,6 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../../css/app.css">
+  <link rel="stylesheet" href="../../css/login_styling.css">
   <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
   <script src="../../bower_components/angular/angular.min.js"></script>
   <script src="../../bower_components/angular-route/angular-route.min.js"></script>
@@ -23,23 +24,96 @@
 </head>
 <body>
 
-<nav class="navbar navbar-fixed-top navbar-inverse navbar-right" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"><span style="color:white">NU</span>Coins</a>
-        </div>
-        <div class="collapse navbar-collapse navbar-main-collapse">
-            <div class="collapse navbar-collapse navbar-main-collapse navbar-right">
-                <ul class="nav navbar-nav">
-                    <li class=""><a href="#/loginpage">About</a></li>
-                </ul>
+  <nav class="navbar navbar-fixed-top navbar-inverse navbar-right" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><span style="color:white">NU</span>Coins</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-main-collapse">
+      <div class="collapse navbar-collapse navbar-main-collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li class=""><a href="#/loginpage">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="verticalSpan">
+    <div class="bg-div"  ng-controller="LoginCtrl">
+      <BR>
+        <div class = "grad">
+          <div class="container">
+            <div class = "row toppadding">
+              <div class = "col-md-2">
+              </div>
+              <div class = "col-md-3">
+                <!-- <div class = "logo"> -->
+                <img class = "img-responsive logo"  src="../../img/nust-logo.png">
+                <!-- </div> -->
+              </div>
+              <div class = "col-md-5">
+                <!-- This section is for login
+                .
+                . -->
+                <div class = "appTitle" ng-show="loginBool">
+                  <strong>NU</strong>Coins<br>
+                </div>
+                <form class="form-signin" role="form" ng-show="loginBool" name="loginForm">
+                  <div class="form-group" ng-class="{ 'has-error' : loginForm.email.$invalid }">
+                    <input ng-model="user.email" name="email" type="email" class="form-control" placeholder="Email address">
+                    <p class="help-block" ng-show="loginForm.email.$invalid">Enter a valid email.</p>
+                  </div>
+                  <input ng-model="user.password" type="password" class="form-control" placeholder="Password" required="">
+                  <label class="checkbox">
+                    <a type="button" class="toPointer" ng-click="SignUp($event)">Sign Up</>
+                  </label>
+                  <a type="button" ng-click="SignIn($event)" ng-disabled="!user.email || !user.password" class="btn btn-lg btn-primary btn-block">SIGN IN</a>
+                </form>
+                <div class="signupSpan" ng-show="signupBool">
+                  <div class = "appTitle">
+                    <strong>NU</strong>Coins<br>
+                  </div>
+                  <form class="form-signin" name="regForm" >
+                    <div class="form-group">
+                      <label>First Name</label>
+                      <input type="text" name="firstName" class="form-control" ng-model="user.firstName">
+                    </div>
+                    <div class="form-group">
+                      <label>Last Name</label>
+                      <input type="text" name="lastName" class="form-control" ng-model="user.lastName">
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : regForm.email.$invalid }">
+                      <label>Email</label>
+                      <input type="email" name="email" class="form-control" ng-model="user.email">
+                      <p class="help-block" ng-show="regForm.email.$invalid">Enter a valid email.</p>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : regForm.password.$invalid }">
+                      <label>Password</label>
+                      <input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="8">
+                      <p class="help-block" ng-show="regForm.password.$error.minlength">Min password length is 8 characters.</p>
+                      <p style="color:darkred;" ng-show="regError"><br>{{regErrorMessage}}</p>
+                    </div>
+                    <div>
+                      <label class="checkbox">
+                        <a class="toPointer" ng-click="Login($event)">Login</>
+                      </label>
+                    </div>
+                    <button  ng-click="Register($event)" ng-disabled="!user.email || !user.password" class="btn btn-lg btn-primary btn-block">Register</button>
+                  </form>
+                </div>
+                </div>
+                <div class = "col-md-2">
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+<<<<<<< 807f8880cb121ebd8e6c9fb7fbcec09be276ce0d
 </nav>
 
 <div class = "jumbotron" style="margin-top:200px"><h1>Login Page</h1>
@@ -50,12 +124,23 @@
   <div class = "navbar-brand">
     Created by Team Jalapeño
 </nav>
+=======
+        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+          <div class = "navbar-brand text-center">
+            Created by Team Jalapeño
+          </div>
+        </nav>
+      </div>
+>>>>>>> Version 1.0 - Login/Authentication
 
-</body>
+  </body>
+  <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
   <script src="login_js/login_app.js"></script>
   <script src="login_js/login_controllers.js"></script>
   <script src="login_js/login_directives.js"></script>
   <script src="login_js/login_filters.js"></script>
   <script src="login_js/login_services.js"></script>
   <script src="login_js/login_animations.js"></script>
-</html>
+  </html>

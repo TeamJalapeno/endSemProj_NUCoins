@@ -1,0 +1,16 @@
+.verticalSpan {
+  margin-top: 15%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.signupSpan {
+  margin-top: -22%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.toPointer {
+  cursor: pointer;
+}
