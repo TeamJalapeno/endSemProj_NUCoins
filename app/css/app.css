@@ -29,7 +29,6 @@ body {
   padding: 20px;
 }
 
-<<<<<<< 807f8880cb121ebd8e6c9fb7fbcec09be276ce0d
 .loading {
   margin: 0 auto;
   height: 250px;
@@ -39,12 +38,11 @@ body {
 .loadingimg {
   width: 250px;
   height: 250px;
-=======
+}
+
 .appTitle {
   font-size: 36px;
   font-family: Grotesk;
-
->>>>>>> Version 1.0 - Login/Authentication
 }
 
 /*@media(max-width:767px){

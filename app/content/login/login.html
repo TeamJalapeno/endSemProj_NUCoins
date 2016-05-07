@@ -59,79 +59,48 @@
                 <!-- This section is for login
                 .
                 . -->
-                <div class = "appTitle" ng-show="loginBool">
-                  <strong>NU</strong>Coins<br>
-                </div>
-                <form class="form-signin" role="form" ng-show="loginBool" name="loginForm">
-                  <div class="form-group" ng-class="{ 'has-error' : loginForm.email.$invalid }">
-                    <input ng-model="user.email" name="email" type="email" class="form-control" placeholder="Email address">
-                    <p class="help-block" ng-show="loginForm.email.$invalid">Enter a valid email.</p>
-                  </div>
-                  <input ng-model="user.password" type="password" class="form-control" placeholder="Password" required="">
-                  <label class="checkbox">
-                    <a type="button" class="toPointer" ng-click="SignUp($event)">Sign Up</>
-                  </label>
-                  <a type="button" ng-click="SignIn($event)" ng-disabled="!user.email || !user.password" class="btn btn-lg btn-primary btn-block">SIGN IN</a>
-                </form>
-                <div class="signupSpan" ng-show="signupBool">
-                  <div class = "appTitle">
-                    <strong>NU</strong>Coins<br>
-                  </div>
-                  <form class="form-signin" name="regForm" >
-                    <div class="form-group">
-                      <label>First Name</label>
-                      <input type="text" name="firstName" class="form-control" ng-model="user.firstName">
-                    </div>
-                    <div class="form-group">
-                      <label>Last Name</label>
-                      <input type="text" name="lastName" class="form-control" ng-model="user.lastName">
-                    </div>
-                    <div class="form-group" ng-class="{ 'has-error' : regForm.email.$invalid }">
-                      <label>Email</label>
-                      <input type="email" name="email" class="form-control" ng-model="user.email">
-                      <p class="help-block" ng-show="regForm.email.$invalid">Enter a valid email.</p>
-                    </div>
 
-                    <div class="form-group" ng-class="{ 'has-error' : regForm.password.$invalid }">
-                      <label>Password</label>
-                      <input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="8">
-                      <p class="help-block" ng-show="regForm.password.$error.minlength">Min password length is 8 characters.</p>
-                      <p style="color:darkred;" ng-show="regError"><br>{{regErrorMessage}}</p>
+                <div class="login-page">
+
+                  <div class="form">
+                    <div class = "appTitle">
+                      <strong>NU</strong>Coins<br>
                     </div>
-                    <div>
-                      <label class="checkbox">
-                        <a class="toPointer" ng-click="Login($event)">Login</>
-                      </label>
-                    </div>
-                    <button  ng-click="Register($event)" ng-disabled="!user.email || !user.password" class="btn btn-lg btn-primary btn-block">Register</button>
-                  </form>
+                    <form class="form-hide" ng-style="myStyle3">
+                      <input type="text" placeholder="first name" ng-model="user.firstName" required="" autofocus=""/>
+                      <input type="text" placeholder="last name" ng-model="user.lastName" required=""/>
+                      <label class="radio-button"><input type="radio" ng-model="user.gender" value="Male" required=""> Male</label>
+                      <label class="radio-button"><input type="radio" ng-model="user.gender" value="Female" required=""> Female<br></label>
+                      <input type="email" placeholder="email" ng-model="user.email" disabled=""/>
+                      <input type="password" placeholder="password" ng-model="user.password" required=""/>
+                      <button ng-click="RegisterUser($event)">create</button>
+                    </form>
+                    <form class="form-hide" ng-style="myStyle2">
+                      <input type="email" placeholder="email" ng-model="user.email" disabled=""/>
+                      <input type="password" placeholder="password" ng-model="user.password"  required="" autofocus=""/>
+                      <button ng-click="SignIn($event)">login</button>
+                    </form>
+                    <form ng-style="myStyle">
+                      <input type="email" placeholder="email" ng-model="user.email" autofocus=""/>
+                      <p class="form-hide" ng-show="authEmailError" class="errorMessage">Please enter valid NUST Email ID</p><br>
+                      <button ng-click="AuthEmail($event)">go</button>
+                    </form>
+                  </div>
                 </div>
-                </div>
-                <div class = "col-md-2">
-                </div>
+              </div>
+              <div class = "col-md-2">
               </div>
             </div>
           </div>
         </div>
-<<<<<<< 807f8880cb121ebd8e6c9fb7fbcec09be276ce0d
-</nav>
-
-<div class = "jumbotron" style="margin-top:200px"><h1>Login Page</h1>
-<h2>The form to logon will come here</h2>
-<a href="../home/home.html">LOGIN!</a></div>
-
-<nav class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
-  <div class = "navbar-brand">
-    Created by Team Jalapeño
-</nav>
-=======
-        <nav class="navbar navbar-inverse navbar-fixed-bottom">
-          <div class = "navbar-brand text-center">
-            Created by Team Jalapeño
-          </div>
-        </nav>
       </div>
->>>>>>> Version 1.0 - Login/Authentication
+    </nav>
+
+    <nav class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
+      <div class = "navbar-brand">
+        Created by Team Jalapeño
+      </div>
+    </nav>
 
   </body>
   <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
