@@ -44,6 +44,11 @@ body {
   height: 250px;
 }
 
+.appTitle {
+  font-size: 36px;
+  font-family: Grotesk;
+}
+
 /*@media(max-width:767px){
 
 }*/

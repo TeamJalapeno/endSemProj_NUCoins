@@ -10,6 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../../css/app.css">
+  <link rel="stylesheet" href="../../css/login_styling.css">
   <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
   <script src="../../bower_components/angular/angular.min.js"></script>
   <script src="../../bower_components/angular-route/angular-route.min.js"></script>
@@ -23,39 +24,92 @@
 </head>
 <body>
 
-<nav class="navbar navbar-fixed-top navbar-inverse navbar-right" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"><span style="color:white">NU</span>Coins</a>
-        </div>
-        <div class="collapse navbar-collapse navbar-main-collapse">
-            <div class="collapse navbar-collapse navbar-main-collapse navbar-right">
-                <ul class="nav navbar-nav">
-                    <li class=""><a href="#/loginpage">About</a></li>
-                </ul>
+  <nav class="navbar navbar-fixed-top navbar-inverse navbar-right" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><span style="color:white">NU</span>Coins</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-main-collapse">
+      <div class="collapse navbar-collapse navbar-main-collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li class=""><a href="#/loginpage">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="verticalSpan">
+    <div class="bg-div"  ng-controller="LoginCtrl">
+      <BR>
+        <div class = "grad">
+          <div class="container">
+            <div class = "row toppadding">
+              <div class = "col-md-2">
+              </div>
+              <div class = "col-md-3">
+                <!-- <div class = "logo"> -->
+                <img class = "img-responsive logo"  src="../../img/nust-logo.png">
+                <!-- </div> -->
+              </div>
+              <div class = "col-md-5">
+                <!-- This section is for login
+                .
+                . -->
+
+                <div class="login-page">
+
+                  <div class="form">
+                    <div class = "appTitle">
+                      <strong>NU</strong>Coins<br>
+                    </div>
+                    <form class="form-hide" ng-style="myStyle3">
+                      <input type="text" placeholder="first name" ng-model="user.firstName" required="" autofocus=""/>
+                      <input type="text" placeholder="last name" ng-model="user.lastName" required=""/>
+                      <label class="radio-button"><input type="radio" ng-model="user.gender" value="Male" required=""> Male</label>
+                      <label class="radio-button"><input type="radio" ng-model="user.gender" value="Female" required=""> Female<br></label>
+                      <input type="email" placeholder="email" ng-model="user.email" disabled=""/>
+                      <input type="password" placeholder="password" ng-model="user.password" required=""/>
+                      <button ng-click="RegisterUser($event)">create</button>
+                    </form>
+                    <form class="form-hide" ng-style="myStyle2">
+                      <input type="email" placeholder="email" ng-model="user.email" disabled=""/>
+                      <input type="password" placeholder="password" ng-model="user.password"  required="" autofocus=""/>
+                      <button ng-click="SignIn($event)">login</button>
+                    </form>
+                    <form ng-style="myStyle">
+                      <input type="email" placeholder="email" ng-model="user.email" autofocus=""/>
+                      <p class="form-hide" ng-show="authEmailError" class="errorMessage">Please enter valid NUST Email ID</p><br>
+                      <button ng-click="AuthEmail($event)">go</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class = "col-md-2">
+              </div>
             </div>
+          </div>
         </div>
-</nav>
+      </div>
+    </nav>
 
-<div class = "jumbotron" style="margin-top:200px"><h1>Login Page</h1>
-<h2>The form to logon will come here</h2>
-<a href="../home/home.html">LOGIN!</a></div>
+    <nav class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
+      <div class = "navbar-brand">
+        Created by Team Jalapeño
+      </div>
+    </nav>
 
-<nav class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
-  <div class = "navbar-brand">
-    Created by Team Jalapeño
-</nav>
-
-</body>
+  </body>
+  <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
   <script src="login_js/login_app.js"></script>
   <script src="login_js/login_controllers.js"></script>
   <script src="login_js/login_directives.js"></script>
   <script src="login_js/login_filters.js"></script>
   <script src="login_js/login_services.js"></script>
   <script src="login_js/login_animations.js"></script>
-</html>
+  </html>
