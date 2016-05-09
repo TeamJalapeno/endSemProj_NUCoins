@@ -72,9 +72,20 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
 
           userAcc = snapshot.hasChild(escapeEmailAddress(email));
           console.log("Account Exists? " + userAcc);
+
+          if(userAcc) {
             jq('.emailerrormessage').hide();
             jq('.emailauth').hide();
+            jq('.email-auth-form').animate({height: "toggle", opacity: "toggle"}, "slow");
             jq('.login-form').animate({height: "toggle", opacity: "toggle"}, "slow");
+          }
+
+          else {
+            jq('.emailerrormessage').hide();
+            jq('.emailauth').hide();
+            jq('.email-auth-form').animate({height: "toggle", opacity: "toggle"}, "slow");
+            jq('.register-form').animate({height: "toggle", opacity: "toggle"}, "slow");
+          }
 
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);
@@ -108,22 +119,18 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
         'Gender': gender,
         'Email': email
       });
-
-      loginObj.$createUser(email, password)
+      loginObj.$createUser({
+        email: $scope.user.email,
+        password: $scope.user.password
+      })
       .then(function() {
         console.log('User creation success');
         console.log(firstName);
         console.log(lastName);
 
-        var myStyle3 = {
-          'display':'none'
-        }
-
-        $scope.myStyle3 = myStyle3;
-        myStyle2 = {
-          'display':'block'
-        }
-        $scope.myStyle2 = myStyle2;
+        jq('.register-form').animate({height: "toggle", opacity: "toggle"}, "slow");
+        jq('.email-auth-form').animate({height: "toggle", opacity: "toggle"}, "slow");
+        jq('.emailauth').hide();
       }, function(error) {
 
         console.log(error);
