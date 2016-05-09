@@ -155,3 +155,6 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
     }
   };
 }]);
+NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth', function($scope, $location, $firebaseAuth) {
+
+}]);
