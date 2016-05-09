@@ -1,5 +1,5 @@
 'use strict';
-
+var jq = $.noConflict();
 /* Controllers */
 
 var NCLoginController = angular.module('NCLoginControllers', ['firebase']);
@@ -12,16 +12,9 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
   var usersAccount = new Firebase("https://nucoins.firebaseio.com/usersData");
 
   var userAcc = false;
-  var myStyle2 = {
-    'display':'none'
-  }
-  $scope.myStyle2 = myStyle2;
+  jq('.loginerrormessage').hide();
+  jq('.emailerrormessage').hide();
 
-  var myStyle3 = {
-    'display':'none'
-  }
-  $scope.myStyle3 = myStyle3;
-  $scope.authEmailError = false;
 
   var absUrl = "";
   $scope.user = {};
@@ -53,10 +46,14 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
     }, function(error) {
       //Failure callback
       console.log('Authentication failure');
+      jq('.loginerrormessage').show();
+
     });
   }
 
   $scope.AuthEmail = function(e) {
+    console.log("Logging in");
+
     e.preventDefault();
     var email = $scope.user.email;
     var auth = false;
@@ -65,39 +62,19 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
       for (var i = 0; i < snapshot.val().length; i++) {
         if (email == snapshot.val()[i]) {
           auth = true;
+          console.log("user found");
           break;
         }
       }
 
       if (auth) {
-        $scope.authEmailError = false;
         usersAccount.on("value", function(snapshot) {
 
           userAcc = snapshot.hasChild(escapeEmailAddress(email));
           console.log("Account Exists? " + userAcc);
-
-          if (userAcc) {
-            var myStyle = {
-              'display':'none'
-            }
-
-            $scope.myStyle = myStyle;
-            myStyle2 = {
-              'display':'block'
-            }
-            $scope.myStyle2 = myStyle2;
-          }
-          else if(!userAcc) {
-            var myStyle = {
-              'display':'none'
-            }
-            $scope.myStyle = myStyle;
-
-            myStyle3 = {
-              'display':'block'
-            }
-            $scope.myStyle3 = myStyle3;
-          }
+            jq('.emailerrormessage').hide();
+            jq('.emailauth').hide();
+            jq('.login-form').animate({height: "toggle", opacity: "toggle"}, "slow");
 
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);
@@ -105,7 +82,8 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
       }
 
       else if (!auth) {
-        $scope.authEmailError = true;
+        console.log("invalid email");
+        jq('.emailerrormessage').show();
       }
 
     }, function (errorObject) {
@@ -154,7 +132,4 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
       });
     }
   };
-}]);
-NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth', function($scope, $location, $firebaseAuth) {
-
 }]);

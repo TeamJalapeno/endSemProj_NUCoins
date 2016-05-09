@@ -43,7 +43,7 @@
     </div>
   </nav>
   <div class="verticalSpan">
-    <div class="bg-div"  ng-controller="LoginCtrl">
+    <div class="bg-div">
       <BR>
         <div class = "grad">
           <div class="container">
@@ -59,32 +59,33 @@
                 <!-- This section is for login
                 .
                 . -->
-
                 <div class="login-page">
-
-                  <div class="form">
-                    <div class = "appTitle">
-                      <strong>NU</strong>Coins<br>
-                    </div>
-                    <form class="form-hide" ng-style="myStyle3">
-                      <input type="text" placeholder="first name" ng-model="user.firstName" required="" autofocus=""/>
-                      <input type="text" placeholder="last name" ng-model="user.lastName" required=""/>
-                      <label class="radio-button"><input type="radio" ng-model="user.gender" value="Male" required=""> Male</label>
-                      <label class="radio-button"><input type="radio" ng-model="user.gender" value="Female" required=""> Female<br></label>
-                      <input type="email" placeholder="email" ng-model="user.email" disabled=""/>
-                      <input type="password" placeholder="password" ng-model="user.password" required=""/>
-                      <button ng-click="RegisterUser($event)">create</button>
-                    </form>
-                    <form class="form-hide" ng-style="myStyle2">
-                      <input type="email" placeholder="email" ng-model="user.email" disabled=""/>
-                      <input type="password" placeholder="password" ng-model="user.password"  required="" autofocus=""/>
-                      <button ng-click="SignIn($event)">login</button>
-                    </form>
-                    <form ng-style="myStyle">
-                      <input type="email" placeholder="email" ng-model="user.email" autofocus=""/>
-                      <p class="form-hide" ng-show="authEmailError" class="errorMessage">Please enter valid NUST Email ID</p><br>
-                      <button ng-click="AuthEmail($event)">go</button>
-                    </form>
+                  <div class="form"  ng-controller="LoginCtrl">
+                  <h2>NUCoins Login</h2><br>
+                  <form class="email-auth-form">
+                    <input type="text"ng-model="user.email" placeholder="email"/>
+                    <!-- <input type="password" placeholder="password"/> -->
+                    <button class="emailauth" ng-click="AuthEmail($event)">go</button>
+                    <!-- <p class="message">Not registered? <a href="#">Create an account</a></p> -->
+                  </form>
+                  <div class="emailerrormessage">Please enter valid NUST Email ID</div>
+                  <form class="login-form">
+                    <!-- <input type="text" placeholder="username"/> -->
+                    <input type="password" ng-model="user.password" placeholder="password"/>
+                    <button class = "login" ng-click="SignIn($event)">login</button>
+                    <div class="loginerrormessage">You entered an incorrect password.</div>
+                  </form>
+                  <form class="register-form" >
+                    <input type="text" placeholder="first name" ng-model="user.firstName" required="" autofocus=""/>
+                    <input type="text" placeholder="last name" ng-model="user.lastName" required=""/>
+                    <label class="radio-button"><input type="radio" ng-model="user.gender" value="Male" required=""> Male</label>
+                    <label class="radio-button"><input type="radio" ng-model="user.gender" value="Female" required=""> Female<br></label>
+                    <input type="email" placeholder="email" ng-model="user.email" disabled=""/>
+                    <input type="password" placeholder="password" ng-model="user.password" required=""/>
+                    <button class = "register" ng-click="RegisterUser($event)">create</button>
+                    <!-- <p class="message">Already registered? <a href="#">Sign In</a></p> -->
+                  </form>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -103,9 +104,6 @@
     </nav>
 
   </body>
-  <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
-  <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
-  <script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
   <script src="login_js/login_app.js"></script>
   <script src="login_js/login_controllers.js"></script>
   <script src="login_js/login_directives.js"></script>
