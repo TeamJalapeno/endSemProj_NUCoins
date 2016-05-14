@@ -17,6 +17,20 @@ html {
   height: 100%;
 }
 
+.about{
+  font-size: 26px;
+  line-height: 1.2;
+  color: #f2f2f2;
+  /*background-color: #0f0f0f;*/
+  font-family: Regencie;
+  background: url(../img/about.jpg) no-repeat center center fixed;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+
+}
+
 body {
   font-size: 26px;
   line-height: 1.2;
@@ -110,5 +124,22 @@ nav {
 
 }
 @media(min-width:1200px){
+
+}
+
+
+
+.a{
+
+    height:100px;
+
+
+
+}
+
+.b{
+    height:100px;
+
+
 
 }

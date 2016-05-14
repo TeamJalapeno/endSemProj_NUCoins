@@ -1,0 +1,85 @@
+<!-- Splash screen! -->
+<!-- Needs bootstrap and Jquery only! -->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>NUCoins</title>
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/splashscreen.css">
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+
+<body class ="about">
+  <nav class="navbar navbar-fixed-top navbar-right splashbar" role="navigation">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target=".navbar-main-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <div class = "logodiv">
+                <a class="navbar-brand logobrand" href="#/homepage"><img class ="logo" src="img/nust-logo.png"></img>
+                </a>
+                <a class="navbar-brand logodescription" href="#"><span style="color:white;">NU</span>Coins</a>
+              </div>
+          </div>
+          <div class="collapse navbar-collapse navbar-main-collapse navbuttons">
+              <div class="collapse navbar-collapse navbar-main-collapse navbar-right navcolour">
+                <ul class="nav navbar-nav">
+                    <li class=""><a href="content/login/login.html">Login</a></li>
+                </ul>
+              </div>
+          </div>
+  </nav>
+
+
+<div class ="jumbotron splashscreen">
+
+    <div id ="paraA">
+      <h1>Our Story!</h1>
+      <p> Hi there! We're Team Jalapeno, the proud owners of NUCoins. </p>
+      <p>Our team comprises of three CS students of NUST who are motivated to make extraordinary things that would be in anyway helpful for NUSTIANS. Our scope isn't limited to NUST only, we plan to extend our horizons after we graduate for the betterment of society. What you need to know about us is that we enjoy our work and put a lot of effort to achieve the end results.</p><br>
+      <p id ="story">Product <span style ="color: #f2f2f2;" class="glyphicon glyphicon-play"  ></span></p>
+    </div>
+   <div id ="paraB">
+      <h1>Our Product!</h1>
+      <p>We're glad you're using NUCoins!</p>
+      <p>The basic idea behind our product NUCoins is to introduce virtual money at NUST so the students can avoid carrying paper money all the time. So even if you lose your wallet, you won't lose any cash. With NUCoins transactions are now one click away. Tickets can now be bought and NUCoins can be transferred by a single click. NUCoins can be used to award students for their efforts whether that be in studies or any extra curricular activity. This will give them a very good incentive to work harder.</p><br>
+      <p id ="product">Story <span class="glyphicon glyphicon-play"  ></span></p>
+   </div>
+
+</div>
+
+
+
+  <div class = "footer">
+    <div class = "footertext">
+      Created by Team Jalapeño
+    </div>
+  </div>
+
+</body>
+<script>
+ $("#paraB").hide();
+$(document).ready(function(){
+        $('#story').click(function(){
+         $("#paraB").show();
+         $("#paraA").hide();
+  });
+  $('#product').click(function(){
+   $("#paraA").show();
+   $("#paraB").hide();
+});
+
+})
+
+</script>
+</html>
