@@ -65,13 +65,14 @@
                   <div class="form"  ng-controller="LoginCtrl">
                   <h2>NUCoins Login</h2><br>
                   <form class="email-auth-form">
-                    <input type="text"ng-model="user.email" placeholder="email"/>
+                    <input type="email"ng-model="user.email" placeholder="email"/>
                     <!-- <input type="password" placeholder="password"/> -->
                     <button class="emailauth" ng-click="AuthEmail($event)">go</button>
                     <!-- <p class="message">Not registered? <a href="#">Create an account</a></p> -->
                   </form>
                   <div class="emailerrormessage">Please enter valid NUST Email ID</div>
                   <form class="login-form">
+                    <input type="email"ng-model="user.email" placeholder="email" disabled=""/>
                     <!-- <input type="text" placeholder="username"/> -->
                     <input type="password" ng-model="user.password" placeholder="password"/>
                     <button class = "login" ng-click="SignIn($event)">login</button>
