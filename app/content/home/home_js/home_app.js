@@ -16,11 +16,6 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "partials/page1.html",
       controller: 'AddAmountCtrl'
     })
-    .state('about', {
-      url: "/about",
-      templateUrl: "partials/about.html",
-      //controller: 'AddAmountCtrl'
-    })
     .state('otherpage', {
       url: "/otherpage",
       templateUrl: "partials/page2.html",
