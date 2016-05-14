@@ -2,7 +2,37 @@
 
 /* Controllers */
 
-var NCMainControllers = angular.module('NCMainControllers', []);
+var NCMainControllers = angular.module('NCMainControllers', ['ngCookies']);
+
+NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location) {
+  var absUrl = "";
+  console.log("Cookie check controller initialised");
+
+  //check for cookie, if exists keep login, if not redirect the user to login page
+  var cookie = $cookies.get('sessionCookie');
+  console.log(cookie);
+
+  if (cookie == undefined) {
+    //to do if user is not logged in
+    window.alert("You are not logged in.");
+    absUrl = $location.absUrl();
+    absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+    absUrl = absUrl + "/login/login.html";
+    window.location.replace(absUrl);
+  }
+
+  $scope.logOut = function() {
+    //delete cookie here
+    console.log("Deleting cookie");
+    $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
+    var cookie = $cookies.get('sessionCookie');
+    console.log(cookie);
+    absUrl = $location.absUrl();
+    absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+    absUrl = absUrl + "/login/login.html";
+    window.location.replace(absUrl);
+  }
+});
 
 NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
     var $load = $('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('body')
@@ -19,11 +49,9 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
   // syncObject.$bindTo($scope, "events");
 });
 
-
-//});
-
-NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject) {
+NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies) {
   console.log('AddAmountCtrl');
+  $scope.userEmail = $cookies.get('sessionCookie');
   $scope.amount = function(){
     console.log('amount function');
 var ref = new Firebase("https://popping-heat-6810.firebaseio.com/Variables/Balance");

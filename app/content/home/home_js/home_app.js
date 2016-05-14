@@ -14,7 +14,7 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
     .state('homepage', {
       url: "/homepage",
       templateUrl: "partials/page1.html",
-      controller: 'AddAmountCtrl'
+      controller: 'LoginCheck'
     })
     .state('otherpage', {
       url: "/otherpage",

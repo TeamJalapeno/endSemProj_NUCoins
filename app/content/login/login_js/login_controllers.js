@@ -2,9 +2,9 @@
 var jq = $.noConflict();
 /* Controllers */
 
-var NCLoginController = angular.module('NCLoginControllers', ['firebase']);
+var NCLoginController = angular.module('NCLoginControllers', ['firebase', 'ngCookies']);
 
-NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth', function($scope, $location, $firebaseAuth) {
+NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth', '$cookies', function($scope, $location, $firebaseAuth, $cookies) {
   var firebaseObj = new Firebase("https://nucoins.firebaseio.com/");
   var loginObj = $firebaseAuth(firebaseObj);
 
@@ -15,6 +15,13 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
   jq('.loginerrormessage').hide();
   jq('.emailerrormessage').hide();
 
+  //enter check for login cookie here
+  //if found redirect to login
+  var cookie = $cookies.get('sessionCookie');
+  console.log(cookie);
+  if (cookie != undefined) {
+    //to do if user is already logged in
+  }
 
   var absUrl = "";
   $scope.user = {};
@@ -31,23 +38,38 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
     e.preventDefault();
     var username = $scope.user.email;
     var password = $scope.user.password;
-    loginObj.$authWithPassword({
+    console.log("Trying to authenticate");
+    usersAccount.authWithPassword({
       email: username,
       password: password
-    })
-    .then(function(user) {
-      //Success callback
-      console.log('Authentication successful');
-      absUrl = $location.absUrl();
-      absUrl = absUrl.substring(0, absUrl.indexOf("/login/login.html"));
+    }, function(error, authData) {
+      if (error) {
+        //Failure callback
+        console.log('Authentication failure');
+        jq('.loginerrormessage').show();
+      }
+      else {
+        //Success callback
+        var loginemail = authData.password.email;
+        console.log('Authentication successful');
+        console.log(authData.password.email);
+        //create new cookie
+        var now = new Date(),
+        // this will set the expiration to 100 seconds
+        exp = new Date(now.getTime() + (100 * 1000));
 
-      absUrl = absUrl + "/home/home.html";
-      window.location.replace(absUrl);
-    }, function(error) {
-      //Failure callback
-      console.log('Authentication failure');
-      jq('.loginerrormessage').show();
+        $cookies.put('sessionCookie', loginemail, {
+          expires: exp,
+          path: '/app/content/home/home.html'
+        });
+        console.log("Inserted cookie");
 
+        absUrl = $location.absUrl();
+        absUrl = absUrl.substring(0, absUrl.indexOf("/login/login.html"));
+
+        absUrl = absUrl + "/home/home.html";
+        window.location.replace(absUrl);
+      }
     });
   }
 
