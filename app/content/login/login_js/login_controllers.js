@@ -8,10 +8,15 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
   var firebaseObj = new Firebase("https://nucoins.firebaseio.com/");
   var loginObj = $firebaseAuth(firebaseObj);
 
-  var emailAuth = new Firebase("https://nucoins.firebaseio.com/users/email");
+  var studentEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/studentEmail");
+  var adminEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/adminEmail");
+
   var usersAccount = new Firebase("https://nucoins.firebaseio.com/usersData");
 
   var userAcc = false;
+  var isAdmin = false;
+  var isStudent = false;
+
   jq('.loginerrormessage').hide();
   jq('.emailerrormessage').hide();
 
@@ -79,49 +84,59 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
     e.preventDefault();
     var email = $scope.user.email;
     var auth = false;
-
-    emailAuth.on("value", function(snapshot) {
+    //search for students
+    studentEmailAuth.on("value", function(snapshot) {
       for (var i = 0; i < snapshot.val().length; i++) {
         if (email == snapshot.val()[i]) {
           auth = true;
+          isStudent = true;
           console.log("user found");
           break;
         }
       }
-
-      if (auth) {
-        usersAccount.on("value", function(snapshot) {
-
-          userAcc = snapshot.hasChild(escapeEmailAddress(email));
-          console.log("Account Exists? " + userAcc);
-
-          if(userAcc) {
-            jq('.emailerrormessage').hide();
-            jq('.emailauth').hide();
-            jq('.email-auth-form').animate({height: "toggle", opacity: "toggle"}, "slow");
-            jq('.login-form').animate({height: "toggle", opacity: "toggle"}, "slow");
-          }
-
-          else {
-            jq('.emailerrormessage').hide();
-            jq('.emailauth').hide();
-            jq('.email-auth-form').animate({height: "toggle", opacity: "toggle"}, "slow");
-            jq('.register-form').animate({height: "toggle", opacity: "toggle"}, "slow");
-          }
-
-        }, function (errorObject) {
-          console.log("The read failed: " + errorObject.code);
-        });
-      }
-
-      else if (!auth) {
-        console.log("invalid email");
-        jq('.emailerrormessage').show();
-      }
-
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
+    //search for admins
+    adminEmailAuth.on("value", function(snapshot) {
+      for (var i = 0; i < snapshot.val().length; i++) {
+        if (email == snapshot.val()[i]) {
+          auth = true;
+          isAdmin = true;
+          console.log("admin found");
+          break;
+        }
+      }
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+    if (auth) {
+      usersAccount.on("value", function(snapshot) {
+        userAcc = snapshot.hasChild(escapeEmailAddress(email));
+        console.log("Account Exists? " + userAcc);
+
+        if(userAcc) {
+          jq('.emailerrormessage').hide();
+          jq('.emailauth').hide();
+          jq('.email-auth-form').animate({height: "toggle", opacity: "toggle"}, "slow");
+          jq('.login-form').animate({height: "toggle", opacity: "toggle"}, "slow");
+        }
+
+        else {
+          jq('.emailerrormessage').hide();
+          jq('.emailauth').hide();
+          jq('.email-auth-form').animate({height: "toggle", opacity: "toggle"}, "slow");
+          jq('.register-form').animate({height: "toggle", opacity: "toggle"}, "slow");
+        }
+
+      }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+      });
+    }
+    else if (!auth) {
+      console.log("invalid email");
+      jq('.emailerrormessage').show();
+    }
   }
 
   $scope.RegisterUser = function(e) {
@@ -135,12 +150,27 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
 
     if (email && password) {
       var usersRef = usersAccount.child(escapeEmailAddress(email))
-      usersRef.set({
-        'First Name': firstName,
-        'Last Name': lastName,
-        'Gender': gender,
-        'Email': email
-      });
+
+      if (isStudent) {
+        usersRef.set({
+          'First Name': firstName,
+          'Last Name': lastName,
+          'Gender': gender,
+          'Email': email,
+          'Balance': '10',
+          'AccessLevel':"student"
+        });
+      }
+      else if (isAdmin){
+        usersRef.set({
+          'First Name': firstName,
+          'Last Name': lastName,
+          'Gender': gender,
+          'Email': email,
+          'Balance': '10',
+          'AccessLevel':"admin"
+        });
+      }
       loginObj.$createUser({
         email: $scope.user.email,
         password: $scope.user.password

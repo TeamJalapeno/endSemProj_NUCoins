@@ -1,6 +1,7 @@
 'use strict';
 
 /* Controllers */
+var jq = $.noConflict();
 
 var NCMainControllers = angular.module('NCMainControllers', ['ngCookies']);
 
@@ -61,15 +62,19 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
 
   $scope.amount = function(){
     console.log('amount function');
-var ref = new Firebase("https://nucoins.firebaseio.com/usersData/"+email+"/Balance");
+    var ref = new Firebase("https://nucoins.firebaseio.com/usersData/"+email+"/Balance");
+  var usertype = new Firebase("https://nucoins.firebaseio.com/usersData/"+email);
   var obj = new $firebaseObject(ref);
+  $scope.userType = $firebaseObject(usertype);
+    //hide addAmount if user is not an admin
+    // jq('.loginerrormessage').hide();
  obj.$loaded().then(function() {
     var sum =0;
     sum = (parseInt(obj.$value));
     console.log("Current Balance: "+sum);
       sum = sum + 500;
       console.log("After adding 500: "+sum);
-      obj.$value = sum;
+      obj.$value = sum;s
       obj.$save();
   console.log('New current Balance:'+ obj.$value);
   });
