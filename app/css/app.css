@@ -28,7 +28,9 @@ body {
 .jumbotron {
   padding: 20px;
 }
-
+.page1{
+  font-family: Regencie;
+}
 .loading {
   margin: 0 auto;
   height: 250px;
