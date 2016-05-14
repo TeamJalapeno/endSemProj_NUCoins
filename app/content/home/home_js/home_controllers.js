@@ -49,12 +49,19 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
   // syncObject.$bindTo($scope, "events");
 });
 
+
 NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies) {
   console.log('AddAmountCtrl');
+   var email = $cookies.get('sessionCookie');
+   email = email.substring(0, email.indexOf("@"));
+   email = email.toLowerCase();
+   email = email.toString();
+   console.log(email);
   $scope.userEmail = $cookies.get('sessionCookie');
+
   $scope.amount = function(){
     console.log('amount function');
-var ref = new Firebase("https://popping-heat-6810.firebaseio.com/Variables/Balance");
+var ref = new Firebase("https://nucoins.firebaseio.com/usersData/"+email+"/Balance");
   var obj = new $firebaseObject(ref);
  obj.$loaded().then(function() {
     var sum =0;
