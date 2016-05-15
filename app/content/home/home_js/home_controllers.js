@@ -1,6 +1,7 @@
 'use strict';
 
 /* Controllers */
+var jq = $.noConflict();
 
 var NCMainControllers = angular.module('NCMainControllers', ['ngCookies']);
 
@@ -35,8 +36,8 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location)
 });
 
 NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
-    var $load = $('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('body')
-    , db = new Firebase("https://popping-heat-6810.firebaseio.com/events")
+  var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('body')
+  , db = new Firebase("https://popping-heat-6810.firebaseio.com/events")
   db.on('value', function () {
     $load.hide()
   })
@@ -52,31 +53,40 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
 
 NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies) {
   console.log('AddAmountCtrl');
-   var email = $cookies.get('sessionCookie');
-   email = email.substring(0, email.indexOf("@"));
-   email = email.toLowerCase();
-   email = email.toString();
-   console.log(email);
+  var email = $cookies.get('sessionCookie');
+  email = email.substring(0, email.indexOf("@"));
+  email = email.toLowerCase();
+  email = email.toString();
+  console.log(email);
   $scope.userEmail = $cookies.get('sessionCookie');
 
   $scope.amount = function(){
     console.log('amount function');
-var ref = new Firebase("https://nucoins.firebaseio.com/usersData/"+email+"/Balance");
-var usertype = new Firebase("https://nucoins.firebaseio.com/usersData/"+email+"/AccessLevel");
-  var obj = new $firebaseObject(ref);
-  $scope.userType = $firebaseObject(usertype);
-syncObject.$bindTo($scope, "data");
- obj.$loaded().then(function() {
-    var sum =0;
-    sum = (parseInt(obj.$value));
-    console.log("Current Balance: "+sum);
+    var ref = new Firebase("https://nucoins.firebaseio.com/usersData/"+email+"/Balance");
+    var usertype = new Firebase("https://nucoins.firebaseio.com/usersData/"+email);
+    var obj = new $firebaseObject(ref);
+    $scope.userType = $firebaseObject(usertype);
+    //hide addAmount if user is not an admin
+    // jq('.loginerrormessage').hide();
+    obj.$loaded().then(function() {
+      var sum =0;
+      sum = (parseInt(obj.$value));
+      console.log("Current Balance: "+sum);
       sum = sum + 500;
       console.log("After adding 500: "+sum);
       obj.$value = sum;
       obj.$save();
-  console.log('New current Balance:'+ obj.$value);
-  });
+      console.log('New current Balance:'+ obj.$value);
+    });
 
-}
+  }
 
 });
+
+NCMainControllers.controller('EventDetailCtrl', ['$scope', '$stateParams', '$http',
+  function($scope, $stateParams, $http) {
+    $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
+      console.log('events json working');
+      $scope.event = data;
+    });
+  }]);
