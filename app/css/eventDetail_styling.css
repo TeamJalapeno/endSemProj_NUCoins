@@ -16,6 +16,10 @@ div {
   position: relative;
   width: 520px;
   height: 520px;
+  border-radius: 5px;
+  border: 0.5px solid lightgrey;
+  margin-top: 1%;
+  margin-bottom: 2%;
 }
 
 .imgDiv {
@@ -29,4 +33,19 @@ div {
   font-family: Regencie;
   margin-left: 1%;
   margin-right: 1%;
+}
+
+.mainDiv {
+  background-color: white;
+  margin-left: 2%;
+  margin-right: 2%;
+  padding: 1%;
+  border-radius: 5px;
+  border: 0.5px solid lightgrey;
+}
+
+.fbLogo {
+  position: relative;
+  width: 80px;
+  height: 80px;
 }
