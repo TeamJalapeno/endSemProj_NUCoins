@@ -16,6 +16,7 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
   var userAcc = false;
   var isAdmin = false;
   var isStudent = false;
+  var escapeToggle = true;
 
   jq('.loginerrormessage').hide();
   jq('.emailerrormessage').hide();
@@ -61,7 +62,7 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
         //create new cookie
         var now = new Date(),
         // this will set the expiration to 100 seconds
-        exp = new Date(now.getTime() + (100 * 1000));
+        exp = new Date(now.getTime() + (10000 * 1000));
 
         $cookies.put('sessionCookie', loginemail, {
           expires: exp,
@@ -115,14 +116,14 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
         userAcc = snapshot.hasChild(escapeEmailAddress(email));
         console.log("Account Exists? " + userAcc);
 
-        if(userAcc) {
+        if(userAcc && escapeToggle) {
           jq('.emailerrormessage').hide();
           jq('.emailauth').hide();
           jq('.email-auth-form').animate({height: "toggle", opacity: "toggle"}, "slow");
           jq('.login-form').animate({height: "toggle", opacity: "toggle"}, "slow");
         }
 
-        else {
+        else if (!userAcc && escapeToggle) {
           jq('.emailerrormessage').hide();
           jq('.emailauth').hide();
           jq('.email-auth-form').animate({height: "toggle", opacity: "toggle"}, "slow");
@@ -141,6 +142,8 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
 
   $scope.RegisterUser = function(e) {
     e.preventDefault();
+
+    escapeToggle = false;
 
     var firstName = $scope.user.firstName;
     var lastName = $scope.user.lastName;
@@ -181,8 +184,7 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
         console.log(lastName);
 
         jq('.register-form').animate({height: "toggle", opacity: "toggle"}, "slow");
-        jq('.email-auth-form').animate({height: "toggle", opacity: "toggle"}, "slow");
-        jq('.emailauth').hide();
+        jq('.login-form').animate({height: "toggle", opacity: "toggle"}, "slow");
       }, function(error) {
 
         console.log(error);
