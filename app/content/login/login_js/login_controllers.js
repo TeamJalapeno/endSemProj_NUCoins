@@ -157,7 +157,7 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
           'Last Name': lastName,
           'Gender': gender,
           'Email': email,
-          'Balance': '10',
+          'Balance': 10,
           'AccessLevel':"student"
         });
       }
