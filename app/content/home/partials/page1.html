@@ -1,7 +1,14 @@
 <div class = "page1" ng-controller='AddAmountCtrl'>
 <h1 > Welcome, {{userEmail}} </h1>
 <h2>Info: {{userType}}</h2>
+<h3>Transfer:</h3>
+
 <div class = "amountAdder">
- <button ng-click='amount();'>Add 500</button>
+  Please enter the following details of the user to transfer NUCoins<br><br>
+    Enter Email:
+  <input type="email" placeholder="email address" ng-model="user.studentid" required="required"/>
+    Enter Amount:
+  <input type="number" placeholder="transfer amount" ng-model="user.amount" required="required"/><br>
+ <button ng-click='amount($event);'>Transfer</button>
  </div>
 </div>
