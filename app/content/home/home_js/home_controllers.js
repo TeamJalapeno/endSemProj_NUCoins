@@ -55,6 +55,8 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
 
 
 NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies) {
+  var studentEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/studentEmail");
+  var auth = false;
   console.log('AddAmountCtrl');
   var email = $cookies.get('sessionCookie');
   email = email.substring(0, email.indexOf("@"));
@@ -64,9 +66,36 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
   $scope.userEmail = $cookies.get('sessionCookie');
 
   $scope.amount = function(e){
-   console.log('amount function');
+    console.log('amount function');
+    console.log("Checking validity of email entered...");
+
+    e.preventDefault();
+    var eid = $scope.user.studentid;
+  //  var auth = "false";
+    //search for students
+    studentEmailAuth.on("value", function(snapshot){
+      for (var i = 0; i < snapshot.val().length; i++) {
+        if (eid == snapshot.val()[i]) {
+          console.log("user found");
+            auth = true;
+
+          break;
+         }
+        else{
+          console.log("Not found");
+          auth = false;
+
+           }
+         }
+       })
+
+
+
+
+
     var id = $scope.user.studentid;   //will have user 2's email id
     var amount = $scope.user.amount;  //the amount to be transferred
+
     console.log(id);
     console.log(amount);
     id = id.substring(0, id.indexOf("@"));  //extracting user2's id from email
@@ -75,6 +104,7 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     id = id.toString();
     console.log("User2's id:" +id);
     console.log("Processing Transfer Request..");
+    console.log(auth);
 
 
     var ref = new Firebase("https://nucoins.firebaseio.com/usersData/"+email+"/AccessLevel");
@@ -104,9 +134,9 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
       console.log("User1's existingBal: " + existingBal);
       console.log("User2's existingBal: " + studentBal);
 
-
-      if(first == "admin" && second =="student"){  // if user 1 is admin and user 2 is a student
-        console.log("Admin to Student Transfer Request.....")
+      console.log(auth);
+      if(first == "admin" && second =="student" && auth ==true){  // if user 1 is admin and user 2 is a student
+        console.log("Transfer Request.....")
             if(existingBal >= amount)  {//checking if the amount user wants to transfer is available in his account
             console.log("Valid Trasfer request");
 
@@ -135,6 +165,8 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     });
 
   }
+
+
 
 });
 
