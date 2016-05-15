@@ -25,5 +25,10 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       url: "/otherpage",
       templateUrl: "partials/page2.html",
       controller: 'EventListCtrl'
+    })
+    .state('/events/:eventId', {
+      url: "/events/:eventId",
+      templateUrl: "partials/page3.html",
+      controller: 'EventDetailCtrl'
     });
 });
