@@ -58,10 +58,54 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
 });
 
 
+NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebaseArray, $firebaseObject, $cookies, $location) {  //This control redirects to the Transaction Details page after clicking a button on homepage
+console.log("Transaction Details Controller Initialised");
+
+var email = $cookies.get('sessionCookie');
+email = email.substring(0, email.indexOf("@"));
+email = email.toLowerCase();
+email = email.toString();
+console.log(email);
+
+
+var myaccount = new Firebase("https://nucoins.firebaseio.com/transactionDetails/"+email);
+console.log(myaccount);
+
+
+  myaccount.on("value", function(snapshot) {
+    for (var i = 0; i < snapshot.val().length; i++) {
+    var myaccount = new Firebase("https://nucoins.firebaseio.com/transactionDetails/"+email+"/"+i);
+    console.log(myaccount);
+
+      console.log(snapshot.val()[i]);
+       var details= new $firebaseObject(myaccount);
+       details.$loaded().then(function(){
+           $scope.info = details;
+       })
+
+      //$scope.transactions = new $firebaseObject(info);
+        //var obj = new $firebaseObject(myaccount);
+        //obj.$loaded().then(function(){
+         //console.log(obj);
+       //})
+
+    }
+  })
+
+});
 
 
 
-NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies) {
+
+
+
+
+
+
+
+
+
+NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies, $location) {
   var studentEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/studentEmail");
   var vendorEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/vendorEmail");
   var auth = false;
@@ -191,6 +235,18 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
   }
 
 
+
+  $scope.details = function(e){
+    var absUrl ="";
+    absUrl = $location.absUrl();
+    console.log(absUrl);
+    absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+    absUrl = absUrl + "/home/home.html#/transactions";
+    console.log(absUrl);
+    window.location.replace(absUrl);
+
+
+}
 
 });
 
