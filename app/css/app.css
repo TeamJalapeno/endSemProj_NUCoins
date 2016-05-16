@@ -31,19 +31,18 @@ body {
 .page1{
   font-family: Regencie;
 }
+
 .loading {
+  background: url("../img/loading.gif") no-repeat left top;
+  background-size: 100px 80px;
   margin: 0 auto;
-  height: 250px;
-  width: 250px;
+  height: 100px;
+  width: 100px;
+  display: none;
 }
 
 .eventimage {
   width:100px;
-}
-
-.loadingimg {
-  width: 250px;
-  height: 250px;
 }
 
 .appTitle {
