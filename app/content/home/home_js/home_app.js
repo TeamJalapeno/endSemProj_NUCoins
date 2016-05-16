@@ -7,10 +7,14 @@ var MainApp = angular.module("NCMainApp", ['ui.router', 'NCAnimations', 'NCMainC
 MainApp.config(function($stateProvider, $urlRouterProvider) {
   //
   // For any unmatched url, redirect to /404
-  $urlRouterProvider.otherwise("/notfound");
+  $urlRouterProvider.otherwise("/homepage");
   //
   // Now set up the states
   $stateProvider
+    .state('homepage', {
+      url: "/",
+      controller: 'LoginCheck'
+    })
     .state('studenthomepage', {
       url: "/student",
       templateUrl: "partials/student.html",
