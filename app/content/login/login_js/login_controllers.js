@@ -10,12 +10,14 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
 
   var studentEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/studentEmail");
   var adminEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/adminEmail");
+  var vendorEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/vendorEmail");
 
   var usersAccount = new Firebase("https://nucoins.firebaseio.com/usersData");
 
   var userAcc = false;
   var isAdmin = false;
   var isStudent = false;
+  var isVendor = false;
   var escapeToggle = true;
 
   jq('.loginerrormessage').hide();
@@ -73,7 +75,41 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
         absUrl = $location.absUrl();
         absUrl = absUrl.substring(0, absUrl.indexOf("/login/login.html"));
 
-        absUrl = absUrl + "/home/home.html";
+        //get username
+        console.log(loginemail);
+        studentEmailAuth.on("value", function(snapshot) {
+          for (var i = 0; i < snapshot.val().length; i++) {
+            if (loginemail == snapshot.val()[i]) {
+              absUrl = absUrl + "/home/home.html#/student";
+              console.log("student found");
+              break;
+            }
+          }
+        }, function (errorObject) {
+          console.log("The read failed: " + errorObject.code);
+        });
+        vendorEmailAuth.on("value", function(snapshot) {
+          for (var i = 0; i < snapshot.val().length; i++) {
+            if (loginemail == snapshot.val()[i]) {
+              absUrl = absUrl + "/home/home.html#/vendor";
+              console.log("vendor found");
+              break;
+            }
+          }
+        }, function (errorObject) {
+          console.log("The read failed: " + errorObject.code);
+        });
+        adminEmailAuth.on("value", function(snapshot) {
+          for (var i = 0; i < snapshot.val().length; i++) {
+            if (loginemail == snapshot.val()[i]) {
+              absUrl = absUrl + "/home/home.html#/admin";
+              console.log("admin found");
+              break;
+            }
+          }
+        }, function (errorObject) {
+          console.log("The read failed: " + errorObject.code);
+        });
         window.location.replace(absUrl);
       }
     });
@@ -105,6 +141,19 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
           auth = true;
           isAdmin = true;
           console.log("admin found");
+          break;
+        }
+      }
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+    //search for admins
+    vendorEmailAuth.on("value", function(snapshot) {
+      for (var i = 0; i < snapshot.val().length; i++) {
+        if (email == snapshot.val()[i]) {
+          auth = true;
+          isVendor = true;
+          console.log("vendor found");
           break;
         }
       }
@@ -165,6 +214,16 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', '$firebaseAuth
         });
       }
       else if (isAdmin){
+        usersRef.set({
+          'First Name': firstName,
+          'Last Name': lastName,
+          'Gender': gender,
+          'Email': email,
+          'Balance': '10',
+          'AccessLevel':"admin"
+        });
+      }
+      else if (isVendor){
         usersRef.set({
           'First Name': firstName,
           'Last Name': lastName,
