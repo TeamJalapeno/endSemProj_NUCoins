@@ -63,7 +63,9 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
 
 NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies) {
   var studentEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/studentEmail");
+  var vendorEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/vendorEmail");
   var auth = false;
+  var auth2 =false;
   console.log('AddAmountCtrl');
   var email = $cookies.get('sessionCookie');
   email = email.substring(0, email.indexOf("@"));
@@ -83,18 +85,34 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     studentEmailAuth.on("value", function(snapshot){
       for (var i = 0; i < snapshot.val().length; i++) {
         if (eid == snapshot.val()[i]) {
-          console.log("user found");
+          console.log("Student found");
             auth = true;
 
           break;
          }
         else{
-          console.log("Not found");
+          //console.log("Not found");
           auth = false;
 
            }
          }
        })
+
+       vendorEmailAuth.on("value", function(snapshot){
+         for (var i = 0; i < snapshot.val().length; i++) {
+           if (eid == snapshot.val()[i]) {
+             console.log("Vendor found");
+               auth2 = true;
+
+             break;
+            }
+           else{
+             //console.log("Not found");
+             auth2 = false;
+
+              }
+            }
+          })
 
 
 
@@ -126,7 +144,7 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     var ref4 = new Firebase("https://nucoins.firebaseio.com/usersData/"+id+"/Balance");   // accesing user 2's balance from the databse
     var obj4 = new $firebaseObject(ref4);
 
-    obj.$loaded(),obj2.$loaded(),obj3.$loaded().then(function(){
+    obj2.$loaded(),obj.$loaded(),obj3.$loaded(),obj4.$loaded().then(function(){
         var first = ""
         var second = ""
         var existingBal = 0 ;
@@ -141,25 +159,24 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
       console.log("User1's existingBal: " + existingBal);
       console.log("User2's existingBal: " + studentBal);
 
-      console.log(auth);
-      if(first == "admin" && second =="student" && auth ==true){  // if user 1 is admin and user 2 is a student
-        console.log("Transfer Request.....")
+      if(((first == "admin" && second =="student") || (first == "student" && second =="student") || (first == "student" && second =="vendor")) && ((auth ==true) || (auth2 == true))){  // if user 1 is admin and user 2 is a student
+        console.log("Processing Transfer Request.....")
             if(existingBal >= amount)  {//checking if the amount user wants to transfer is available in his account
             console.log("Valid Trasfer request");
 
-            console.log("Admin's Current Balance: "+ existingBal);
+            console.log("Senders Current Balance: "+ existingBal);
             existingBal = existingBal - amount;
             obj3.$value = existingBal;
             obj3.$save();
             console.log("After subtracting amount, new bal: "+ existingBal);
 
-            console.log("Student's Current Balance: "+ studentBal);
+            console.log("Receivers' Current Balance: "+ studentBal);
             studentBal = studentBal + amount;
             obj4.$value = studentBal;
             obj4.$save();
             console.log("After adding amount, new bal: "+ studentBal);
 
-             console.log("Admin to Student Transfer Completed");
+             console.log(first+" to " +second+ " Transfer Completed");
            }
            else{
               console.log("Your account balance is insufficient");
