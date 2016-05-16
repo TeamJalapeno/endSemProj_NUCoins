@@ -5,22 +5,29 @@ var jq = $.noConflict();
 
 var NCMainControllers = angular.module('NCMainControllers', ['ngCookies']);
 
-NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location) {
+NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location, $rootScope) {
   var absUrl = "";
-  console.log("Cookie check controller initialised");
+  $rootScope.$on('$viewContentLoading',
+  function(event, viewConfig){
+      // Access to all the view config properties.
+      // and one special property 'targetView'
+      // viewConfig.targetView
+      var absUrl = "";
+      console.log("Cookie check controller initialised");
 
-  //check for cookie, if exists keep login, if not redirect the user to login page
-  var cookie = $cookies.get('sessionCookie');
-  console.log(cookie);
+      //check for cookie, if exists keep login, if not redirect the user to login page
+      var cookie = $cookies.get('sessionCookie');
+      console.log(cookie);
 
-  if (cookie == undefined) {
-    //to do if user is not logged in
-    window.alert("You are not logged in.");
-    absUrl = $location.absUrl();
-    absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
-    absUrl = absUrl + "/login/login.html";
-    window.location.replace(absUrl);
-  }
+      if (cookie == undefined) {
+        //to do if user is not logged in
+        window.alert("You are not logged in.");
+        absUrl = $location.absUrl();
+        absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+        absUrl = absUrl + "/login/login.html";
+        window.location.replace(absUrl);
+      }
+  });
 
   $scope.logOut = function() {
     //delete cookie here

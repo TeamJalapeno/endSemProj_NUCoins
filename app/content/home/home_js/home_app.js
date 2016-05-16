@@ -6,14 +6,24 @@ var MainApp = angular.module("NCMainApp", ['ui.router', 'NCAnimations', 'NCMainC
 
 MainApp.config(function($stateProvider, $urlRouterProvider) {
   //
-  // For any unmatched url, redirect to /state1
-  $urlRouterProvider.otherwise("/homepage");
+  // For any unmatched url, redirect to /404
+  $urlRouterProvider.otherwise("/notfound");
   //
   // Now set up the states
   $stateProvider
-    .state('homepage', {
-      url: "/homepage",
-      templateUrl: "partials/page1.html",
+    .state('studenthomepage', {
+      url: "/student",
+      templateUrl: "partials/student.html",
+      controller: 'LoginCheck'
+    })
+    .state('vendorhomepage', {
+      url: "/vendor",
+      templateUrl: "partials/vendor.html",
+      controller: 'LoginCheck'
+    })
+    .state('adminhomepage', {
+      url: "/admin",
+      templateUrl: "partials/admin.html",
       controller: 'LoginCheck'
     })
     .state('about', {
@@ -21,14 +31,19 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "about.html",
       //controller: 'AddAmountCtrl'
     })
-    .state('otherpage', {
-      url: "/otherpage",
-      templateUrl: "partials/page2.html",
+    .state('notfound', {
+      url: "/notfound",
+      templateUrl: "../../404.html"//,
+      //controller: 'EventListCtrl'
+    })
+    .state('eventspage', {
+      url: "/events",
+      templateUrl: "partials/events.html",
       controller: 'EventListCtrl'
     })
     .state('/events/:eventId', {
       url: "/events/:eventId",
-      templateUrl: "partials/page3.html",
+      templateUrl: "partials/eventsdetail.html",
       controller: 'EventDetailCtrl'
     });
 });
