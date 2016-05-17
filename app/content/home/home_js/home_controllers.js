@@ -15,7 +15,7 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
       var absUrl = "";
       console.log("Cookie check controller initialised");
 
-      //check for cookie, if exists keep login, if not redirect the user to login page
+      //check for cookie, if exists keep log in, if not redirect the user to login page
       var cookie = $cookies.get('sessionCookie');
       console.log(cookie);
 
@@ -185,22 +185,38 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
       else{
           console.log("Invalid Transfer Request");
       }
-
     });
-
   }
-
-
-
 });
 
-
-
-
 NCMainControllers.controller('EventDetailCtrl', ['$scope', '$stateParams', '$http',
-  function($scope, $stateParams, $http) {
-    $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
-      console.log('events json working');
-      $scope.event = data;
-    });
-  }]);
+function($scope, $stateParams, $http) {
+  $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
+    console.log('events json working');
+    $scope.event = data;
+  });
+}]);
+
+NCMainControllers.controller('FaqCtrl', ['$scope', '$http',
+function($scope, $http) {
+  $http.get('content/faq_data/faq.json').success(function(data) {
+    console.log('faqs json working');
+    $scope.faq = data;
+  });
+}]);
+
+// NCMainControllers.controller('AboutCtrl', ['$scope',
+// function($scope) {
+//   jq("#paraB").hide();
+//   jq(document).ready(function(){
+//     jq('#story').click(function(){
+//       jq("#paraB").show();
+//       jq("#paraA").hide();
+//     });
+//     jq('#product').click(function(){
+//       jq("#paraA").show();
+//       jq("#paraB").hide();
+//     });
+//
+//   });
+// }]);

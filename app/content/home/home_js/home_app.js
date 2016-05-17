@@ -26,11 +26,11 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "partials/admin.html",
       controller: 'LoginCheck'
     })
-    .state('about', {
-      url: "/about",
-      templateUrl: "about.html",
-      //controller: 'AddAmountCtrl'
-    })
+    // .state('about', {
+    //   url: "/about",
+    //   templateUrl: "partials/about.html",
+    //   controller: 'AboutCtrl'
+    // })
     .state('notfound', {
       url: "/notfound",
       templateUrl: "../../404.html"//,
@@ -46,4 +46,9 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "partials/eventsdetail.html",
       controller: 'EventDetailCtrl'
     });
+    // .state('faq', {
+    //   url: "/faq",
+    //   templateUrl: "faq.html",
+    //   controller: 'FaqCtrl'
+    // });
 });
