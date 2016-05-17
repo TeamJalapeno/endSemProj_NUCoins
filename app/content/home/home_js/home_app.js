@@ -35,11 +35,11 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
     //   templateUrl: "partials/about.html",
     //   controller: 'AboutCtrl'
     // })
-    .state('notfound', {
-      url: "/notfound",
-      templateUrl: "../../404.html"//,
-      //controller: 'EventListCtrl'
-    })
+    // .state('notfound', {
+    //   url: "/notfound",
+    //   templateUrl: "../../404.html"//,
+    //   //controller: 'EventListCtrl'
+    // })
     .state('eventspage', {
       url: "/events",
       templateUrl: "partials/events.html",
