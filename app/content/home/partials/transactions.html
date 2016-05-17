@@ -1,11 +1,19 @@
-<h1 onload="details($event);"> Transaction Details Page </h1>
-<div onload="details($event)">
+
+<html ng-app ="NCMainControllers" ng-controller ="TransactionDetailsCtrl">
+
+<div class ="Page1">
+<h1> Transaction Details Page </h1>
+
+<h3>
+  <ul ng-repeat ="transaction in transactions">
+
+  <li > <b>Title:</b>{{transaction.Title }} <b>&nbspAmount:</b>{{transaction.Amount }} <b>&nbspDate:</b> {{transaction.Date }} <b>&nbspTime:</b> {{transaction.Time }} <b>&nbspDescription:</b>  {{transaction.Description}}</li><br>
+ <br><br>
+
+</ul>
+</h3>
+
+
+
 </div>
-<div ng-controller ='TransactionDetailsCtrl'>
-  
-
-  <h3>{{info}}</h3>
-
-
-
-</div>
+</html>

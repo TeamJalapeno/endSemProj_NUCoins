@@ -69,28 +69,13 @@ console.log(email);
 
 
 var myaccount = new Firebase("https://nucoins.firebaseio.com/transactionDetails/"+email);
-console.log(myaccount);
-
-
-  myaccount.on("value", function(snapshot) {
+console.log("Loading Transaction Details...");
+myaccount.on("value", function(snapshot) {
     for (var i = 0; i < snapshot.val().length; i++) {
-    var myaccount = new Firebase("https://nucoins.firebaseio.com/transactionDetails/"+email+"/"+i);
-    console.log(myaccount);
+$scope.transactions = $firebaseObject(myaccount);
 
-      console.log(snapshot.val()[i]);
-       var details= new $firebaseObject(myaccount);
-       details.$loaded().then(function(){
-           $scope.info = details;
-       })
-
-      //$scope.transactions = new $firebaseObject(info);
-        //var obj = new $firebaseObject(myaccount);
-        //obj.$loaded().then(function(){
-         //console.log(obj);
-       //})
-
-    }
-  })
+}
+})
 
 });
 
