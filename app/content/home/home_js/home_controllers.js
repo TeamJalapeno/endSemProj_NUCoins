@@ -61,13 +61,12 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
 NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebaseArray, $firebaseObject, $cookies, $location) {  //This control redirects to the Transaction Details page after clicking a button on homepage
   console.log("Transaction Details Controller Initialised");
   jq('.errormessage').hide();
-  
+
   var email = $cookies.get('sessionCookie');
   email = email.substring(0, email.indexOf("@"));
   email = email.toLowerCase();
   email = email.toString();
   console.log(email);
-
 
   var myaccount = new Firebase("https://nucoins.firebaseio.com/transactionDetails/"+email);
   console.log("Loading Transaction Details...");
@@ -86,17 +85,6 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
   })
 
 });
-
-
-
-
-
-
-
-
-
-
-
 
 NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies, $location) {
   var studentEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/studentEmail");
@@ -151,10 +139,6 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
       }
     })
 
-
-
-
-
     var id = $scope.user.studentid;   //will have user 2's email id
     var amount = $scope.user.amount;  //the amount to be transferred
 
@@ -167,7 +151,6 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     console.log("User2's id:" +id);
     console.log("Processing Transfer Request..");
     console.log(auth);
-
 
     var ref = new Firebase("https://nucoins.firebaseio.com/usersData/"+email+"/AccessLevel");
     var obj = new $firebaseObject(ref);
@@ -225,8 +208,6 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     });
   }
 
-
-
   $scope.details = function(e){
     var absUrl ="";
     absUrl = $location.absUrl();
@@ -235,10 +216,7 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     absUrl = absUrl + "/home/home.html#/transactions";
     console.log(absUrl);
     window.location.replace(absUrl);
-
-
   }
-
 });
 
 NCMainControllers.controller('EventDetailCtrl', ['$scope', '$stateParams', '$http',
@@ -252,6 +230,14 @@ function($scope, $stateParams, $http) {
 NCMainControllers.controller('FaqCtrl', ['$scope', '$http',
 function($scope, $http) {
   $http.get('content/faq_data/faq.json').success(function(data) {
+    console.log('faqs json working');
+    $scope.faq = data;
+  });
+}]);
+
+NCMainControllers.controller('Faq2Ctrl', ['$scope', '$http',
+function($scope, $http) {
+  $http.get('../faq_data/faq.json').success(function(data) {
     console.log('faqs json working');
     $scope.faq = data;
   });

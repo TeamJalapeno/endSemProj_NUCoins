@@ -54,10 +54,10 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       url: "/events/:eventId",
       templateUrl: "partials/eventsdetail.html",
       controller: 'EventDetailCtrl'
+    })
+    .state('faq', {
+      url: "/faq",
+      templateUrl: "partials/faq.html",
+      controller: 'Faq2Ctrl'
     });
-    // .state('faq', {
-    //   url: "/faq",
-    //   templateUrl: "faq.html",
-    //   controller: 'FaqCtrl'
-    // });
 });
