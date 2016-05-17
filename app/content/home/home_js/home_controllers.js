@@ -243,6 +243,15 @@ function($scope, $http) {
   });
 }]);
 
+NCMainControllers.controller('PurchaseCtrl', function(PurchaseService, $scope, $firebaseArray, $cookies) {
+  $scope.receipt = function(e) {
+    var userEmail = $cookies.get('sessionCookie');
+    console.log(userEmail);
+    var userPassword = $scope.userPassword;
+    PurchaseService.authenticate(userEmail, userPassword);
+  }
+});
+
 // NCMainControllers.controller('AboutCtrl', ['$scope',
 // function($scope) {
 //   jq("#paraB").hide();

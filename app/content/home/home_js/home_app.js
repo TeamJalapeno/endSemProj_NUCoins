@@ -30,16 +30,16 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "partials/admin.html",
       controller: 'LoginCheck'
     })
-    // .state('about', {
-    //   url: "/about",
-    //   templateUrl: "partials/about.html",
-    //   controller: 'AboutCtrl'
-    // })
-    // .state('notfound', {
-    //   url: "/notfound",
-    //   templateUrl: "../../404.html"//,
-    //   //controller: 'EventListCtrl'
-    // })
+    .state('purchase', {
+      url: "/purchase",
+      templateUrl: "partials/purchase.html",
+      controller: 'PurchaseCtrl'
+    })
+    .state('receipt', {
+      url: "/receipt",
+      templateUrl: "partials/receiptTemplate.html",
+      controller: 'PurchaseCtrl'
+    })
     .state('eventspage', {
       url: "/events",
       templateUrl: "partials/events.html",

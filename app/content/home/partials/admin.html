@@ -1,4 +1,10 @@
-<script>jq(".homepagelink").attr("href", "#/admin");</script>
+<script>
+jq( document ).ready(function() {
+    console.log( "ready!" );
+    jq(".homepagelink").attr("href", "#/admin");
+    jq(".purchasebutton").hide();
+});
+</script>
 
 <h1> You are an admin. </h1>
 <div class = "page1" ng-controller='AddAmountCtrl'>
