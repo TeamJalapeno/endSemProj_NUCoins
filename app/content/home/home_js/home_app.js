@@ -7,10 +7,14 @@ var MainApp = angular.module("NCMainApp", ['ui.router', 'NCAnimations', 'NCMainC
 MainApp.config(function($stateProvider, $urlRouterProvider) {
   //
   // For any unmatched url, redirect to /404
-  $urlRouterProvider.otherwise("/notfound");
+  $urlRouterProvider.otherwise("/homepage");
   //
   // Now set up the states
   $stateProvider
+    .state('homepage', {
+      url: "/",
+      controller: 'LoginCheck'
+    })
     .state('studenthomepage', {
       url: "/student",
       templateUrl: "partials/student.html",
@@ -31,11 +35,11 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
     //   templateUrl: "partials/about.html",
     //   controller: 'AboutCtrl'
     // })
-    .state('notfound', {
-      url: "/notfound",
-      templateUrl: "../../404.html"//,
-      //controller: 'EventListCtrl'
-    })
+    // .state('notfound', {
+    //   url: "/notfound",
+    //   templateUrl: "../../404.html"//,
+    //   //controller: 'EventListCtrl'
+    // })
     .state('eventspage', {
       url: "/events",
       templateUrl: "partials/events.html",
