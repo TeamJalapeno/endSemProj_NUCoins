@@ -41,6 +41,11 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "partials/events.html",
       controller: 'EventListCtrl'
     })
+    .state('transcationdetailspage', {
+      url: "/transactions",
+      templateUrl: "partials/transactions.html",
+      controller: 'TransactionDetailsCtrl'
+    })
     .state('/events/:eventId', {
       url: "/events/:eventId",
       templateUrl: "partials/eventsdetail.html",

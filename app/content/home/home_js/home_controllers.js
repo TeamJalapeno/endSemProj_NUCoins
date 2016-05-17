@@ -58,10 +58,39 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
 });
 
 
+NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebaseArray, $firebaseObject, $cookies, $location) {  //This control redirects to the Transaction Details page after clicking a button on homepage
+console.log("Transaction Details Controller Initialised");
+
+var email = $cookies.get('sessionCookie');
+email = email.substring(0, email.indexOf("@"));
+email = email.toLowerCase();
+email = email.toString();
+console.log(email);
+
+
+var myaccount = new Firebase("https://nucoins.firebaseio.com/transactionDetails/"+email);
+console.log("Loading Transaction Details...");
+myaccount.on("value", function(snapshot) {
+    for (var i = 0; i < snapshot.val().length; i++) {
+$scope.transactions = $firebaseObject(myaccount);
+
+}
+})
+
+});
 
 
 
-NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies) {
+
+
+
+
+
+
+
+
+
+NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies, $location) {
   var studentEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/studentEmail");
   var vendorEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/vendorEmail");
   var auth = false;
@@ -187,6 +216,21 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
       }
     });
   }
+
+
+
+  $scope.details = function(e){
+    var absUrl ="";
+    absUrl = $location.absUrl();
+    console.log(absUrl);
+    absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+    absUrl = absUrl + "/home/home.html#/transactions";
+    console.log(absUrl);
+    window.location.replace(absUrl);
+
+
+}
+
 });
 
 NCMainControllers.controller('EventDetailCtrl', ['$scope', '$stateParams', '$http',
