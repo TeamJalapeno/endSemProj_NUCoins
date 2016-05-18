@@ -252,18 +252,19 @@ NCMainControllers.controller('PurchaseCtrl', function(PurchaseService, $scope, $
   }
 });
 
-// NCMainControllers.controller('AboutCtrl', ['$scope',
-// function($scope) {
-//   jq("#paraB").hide();
-//   jq(document).ready(function(){
-//     jq('#story').click(function(){
-//       jq("#paraB").show();
-//       jq("#paraA").hide();
-//     });
-//     jq('#product').click(function(){
-//       jq("#paraA").show();
-//       jq("#paraB").hide();
-//     });
-//
-//   });
-// }]);
+NCMainControllers.controller('AboutCtrl', ['$scope',
+function($scope) {
+  console.log("About controller working");
+  jq("#paraB").hide();
+  jq(document).ready(function(){
+    jq('#story').click(function(){
+      jq("#paraB").show();
+      jq("#paraA").hide();
+    });
+    jq('#product').click(function(){
+      jq("#paraA").show();
+      jq("#paraB").hide();
+    });
+
+  })
+}]);

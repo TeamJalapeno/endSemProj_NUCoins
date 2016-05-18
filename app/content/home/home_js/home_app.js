@@ -59,5 +59,10 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       url: "/faq",
       templateUrl: "partials/faq.html",
       controller: 'Faq2Ctrl'
+    })
+    .state('about', {
+      url: "/about",
+      templateUrl: "partials/about.html",
+      controller: 'AboutCtrl'
     });
 });
