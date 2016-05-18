@@ -90,7 +90,7 @@ $scope.transactions = $firebaseObject(myaccount);
 
 
 
-NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies, $location) {
+NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies, $location, $firebaseArray) {
   var studentEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/studentEmail");
   var vendorEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/vendorEmail");
   var auth = false;
@@ -102,6 +102,28 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
   email = email.toString();
   console.log(email);
   $scope.userEmail = $cookies.get('sessionCookie');
+
+
+  var myaccount = new Firebase("https://nucoins.firebaseio.com/transactionDetails/"+email);
+  /*console.log("Loading Transaction Details...");
+
+  $scope.transactions = $firebaseArray(myaccount);*/
+  myaccount.on("value", function(snapshot) {
+    //  for (var i = 0; i < snapshot.val().length; i++) {
+    var length= snapshot.val().length;
+    console.log(length);
+  $scope.transactions = $firebaseArray(myaccount);
+  $scope.in = length -1;
+  
+
+//  }
+  })
+
+
+
+
+
+
 
   $scope.amount = function(e){
     console.log('amount function');
