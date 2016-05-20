@@ -4,20 +4,26 @@
         "id": "robotics-workshop",
         "name": "CSP Robotics Workshop",
         "imageUrl": "../../img/csp.jpg",
-        "snippet": "Join CSP and take part in an amazing robotics filled event!"
+        "snippet": "Join CSP and take part in an amazing robotics filled event!",
+        "cost": "250",
+        "recEmail": "emanfatima@yahoo.com"
     },
     {
         "age": 1,
         "id": "entrepreneur-workshop",
         "name": "YES Entrepreneurship Workshop",
         "imageUrl": "../../img/yes.jpg",
-        "snippet": "Get to know tips and tricks to become an amazing entrepreneur!"
+        "snippet": "Get to know tips and tricks to become an amazing entrepreneur!",
+        "cost": "150",
+        "recEmail": "osamaaamer@gmail.com"
     },
     {
         "age": 2,
         "id": "photography-workshop",
         "name": "NMC Photography Workshop",
         "imageUrl": "../../img/nmc.png",
-        "snippet": "Take amazing pictures after attending this fun-filled and educational event!"
+        "snippet": "Take amazing pictures after attending this fun-filled and educational event!",
+        "cost": "450",
+        "recEmail": "taimoorkhalid@gmail.com"
     }
 ]
