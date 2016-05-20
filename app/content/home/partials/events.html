@@ -1,4 +1,8 @@
-<h2>Available Events:</h2>
+<div class = "jumbotron">
+<h2>Available Events</h2>
+</div>
+
+<p>Search: <input ng-model="query"><br>
 
 <ul class="events">
   <li ng-repeat="event in events | filter:query | orderBy:orderProp" class="thumbnail">
