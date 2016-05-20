@@ -5,14 +5,14 @@
 var NCLoginServices = angular.module('NCLoginServices', ['firebase', 'ngCookies']);
 
 NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $location) {
-  var firebaseObj = new Firebase("https://nucoins.firebaseio.com/");
+  var firebaseObj = new Firebase("https://nustcoin.firebaseio.com/");
   var loginObj = $firebaseAuth(firebaseObj);
 
-  var studentEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/studentEmail");
-  var adminEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/adminEmail");
-  var vendorEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/vendorEmail");
+  var studentEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/studentEmail");
+  var adminEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/adminEmail");
+  var vendorEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/vendorEmail");
 
-  var usersAccount = new Firebase("https://nucoins.firebaseio.com/usersData");
+  var usersAccount = new Firebase("https://nustcoin.firebaseio.com/usersData");
 
   var userAcc = false;
   var isAdmin = false;

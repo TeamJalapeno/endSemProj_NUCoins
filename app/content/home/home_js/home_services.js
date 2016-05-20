@@ -6,7 +6,7 @@
 
 MainApp.service('PurchaseService', function ($firebaseAuth) {
   this.authenticate = function(username, userPassword, $scope) {
-    var usersAccount = new Firebase("https://nucoins.firebaseio.com/usersData");
+    var usersAccount = new Firebase("https://nustcoin.firebaseio.com/usersData");
     usersAccount.authWithPassword({
       email: username,
       password: userPassword

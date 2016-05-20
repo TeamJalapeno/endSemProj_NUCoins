@@ -44,12 +44,12 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
 
 NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
   var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('body')
-  , db = new Firebase("https://popping-heat-6810.firebaseio.com/events")
+  , db = new Firebase("https://nustcoin.firebaseio.com/events")
   db.on('value', function () {
     $load.hide()
   })
 
-  var ref = new Firebase("https://popping-heat-6810.firebaseio.com/events");
+  var ref = new Firebase("https://nustcoin.firebaseio.com/events");
   // download the data into a local object
   $scope.events = $firebaseArray(ref);
   // synchronize the object with a three-way data binding
@@ -68,7 +68,7 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
   email = email.toString();
   console.log(email);
 
-  var myaccount = new Firebase("https://nucoins.firebaseio.com/transactionDetails/"+email);
+  var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
   console.log("Loading Transaction Details...");
   myaccount.on("value", function(snapshot) {
     if (snapshot.val()) {
@@ -99,8 +99,8 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
 
 
 NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, $cookies, $location, $firebaseArray) {
-  var studentEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/studentEmail");
-  var vendorEmailAuth = new Firebase("https://nucoins.firebaseio.com/users/vendorEmail");
+  var studentEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/studentEmail");
+  var vendorEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/vendorEmail");
   var auth = false;
   var auth2 =false;
   console.log('AddAmountCtrl');
@@ -112,7 +112,7 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
   $scope.userEmail = $cookies.get('sessionCookie');
 
 
-  var myaccount = new Firebase("https://nucoins.firebaseio.com/transactionDetails/"+email);
+  var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
   /*console.log("Loading Transaction Details...");
 
   $scope.transactions = $firebaseArray(myaccount);*/
@@ -186,16 +186,16 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     console.log("Processing Transfer Request..");
     console.log(auth);
 
-    var ref = new Firebase("https://nucoins.firebaseio.com/usersData/"+email+"/AccessLevel");
+    var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email+"/AccessLevel");
     var obj = new $firebaseObject(ref);
 
-    var ref2 = new Firebase("https://nucoins.firebaseio.com/usersData/"+id+"/AccessLevel");
+    var ref2 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+id+"/AccessLevel");
     var obj2 = new $firebaseObject(ref2);
 
-    var ref3 = new Firebase("https://nucoins.firebaseio.com/usersData/"+email+"/Balance");   // accesing user 1's balance from the databse
+    var ref3 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email+"/Balance");   // accesing user 1's balance from the databse
     var obj3 = new $firebaseObject(ref3);
 
-    var ref4 = new Firebase("https://nucoins.firebaseio.com/usersData/"+id+"/Balance");   // accesing user 2's balance from the databse
+    var ref4 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+id+"/Balance");   // accesing user 2's balance from the databse
     var obj4 = new $firebaseObject(ref4);
 
     obj2.$loaded(),obj.$loaded(),obj3.$loaded(),obj4.$loaded().then(function(){
