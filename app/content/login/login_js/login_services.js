@@ -32,8 +32,6 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
 
 
   this.AuthEmail = function(useremail) {
-      console.log("Logging in");
-      console.log(useremail);
       jq('.loading').show();
       jq('.emailerrormessage').hide();
 
@@ -42,13 +40,10 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
       var authCode = "";
       //search for students
       studentEmailAuth.on("value", function(snapshot) {
-        console.log("checking student");
         for (var i = 0; i < snapshot.val().length; i++) {
-          console.log(snapshot.val()[i]);
           if (useremail == snapshot.val()[i]) {
             auth = true;
             isStudent = true;
-            console.log("user found");
             changeDOM(auth, userAcc, escapeToggle);
             break;
           }
@@ -59,12 +54,10 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
       });
       //search for admins
       adminEmailAuth.on("value", function(snapshot) {
-          console.log("checking admin");
           for (var i = 0; i < snapshot.val().length; i++) {
             if (useremail == snapshot.val()[i]) {
               auth = true;
               isAdmin = true;
-              console.log("admin found");
               changeDOM(auth, userAcc, escapeToggle);
               break;
 
@@ -76,12 +69,10 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
 
       //search for admins
       vendorEmailAuth.on("value", function(snapshot) {
-          console.log("checking vendor");
           for (var i = 0; i < snapshot.val().length; i++) {
             if (useremail == snapshot.val()[i]) {
               auth = true;
               isVendor = true;
-              console.log("vendor found");
               changeDOM(auth, userAcc, escapeToggle);
               break;
 
@@ -97,10 +88,8 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
         if (auth) {
           usersAccount.on("value", function(snapshot) {
             userAcc = snapshot.hasChild(escapeEmailAddress(useremail));
-            console.log("Account Exists? " + userAcc);
 
             if(userAcc && escapeToggle) {
-              console.log("exists");
               jq('.emailerrormessage').hide();
               jq('.emailauth').hide();
               jq('.loading').hide();
@@ -109,7 +98,6 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
               jq('.login-form').show();
             }
             else if (!userAcc && escapeToggle) {
-              console.log("doesnt exist");
               jq('.emailerrormessage').hide();
               jq('.emailauth').hide();
               jq('.loading').hide();
@@ -124,14 +112,13 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
         else if (!auth) {
           jq('.emailerrormessage').show();
           jq('.loading').hide();
-          console.log("invalid email");
+          console.log("Invalid email!");
         }
         return;
       }
     }
 
   this.SignIn = function(useremail, userpassword) {
-    console.log("Trying to authenticate");
     jq('.loading').show();
     jq('.loginerrormessage').hide();
 
@@ -141,7 +128,7 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
     }, function(error, authData) {
       if (error) {
         //Failure callback
-        console.log('Authentication failure');
+        console.log('Authentication failure!');
         jq('.loginerrormessage').show();
         jq('.loading').hide();
 
@@ -149,8 +136,6 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
       else {
         //Success callback
         var loginemail = authData.password.email;
-        console.log('Authentication successful');
-        console.log(authData.password.email);
         //create new cookie
         var now = new Date(),
         // this will set the expiration to 100 seconds
@@ -160,18 +145,15 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
           expires: exp,
           path: '/app/content/home/home.html'
         });
-        console.log("Inserted cookie");
 
         absUrl = $location.absUrl();
         absUrl = absUrl.substring(0, absUrl.indexOf("/login/login.html"));
 
         //get username
-        console.log(loginemail);
         studentEmailAuth.on("value", function(snapshot) {
           for (var i = 0; i < snapshot.val().length; i++) {
             if (loginemail == snapshot.val()[i]) {
               absUrl = absUrl + "/home/home.html#/student";
-              console.log("student found");
               break;
             }
           }
@@ -182,7 +164,6 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
           for (var i = 0; i < snapshot.val().length; i++) {
             if (loginemail == snapshot.val()[i]) {
               absUrl = absUrl + "/home/home.html#/vendor";
-              console.log("vendor found");
               break;
             }
           }
@@ -193,7 +174,6 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
           for (var i = 0; i < snapshot.val().length; i++) {
             if (loginemail == snapshot.val()[i]) {
               absUrl = absUrl + "/home/home.html#/admin";
-              console.log("admin found");
               break;
             }
           }
@@ -250,9 +230,6 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
         password: password
       })
       .then(function() {
-        console.log('User creation success');
-        console.log(firstName);
-        console.log(lastName);
         jq('.register-form').hide();
         jq('.loading').hide();
         jq('.login-form').show();

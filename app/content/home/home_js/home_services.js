@@ -1,12 +1,8 @@
 'use strict';
 
 /* Services */
-
-// var NCHomeService = angular.module('NCHomeServices', ['firebase', 'ngCookies']);
-
 MainApp.service('PurchaseService', function ($firebaseAuth) {
   this.GenerateCode = function() {
-    console.log("Generating Code");
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
       function(c) {
         var r = Math.random() * 16 | 0,
@@ -26,31 +22,14 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
 
     var auth = false;
     var auth2 =false;
-   console.log("SERVICE");
-    console.log(sender);
-    console.log(reciever);
-    console.log(amount);
-
-    // myaccount.on("value", function(snapshot) {
-    //   var length= snapshot.val().length;
-    //   console.log(length);
-    //   $scope.transactions = $firebaseArray(myaccount);
-    //   $scope.in = length -1;
-    // });
-    //var eid = $scope.user.reciever;
-  //  console.log(eid);
-    //search for students
-
 
     studentEmailAuth.on("value", function(snapshot){
       for (var i = 0; i < snapshot.val().length; i++) {
         if (reciever == snapshot.val()[i]) {
-          console.log("Student found");
           auth = true;
           break;
         }
         else{
-          //console.log("Student Not found ");
           auth = false;
         }
       }
@@ -59,23 +38,18 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
     vendorEmailAuth.on("value", function(snapshot){
       for (var i = 0; i < snapshot.val().length; i++) {
         if (reciever == snapshot.val()[i]) {
-          console.log("Vendor found");
           auth2 = true;
           break;
         }
         else{
-          //console.log("Vendor Not found");
           auth2 = false;
         }
       }
     })
 
     var rec = reciever.substring(0, reciever.indexOf("@"));  //extracting user2's id from email
-    console.log(reciever);
     rec = rec.toLowerCase();
     rec = rec.toString();
-    console.log("User2's id:" +rec);
-    console.log("Processing Transfer Request..");
 
     var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+sender+"/AccessLevel");
     var obj = new $firebaseObject(ref);
@@ -99,36 +73,22 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
       existingBal = parseInt(obj3.$value);    //user 1's existing balance in the database
       studentBal = parseInt(obj4.$value);    //user 2's existing balance in the database
 
-      console.log("user1's access level is:" +first);
-      console.log("user2's access level is:" +second);
-      console.log("User1's existingBal: " + existingBal);
-      console.log("User2's existingBal: " + studentBal);
+      // if user 1 is admin and user 2 is a student
+      if(((first == "admin" && second =="student") || (first == "student" && second =="student") || (first == "student" && second =="vendor")) && ((auth ==true) || (auth2 == true))){
+        if(existingBal >= amount)  { //checking if the amount user wants to transfer is available in his account
 
-      if(((first == "admin" && second =="student") || (first == "student" && second =="student") || (first == "student" && second =="vendor")) && ((auth ==true) || (auth2 == true))){  // if user 1 is admin and user 2 is a student
-        console.log("Processing Transfer Request.....")
-        if(existingBal >= amount)  {//checking if the amount user wants to transfer is available in his account
-          console.log("Valid Trasfer request");
-
-          console.log("Senders Current Balance: "+ existingBal);
           existingBal = existingBal - amount;
           obj3.$value = existingBal;
           obj3.$save();
-          console.log("After subtracting amount, new bal: "+ existingBal);
 
-          console.log("Receivers' Current Balance: "+ studentBal);
           studentBal = studentBal + amount;
           obj4.$value = studentBal;
           obj4.$save();
-          console.log("After adding amount, new bal: "+ studentBal);
-
-          console.log(first+" to " +second+ " Transfer Completed");
         }
         else{
-          console.log("Your account balance is insufficient");
         }
       }
       else{
-        console.log("Invalid Transfer Request");
       }
     });
     }

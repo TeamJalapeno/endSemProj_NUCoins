@@ -1,11 +1,11 @@
 [
     {
         "age": 0,
-        "id": "robotics-workshop",
-        "name": "CSP Robotics Workshop",
-        "imageUrl": "../../img/csp.jpg",
-        "snippet": "Join CSP and take part in an amazing robotics filled event!",
-        "cost": "250",
+        "id": "markhor-16",
+        "name": "Markhor'16 - Wilderness Based",
+        "imageUrl": "../../img/youth_impact.png",
+        "snippet": "Experience nature as your guide, wilderness as your mentor and join us in our journey towards a better Pakistan.",
+        "cost": "850",
         "recEmail": "emanfatima@yahoo.com"
     },
     {

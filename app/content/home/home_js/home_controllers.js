@@ -13,11 +13,9 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
     // and one special property 'targetView'
     // viewConfig.targetView
     var absUrl = "";
-    console.log("Cookie check controller initialised");
 
     //check for cookie, if exists keep log in, if not redirect the user to login page
     var cookie = $cookies.get('sessionCookie');
-    console.log(cookie);
 
     if (cookie == undefined) {
       //to do if user is not logged in
@@ -31,10 +29,8 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
 
   $scope.logOut = function() {
     //delete cookie here
-    console.log("Deleting cookie");
     $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
     var cookie = $cookies.get('sessionCookie');
-    console.log(cookie);
     absUrl = $location.absUrl();
     absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
     absUrl = absUrl + "/login/login.html";
@@ -43,13 +39,10 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
 });
 
 NCMainControllers.controller('RecentTransactionControl', function($scope, $firebaseArray, $cookies) {
-  console.log("Rcent transactions Controller Initialised");
-
   var email = $cookies.get('sessionCookie');
   email = email.substring(0, email.indexOf("@"));
   email = email.toLowerCase();
   email = email.toString();
-  console.log(email);
 
   // var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
   var $load = jq('<div style = "width:100px;height:100px;"><img style = "width:150px;height:150px;"src="../../img/loading.gif"></div>').appendTo('.transactiondiv')
@@ -64,8 +57,6 @@ NCMainControllers.controller('RecentTransactionControl', function($scope, $fireb
 });
 
 NCMainControllers.controller('RecentEventsControl', function($scope, $firebaseArray, $cookies) {
-  console.log("Rcent events Controller Initialised");
-
   var myaccount = new Firebase("https://nustcoin.firebaseio.com/events");
 
   $scope.messages = $firebaseArray(myaccount);
@@ -88,19 +79,16 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
   // syncObject.$bindTo($scope, "events");
 });
 
-
-NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebaseArray, $firebaseObject, $cookies, $location) {  //This control redirects to the Transaction Details page after clicking a button on homepage
-  console.log("Transaction Details Controller Initialised");
+//This control redirects to the Transaction Details page after clicking a button on homepage
+NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebaseArray, $firebaseObject, $cookies, $location) {
   jq('.errormessage').hide();
 
   var email = $cookies.get('sessionCookie');
   email = email.substring(0, email.indexOf("@"));
   email = email.toLowerCase();
   email = email.toString();
-  console.log(email);
 
   var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
-  console.log("Loading Transaction Details...");
   myaccount.on("value", function(snapshot) {
     if (snapshot.val()) {
       for (var i = 0; i < snapshot.val().length; i++) {
@@ -110,7 +98,6 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
     }
     else {
       jq('.errormessage').show();
-      console.log('else condition');
       $scope.error = "You don't have any transactions.";
     }
   })
@@ -126,7 +113,6 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
     email = email.substring(0, email.indexOf("@"));
     email = email.toLowerCase();
     email = email.toString();
-    console.log(email);
     $scope.userEmail = $cookies.get('sessionCookie');
     var reciever = $scope.user.reciever;
     var amount = $scope.user.amount;
@@ -136,10 +122,8 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
   $scope.details = function(e){
     var absUrl ="";
     absUrl = $location.absUrl();
-    console.log(absUrl);
     absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
     absUrl = absUrl + "/home/home.html#/transactions";
-    console.log(absUrl);
     window.location.replace(absUrl);
   }
 });
@@ -147,7 +131,6 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
 NCMainControllers.controller('EventDetailCtrl', ['$scope', '$stateParams', '$http',
 function($scope, $stateParams, $http) {
   $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
-    console.log('events json working');
     $scope.event = data;
   });
 }]);
@@ -155,7 +138,6 @@ function($scope, $stateParams, $http) {
 NCMainControllers.controller('FaqCtrl', ['$scope', '$http',
 function($scope, $http) {
   $http.get('content/faq_data/faq.json').success(function(data) {
-    console.log('faqs json working');
     $scope.faq = data;
   });
 }]);
@@ -163,7 +145,6 @@ function($scope, $http) {
 NCMainControllers.controller('Faq2Ctrl', ['$scope', '$http',
 function($scope, $http) {
   $http.get('../faq_data/faq.json').success(function(data) {
-    console.log('faqs json working');
     $scope.faq = data;
   });
 }]);
@@ -171,25 +152,19 @@ function($scope, $http) {
 NCMainControllers.controller('PurchaseCtrl', function(Authentication, PurchaseService, $scope, $firebaseArray,$firebaseObject, $cookies, $location) {
   $scope.receipt = function(e) {
     var userEmail = $cookies.get('sessionCookie');
-    console.log(userEmail);
     var userPassword = $scope.userPassword;
     Authentication.login(userEmail, userPassword).then(function(){
           //use authData
           $scope.transactionCode = PurchaseService.GenerateCode();
           $scope.email = userEmail;
           var amount = parseInt($scope.user.amount);
-          console.log(amount);
           userEmail = userEmail.substring(0, userEmail.indexOf("@"));
-          console.log(userEmail);
           var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+userEmail+"/Balance");   // accesing user 1's balance from the databse
           var obj = new $firebaseObject(ref);
           var existingBal = obj.$value;    //user 1's existing balance in the database
-          console.log(existingBal);
           existingBal = existingBal - amount;
-          console.log(existingBal);
           obj.$value = existingBal;
           obj.$save();
-          console.log("successful authentication in controller");
           jq(".receipt").show();
 
         }, function(error){
@@ -201,7 +176,6 @@ NCMainControllers.controller('PurchaseCtrl', function(Authentication, PurchaseSe
 
 NCMainControllers.controller('AboutCtrl', ['$scope',
 function($scope) {
-  console.log("About controller working");
   jq("#paraB").hide();
   jq(document).ready(function(){
     jq('#story').click(function(){
@@ -219,18 +193,15 @@ function($scope) {
 NCMainControllers.controller('EventsBuyCtrl', ['TransactionService', 'PurchaseService', '$cookies', '$scope', '$stateParams', '$http', '$firebaseObject', 'Authentication',
 function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $http, $firebaseObject, Authentication) {
   $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
-    console.log('events buy json working');
     $scope.event = data;
 
     var userEmail = $cookies.get('sessionCookie');
 
     userEmail = userEmail.substring(0, userEmail.indexOf("@"));
-    console.log(userEmail);
     var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+userEmail+"/Balance");   // accesing user 1's balance from the databse
     var obj = new $firebaseObject(ref);
     obj.$loaded().then(function() {
       var balance = obj.$value;
-      console.log(balance);
       $scope.balance = balance;
       $scope.balance2 = balance - parseInt($scope.event.cost);
     })
@@ -242,20 +213,17 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
             //use authData
             $scope.transactionCode = PurchaseService.GenerateCode();
 
-            console.log('events transaction working');
             userEmail = userEmail.substring(0, userEmail.indexOf("@"));
             userEmail = userEmail.toLowerCase();
             userEmail = userEmail.toString();
-            console.log(userEmail);
             var reciever = $scope.event.recEmail;
             var amount = parseInt($scope.event.cost);
             TransactionService.TwoWayTransaction(userEmail, reciever, amount);
             $scope.username = userEmail;
-            console.log("successful authentication in controller");
             jq(".receipt").show();
 
           }, function(error){
-            console.log("Password authentication failed, enter again:");
+            console.log("Password authentication failed!");
           });
 
 }
