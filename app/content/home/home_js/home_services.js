@@ -22,14 +22,10 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
 
     var auth = false;
     var auth2 =false;
-<<<<<<< HEAD
-=======
    console.log("SERVICE");
     console.log(sender);
     console.log(reciever);
     console.log(amount);
-
->>>>>>> 9b518ba17d9237d5bf14a5f0aa17e6f2154dc02c
 
     studentEmailAuth.on("value", function(snapshot){
       for (var i = 0; i < snapshot.val().length; i++) {
@@ -38,10 +34,6 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
           break;
         }
         else{
-<<<<<<< HEAD
-=======
-
->>>>>>> 9b518ba17d9237d5bf14a5f0aa17e6f2154dc02c
           auth = false;
         }
       }
@@ -54,10 +46,6 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
           break;
         }
         else{
-<<<<<<< HEAD
-=======
-
->>>>>>> 9b518ba17d9237d5bf14a5f0aa17e6f2154dc02c
           auth2 = false;
         }
       }
@@ -101,8 +89,7 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
           studentBal = studentBal + amount;
           obj4.$value = studentBal;
           obj4.$save();
-<<<<<<< HEAD
-=======
+
           console.log("After adding amount, new bal: "+ studentBal);
 
           console.log(first+" to " +second+ " Transfer Completed");
@@ -135,7 +122,6 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
                 });
 
     }
->>>>>>> 9b518ba17d9237d5bf14a5f0aa17e6f2154dc02c
         }
         else{
         }
