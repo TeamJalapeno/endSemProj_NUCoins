@@ -184,3 +184,61 @@ function($scope) {
 
   })
 }]);
+
+NCMainControllers.controller('EventsBuyCtrl', ['TransactionService', 'PurchaseService', '$cookies', '$scope', '$stateParams', '$http', '$firebaseObject', 'Authentication',
+function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $http, $firebaseObject, Authentication) {
+  $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
+    console.log('events buy json working');
+    $scope.event = data;
+
+    var userEmail = $cookies.get('sessionCookie');
+
+    userEmail = userEmail.substring(0, userEmail.indexOf("@"));
+    console.log(userEmail);
+    var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+userEmail+"/Balance");   // accesing user 1's balance from the databse
+    var obj = new $firebaseObject(ref);
+    obj.$loaded().then(function() {
+      var balance = obj.$value;
+      console.log(balance);
+      $scope.balance = balance;
+      $scope.balance2 = balance - parseInt($scope.event.cost);
+    })
+
+    $scope.eventBuy = function(e) {
+      var userEmail = $cookies.get('sessionCookie');
+      var userPassword = $scope.userPassword;
+      Authentication.login(userEmail, userPassword).then(function(){
+            //use authData
+            $scope.transactionCode = PurchaseService.GenerateCode();
+
+            console.log('events transaction working');
+            userEmail = userEmail.substring(0, userEmail.indexOf("@"));
+            userEmail = userEmail.toLowerCase();
+            userEmail = userEmail.toString();
+            console.log(userEmail);
+            var reciever = $scope.event.recEmail;
+            var amount = parseInt($scope.event.cost);
+            TransactionService.TwoWayTransaction(userEmail, reciever, amount);
+            $scope.username = userEmail;
+            console.log("successful authentication in controller");
+            jq(".receipt").show();
+
+          }, function(error){
+            console.log("Password authentication failed, enter again:");
+          });
+
+}
+  });
+
+
+
+  // $scope.details = function(e){
+  //   var absUrl ="";
+  //   absUrl = $location.absUrl();
+  //   console.log(absUrl);
+  //   absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+  //   absUrl = absUrl + "/home/home.html#/transactions";
+  //   console.log(absUrl);
+  //   window.location.replace(absUrl);
+  // }
+}]);

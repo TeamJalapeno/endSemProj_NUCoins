@@ -1,3 +1,18 @@
 <h2>Events Buy</h2>
-<p> {{event.cost}} </p>
-<p> {{event.recEmail}} </p>
+<h3>Are you sure you want to make a transaction?</h3>
+<p>Transaction details:</p>
+<p> Cost for the event: {{event.cost}} </p>
+<p> Your current balance: {{balance}} </p>
+<p> Your balance after buying ticket: {{balance2}} </p></br></br>
+
+<div class = "amountAdder">
+  For security purposes you are required to enter your password again
+  <input type="password" ng-model="userPassword" placeholder="password"/><br>
+
+  <button ng-click='eventBuy($event);'>Create Receipt</button></br></br>
+</div>
+
+<div class = "receipt">
+  Your code is {{transactionCode}} <br>
+  Your username is {{username}} <br>
+</div>

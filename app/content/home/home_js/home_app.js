@@ -64,9 +64,10 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       url: "/about",
       templateUrl: "partials/about.html",
       controller: 'AboutCtrl'
-    }).state('eventsbuy/:eventId', {
+    })
+    .state('eventsbuy/:eventId', {
       url: "/eventsbuy/:eventId",
       templateUrl: "partials/eventsbuy.html",
-      controller: 'EventDetailCtrl'
+      controller: 'EventsBuyCtrl'
     });
 });
