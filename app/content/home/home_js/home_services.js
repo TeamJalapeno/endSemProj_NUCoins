@@ -19,7 +19,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
 
 MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) {
 
-  this.TwoWayTransaction = function (sender, reciever, amount){
+  this.TwoWayTransaction = function (sender, reciever, amount, title, description, tDate, tTime){
     var studentEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/studentEmail");
     var vendorEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/vendorEmail");
     var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+sender);
@@ -94,6 +94,7 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
       var second = ""
       var existingBal = 0;
       var studentBal =0;
+      var transfer = false;
       first = obj.$value;
       second= obj2.$value;
       existingBal = parseInt(obj3.$value);    //user 1's existing balance in the database
@@ -122,6 +123,45 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
           console.log("After adding amount, new bal: "+ studentBal);
 
           console.log(first+" to " +second+ " Transfer Completed");
+          transfer = true;
+          if(transfer){
+            console.log("yayy");
+            console.log(sender);
+             var user1 = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+sender);
+             var user2 = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+rec);
+            //  var obj = $firebaseAuth(firebaseObj);
+            var user1Ref = user1.push();
+            var user2Ref = user2.push();
+
+          //  if (first == "student") {
+
+              user1Ref.set({
+                'Title': title,
+                'Description': description,
+                'Amount': amount,
+                'Date': tDate,
+                'Time': tTime
+              });
+
+               var dTitle = "Received from "+sender;
+                console.log(dTitle);
+                user2Ref.set({
+                  'Title': dTitle,
+                  'Description': description,
+                  'Amount': amount,
+                  'Date': tDate,
+                  'Time': tTime
+                });
+
+
+
+            /*obj.$createUser({
+              email: email,
+              password: password
+            })*/
+          //}
+
+    }
         }
         else{
           console.log("Your account balance is insufficient");
@@ -130,6 +170,8 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
       else{
         console.log("Invalid Transfer Request");
       }
+
+
     });
     }
 });

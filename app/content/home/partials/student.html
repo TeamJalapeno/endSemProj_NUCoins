@@ -12,9 +12,13 @@
       <div class = "amountAdder" ng-controller='AddAmountCtrl'>
         <h2>Transaction</h2>
         <p>Enter Email:
-        <input type="email" placeholder="email address" ng-model="user.reciever" required="required"/>
+        <input type="email" placeholder="Receiver's email address" ng-model="user.receiver" required="required"/>
         <p>Enter Amount:
         <input type="number" placeholder="transfer amount" ng-model="user.amount" required="required"/><br>
+        <p>Enter Title:
+        <input type="text" placeholder="A title for your transaction" ng-model="user.titles" required="required"/>
+        <p>Enter Description:
+        <input type="text" placeholder="Transaction Description" ng-model="user.descriptions" required="required"/><br>
        <p><button ng-click='amount($event);'>Transfer</button><br>
 
 
