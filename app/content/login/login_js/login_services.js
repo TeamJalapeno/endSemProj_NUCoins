@@ -32,91 +32,91 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
 
 
   this.AuthEmail = function(useremail) {
-      jq('.loading').show();
-      jq('.emailerrormessage').hide();
+    jq('.loading').show();
+    jq('.emailerrormessage').hide();
 
 
-      var auth = false;
-      var authCode = "";
-      //search for students
-      studentEmailAuth.on("value", function(snapshot) {
-        for (var i = 0; i < snapshot.val().length; i++) {
-          if (useremail == snapshot.val()[i]) {
-            auth = true;
-            isStudent = true;
-            changeDOM(auth, userAcc, escapeToggle);
-            break;
-          }
-
+    var auth = false;
+    var authCode = "";
+    //search for students
+    studentEmailAuth.on("value", function(snapshot) {
+      for (var i = 0; i < snapshot.val().length; i++) {
+        if (useremail == snapshot.val()[i]) {
+          auth = true;
+          isStudent = true;
+          changeDOM(auth, userAcc, escapeToggle);
+          break;
         }
-      }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
-      });
-      //search for admins
-      adminEmailAuth.on("value", function(snapshot) {
-          for (var i = 0; i < snapshot.val().length; i++) {
-            if (useremail == snapshot.val()[i]) {
-              auth = true;
-              isAdmin = true;
-              changeDOM(auth, userAcc, escapeToggle);
-              break;
 
-            }
-          }
-        }, function (errorObject) {
-          console.log("The read failed: " + errorObject.code);
-      });
-
-      //search for admins
-      vendorEmailAuth.on("value", function(snapshot) {
-          for (var i = 0; i < snapshot.val().length; i++) {
-            if (useremail == snapshot.val()[i]) {
-              auth = true;
-              isVendor = true;
-              changeDOM(auth, userAcc, escapeToggle);
-              break;
-
-            }
-            changeDOM(auth, userAcc, escapeToggle);
-
-          }
-        }, function (errorObject) {
-          console.log("The read failed: " + errorObject.code);
-      });
-
-      function changeDOM(auth, userAcc, escapeToggle) {
-        if (auth) {
-          usersAccount.on("value", function(snapshot) {
-            userAcc = snapshot.hasChild(escapeEmailAddress(useremail));
-
-            if(userAcc && escapeToggle) {
-              jq('.emailerrormessage').hide();
-              jq('.emailauth').hide();
-              jq('.loading').hide();
-
-              jq('.email-auth-form').hide();
-              jq('.login-form').show();
-            }
-            else if (!userAcc && escapeToggle) {
-              jq('.emailerrormessage').hide();
-              jq('.emailauth').hide();
-              jq('.loading').hide();
-
-              jq('.email-auth-form').hide();
-              jq('.register-form').show();
-            }
-          }, function (errorObject) {
-            console.log("The read failed: " + errorObject.code);
-          });
-        }
-        else if (!auth) {
-          jq('.emailerrormessage').show();
-          jq('.loading').hide();
-          console.log("Invalid email!");
-        }
-        return;
       }
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+    //search for admins
+    adminEmailAuth.on("value", function(snapshot) {
+      for (var i = 0; i < snapshot.val().length; i++) {
+        if (useremail == snapshot.val()[i]) {
+          auth = true;
+          isAdmin = true;
+          changeDOM(auth, userAcc, escapeToggle);
+          break;
+
+        }
+      }
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+
+    //search for admins
+    vendorEmailAuth.on("value", function(snapshot) {
+      for (var i = 0; i < snapshot.val().length; i++) {
+        if (useremail == snapshot.val()[i]) {
+          auth = true;
+          isVendor = true;
+          changeDOM(auth, userAcc, escapeToggle);
+          break;
+
+        }
+        changeDOM(auth, userAcc, escapeToggle);
+
+      }
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+
+    function changeDOM(auth, userAcc, escapeToggle) {
+      if (auth) {
+        usersAccount.on("value", function(snapshot) {
+          userAcc = snapshot.hasChild(escapeEmailAddress(useremail));
+
+          if(userAcc && escapeToggle) {
+            jq('.emailerrormessage').hide();
+            jq('.emailauth').hide();
+            jq('.loading').hide();
+
+            jq('.email-auth-form').hide();
+            jq('.login-form').show();
+          }
+          else if (!userAcc && escapeToggle) {
+            jq('.emailerrormessage').hide();
+            jq('.emailauth').hide();
+            jq('.loading').hide();
+
+            jq('.email-auth-form').hide();
+            jq('.register-form').show();
+          }
+        }, function (errorObject) {
+          console.log("The read failed: " + errorObject.code);
+        });
+      }
+      else if (!auth) {
+        jq('.emailerrormessage').show();
+        jq('.loading').hide();
+        console.log("Invalid email!");
+      }
+      return;
     }
+  }
 
   this.SignIn = function(useremail, userpassword) {
     jq('.loading').show();

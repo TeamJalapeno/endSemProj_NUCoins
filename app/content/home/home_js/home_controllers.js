@@ -91,7 +91,7 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
   var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
   myaccount.on("value", function(snapshot) {
     if (snapshot.val()) {
-        $scope.transactions = $firebaseObject(myaccount);
+      $scope.transactions = $firebaseObject(myaccount);
     }
     else {
       jq('.errormessage').show();
@@ -159,23 +159,23 @@ NCMainControllers.controller('PurchaseCtrl', function(Authentication, PurchaseSe
     var userEmail = $cookies.get('sessionCookie');
     var userPassword = $scope.userPassword;
     Authentication.login(userEmail, userPassword).then(function(){
-          //use authData
-          $scope.transactionCode = PurchaseService.GenerateCode();
-          $scope.email = userEmail;
-          var amount = parseInt($scope.user.amount);
-          userEmail = userEmail.substring(0, userEmail.indexOf("@"));
-          var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+userEmail+"/Balance");   // accesing user 1's balance from the databse
-          var obj = new $firebaseObject(ref);
-          var existingBal = obj.$value;    //user 1's existing balance in the database
-          existingBal = existingBal - amount;
-          obj.$value = existingBal;
-          obj.$save();
-          jq(".receipt").show();
+      //use authData
+      $scope.transactionCode = PurchaseService.GenerateCode();
+      $scope.email = userEmail;
+      var amount = parseInt($scope.user.amount);
+      userEmail = userEmail.substring(0, userEmail.indexOf("@"));
+      var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+userEmail+"/Balance");   // accesing user 1's balance from the databse
+      var obj = new $firebaseObject(ref);
+      var existingBal = obj.$value;    //user 1's existing balance in the database
+      existingBal = existingBal - amount;
+      obj.$value = existingBal;
+      obj.$save();
+      jq(".receipt").show();
 
-        }, function(error){
-          console.log(error);
-        });
-    } //login
+    }, function(error){
+      console.log(error);
+    });
+  } //login
 
 });
 
@@ -195,8 +195,8 @@ function($scope) {
   })
 }]);
 
-NCMainControllers.controller('EventsBuyCtrl', ['TransactionService', 'PurchaseService', '$cookies', '$scope', '$stateParams', '$http', '$firebaseObject', 'Authentication',
-function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $http, $firebaseObject, Authentication) {
+NCMainControllers.controller('EventsBuyCtrl', ['TransactionService', 'PurchaseService', '$cookies', '$scope', '$stateParams', '$http', '$firebaseObject', 'Authentication', '$filter',
+function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $http, $firebaseObject, Authentication, $filter) {
   $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
     $scope.event = data;
 
@@ -215,23 +215,30 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
       var userEmail = $cookies.get('sessionCookie');
       var userPassword = $scope.userPassword;
       Authentication.login(userEmail, userPassword).then(function(){
-            //use authData
-            $scope.transactionCode = PurchaseService.GenerateCode();
+        //use authData
+        $scope.transactionCode = PurchaseService.GenerateCode();
 
-            userEmail = userEmail.substring(0, userEmail.indexOf("@"));
-            userEmail = userEmail.toLowerCase();
-            userEmail = userEmail.toString();
-            var reciever = $scope.event.recEmail;
-            var amount = parseInt($scope.event.cost);
-            TransactionService.TwoWayTransaction(userEmail, reciever, amount);
-            $scope.username = userEmail;
-            jq(".receipt").show();
+        userEmail = userEmail.substring(0, userEmail.indexOf("@"));
+        userEmail = userEmail.toLowerCase();
+        userEmail = userEmail.toString();
+        var reciever = $scope.event.recEmail;
+        var amount = parseInt($scope.event.cost);
+        var title = "Bought ticket";
+        var description = "Bought "+ $scope.event.name+"'s event  ticket for " + $scope.event.cost+ " NUCs.";
+        var date = new Date();
+        $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
+        $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
+        var tDate = $scope.ddMMyyyy;
+        var tTime = $scope.hhmmsstt;
+        TransactionService.TwoWayTransaction(userEmail, reciever, amount, title, description, tDate, tTime);
+        $scope.username = userEmail;
+        jq(".receipt").show();
 
-          }, function(error){
-            console.log("Password authentication failed!");
-          });
+      }, function(error){
+        console.log("Password authentication failed!");
+      });
 
-}
+    }
   });
 
 }]);

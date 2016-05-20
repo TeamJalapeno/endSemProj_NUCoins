@@ -4,13 +4,13 @@
 
 //change background image for any element
 MainApp.directive('myBackgroundImage', function () {
-        return function (scope, element, attrs) {
-            element.css({
-                'background-image': 'url(' + attrs.myBackgroundImage + ')',
-                    'background-size': 'cover',
-                    'background-repeat': 'no-repeat',
-                    'background-position': 'center center',
-                    'background-attachment': 'fixed'
-            });
-        };
+  return function (scope, element, attrs) {
+    element.css({
+      'background-image': 'url(' + attrs.myBackgroundImage + ')',
+      'background-size': 'cover',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center center',
+      'background-attachment': 'fixed'
+    });
+  };
 });
