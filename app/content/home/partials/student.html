@@ -1,3 +1,4 @@
+<script>jq(".homepagelink").attr("href", "#/student");</script>
 <div class = "page1" ng-controller='AddAmountCtrl'>
 <h1> You are a student. </h1>
 <h1 > Welcome, {{userEmail}} </h1>
@@ -12,10 +13,11 @@
   <input type="number" placeholder="transfer amount" ng-model="user.amount" required="required"/><br>
  <button ng-click='amount($event);'>Transfer</button>
  </div>
+<<<<<<< HEAD
 
  <div Title in transactions>
 <br>Your Recent Transactions: {{in}}
-<ul ng-repeat ="transaction in transactions | filter: {$id: in}">
+<ul ng-repeat ="transaction in transactions | filter: {$id: 1}">
   <li > <b>Title:</b>{{transaction.Title}} <b>&nbspAmount:</b>{{transaction.Amount}} <b>&nbspDate:</b> {{transaction.Date }} <b>&nbspTime:</b> {{transaction.Time}} <b>&nbspDescription:</b>  {{transaction.Description}}</li><br>
  <br>
 
@@ -31,4 +33,10 @@
 </div>
 
 
+=======
+ Press button to check transaction history:
+  <button ng-click='details($event);'>Transaction Details</button>
+
+</div>
+>>>>>>> 5f0525bcb865fcda976823f3f174844f75ba86c5
 </div>

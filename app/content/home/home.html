@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../../css/app.css">
   <link rel="stylesheet" href="../../css/eventDetail_styling.css">
+  <link rel="stylesheet" href="../../css/faq_styling.css">
   <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
   <script src="../../bower_components/angular/angular.min.js"></script>
   <script src="../../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -31,16 +32,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#/homepage"><span style="color:white">NU</span>Coins</a>
+            <a class="navbar-brand" href=""><span style="color:white">NU</span>Coins</a>
         </div>
         <div class="collapse navbar-collapse navbar-main-collapse">
             <ul class="nav navbar-nav">
-                <li class=""><a href="#/homepage">Page 1</a></li>
-                <li class=""><a href="#/otherpage">Events</a></li>
+                <li><a class="homepagelink" href="#/">Home</a></li>
+                <li class=""><a href="#/events">Events</a></li>
+                <li class="purchasebutton"><a href="#/purchase">Purchase</a></li>
             </ul>
             <div class="collapse navbar-collapse navbar-main-collapse navbar-right">
                 <ul class="nav navbar-nav">
-                    <li class=""><a href="../../about.html">About Us</a></li>
+                    <li class=""><a href="#/about">About Us</a></li>
+                    <li class=""><a href="#/faq">FAQs</a></li>
                     <li class=""><a ng-click = "logOut()">Logout</a></li>
                 </ul>
             </div>

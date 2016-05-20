@@ -7,10 +7,14 @@ var MainApp = angular.module("NCMainApp", ['ui.router', 'NCAnimations', 'NCMainC
 MainApp.config(function($stateProvider, $urlRouterProvider) {
   //
   // For any unmatched url, redirect to /404
-  $urlRouterProvider.otherwise("/notfound");
+  $urlRouterProvider.otherwise("/homepage");
   //
   // Now set up the states
   $stateProvider
+    .state('homepage', {
+      url: "/",
+      controller: 'LoginCheck'
+    })
     .state('studenthomepage', {
       url: "/student",
       templateUrl: "partials/student.html",
@@ -26,15 +30,15 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "partials/admin.html",
       controller: 'LoginCheck'
     })
-    .state('about', {
-      url: "/about",
-      templateUrl: "about.html",
-      //controller: 'AddAmountCtrl'
+    .state('purchase', {
+      url: "/purchase",
+      templateUrl: "partials/purchase.html",
+      controller: 'PurchaseCtrl'
     })
-    .state('notfound', {
-      url: "/notfound",
-      templateUrl: "../../404.html"//,
-      //controller: 'EventListCtrl'
+    .state('receipt', {
+      url: "/receipt",
+      templateUrl: "partials/receiptTemplate.html",
+      controller: 'PurchaseCtrl'
     })
     .state('eventspage', {
       url: "/events",
@@ -50,5 +54,15 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       url: "/events/:eventId",
       templateUrl: "partials/eventsdetail.html",
       controller: 'EventDetailCtrl'
+    })
+    .state('faq', {
+      url: "/faq",
+      templateUrl: "partials/faq.html",
+      controller: 'Faq2Ctrl'
+    })
+    .state('about', {
+      url: "/about",
+      templateUrl: "partials/about.html",
+      controller: 'AboutCtrl'
     });
 });

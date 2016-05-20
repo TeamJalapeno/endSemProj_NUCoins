@@ -9,24 +9,24 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
   var absUrl = "";
   $rootScope.$on('$viewContentLoading',
   function(event, viewConfig){
-      // Access to all the view config properties.
-      // and one special property 'targetView'
-      // viewConfig.targetView
-      var absUrl = "";
-      console.log("Cookie check controller initialised");
+    // Access to all the view config properties.
+    // and one special property 'targetView'
+    // viewConfig.targetView
+    var absUrl = "";
+    console.log("Cookie check controller initialised");
 
-      //check for cookie, if exists keep login, if not redirect the user to login page
-      var cookie = $cookies.get('sessionCookie');
-      console.log(cookie);
+    //check for cookie, if exists keep log in, if not redirect the user to login page
+    var cookie = $cookies.get('sessionCookie');
+    console.log(cookie);
 
-      if (cookie == undefined) {
-        //to do if user is not logged in
-        window.alert("You are not logged in.");
-        absUrl = $location.absUrl();
-        absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
-        absUrl = absUrl + "/login/login.html";
-        window.location.replace(absUrl);
-      }
+    if (cookie == undefined) {
+      //to do if user is not logged in
+      window.alert("You are not logged in.");
+      absUrl = $location.absUrl();
+      absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+      absUrl = absUrl + "/login/login.html";
+      window.location.replace(absUrl);
+    }
   });
 
   $scope.logOut = function() {
@@ -59,25 +59,33 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
 
 
 NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebaseArray, $firebaseObject, $cookies, $location) {  //This control redirects to the Transaction Details page after clicking a button on homepage
-console.log("Transaction Details Controller Initialised");
+  console.log("Transaction Details Controller Initialised");
+  jq('.errormessage').hide();
 
-var email = $cookies.get('sessionCookie');
-email = email.substring(0, email.indexOf("@"));
-email = email.toLowerCase();
-email = email.toString();
-console.log(email);
+  var email = $cookies.get('sessionCookie');
+  email = email.substring(0, email.indexOf("@"));
+  email = email.toLowerCase();
+  email = email.toString();
+  console.log(email);
 
+  var myaccount = new Firebase("https://nucoins.firebaseio.com/transactionDetails/"+email);
+  console.log("Loading Transaction Details...");
+  myaccount.on("value", function(snapshot) {
+    if (snapshot.val()) {
+      for (var i = 0; i < snapshot.val().length; i++) {
+        $scope.transactions = $firebaseObject(myaccount);
 
-var myaccount = new Firebase("https://nucoins.firebaseio.com/transactionDetails/"+email);
-console.log("Loading Transaction Details...");
-myaccount.on("value", function(snapshot) {
-    for (var i = 0; i < snapshot.val().length; i++) {
-$scope.transactions = $firebaseObject(myaccount);
-
-}
-})
+      }
+    }
+    else {
+      jq('.errormessage').show();
+      console.log('else condition');
+      $scope.error = "You don't have any transactions.";
+    }
+  })
 
 });
+
 
 
 
@@ -114,7 +122,7 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     console.log(length);
   $scope.transactions = $firebaseArray(myaccount);
   $scope.in = length -1;
-  
+
 
 //  }
   })
@@ -131,43 +139,39 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
 
     e.preventDefault();
     var eid = $scope.user.studentid;
-  //  var auth = "false";
+    //  var auth = "false";
     //search for students
     studentEmailAuth.on("value", function(snapshot){
       for (var i = 0; i < snapshot.val().length; i++) {
         if (eid == snapshot.val()[i]) {
           console.log("Student found");
-            auth = true;
+          auth = true;
 
           break;
-         }
+        }
         else{
           //console.log("Not found");
           auth = false;
 
-           }
-         }
-       })
+        }
+      }
+    })
 
-       vendorEmailAuth.on("value", function(snapshot){
-         for (var i = 0; i < snapshot.val().length; i++) {
-           if (eid == snapshot.val()[i]) {
-             console.log("Vendor found");
-               auth2 = true;
+    vendorEmailAuth.on("value", function(snapshot){
+      for (var i = 0; i < snapshot.val().length; i++) {
+        if (eid == snapshot.val()[i]) {
+          console.log("Vendor found");
+          auth2 = true;
 
-             break;
-            }
-           else{
-             //console.log("Not found");
-             auth2 = false;
+          break;
+        }
+        else{
+          //console.log("Not found");
+          auth2 = false;
 
-              }
-            }
-          })
-
-
-
-
+        }
+      }
+    })
 
     var id = $scope.user.studentid;   //will have user 2's email id
     var amount = $scope.user.amount;  //the amount to be transferred
@@ -182,7 +186,6 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     console.log("Processing Transfer Request..");
     console.log(auth);
 
-
     var ref = new Firebase("https://nucoins.firebaseio.com/usersData/"+email+"/AccessLevel");
     var obj = new $firebaseObject(ref);
 
@@ -196,10 +199,10 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     var obj4 = new $firebaseObject(ref4);
 
     obj2.$loaded(),obj.$loaded(),obj3.$loaded(),obj4.$loaded().then(function(){
-        var first = ""
-        var second = ""
-        var existingBal = 0 ;
-        var studentBal =0;
+      var first = ""
+      var second = ""
+      var existingBal = 0 ;
+      var studentBal =0;
       first = obj.$value;
       second= obj2.$value;
       existingBal = parseInt(obj3.$value);    //user 1's existing balance in the database
@@ -212,36 +215,32 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
 
       if(((first == "admin" && second =="student") || (first == "student" && second =="student") || (first == "student" && second =="vendor")) && ((auth ==true) || (auth2 == true))){  // if user 1 is admin and user 2 is a student
         console.log("Processing Transfer Request.....")
-            if(existingBal >= amount)  {//checking if the amount user wants to transfer is available in his account
-            console.log("Valid Trasfer request");
+        if(existingBal >= amount)  {//checking if the amount user wants to transfer is available in his account
+          console.log("Valid Trasfer request");
 
-            console.log("Senders Current Balance: "+ existingBal);
-            existingBal = existingBal - amount;
-            obj3.$value = existingBal;
-            obj3.$save();
-            console.log("After subtracting amount, new bal: "+ existingBal);
+          console.log("Senders Current Balance: "+ existingBal);
+          existingBal = existingBal - amount;
+          obj3.$value = existingBal;
+          obj3.$save();
+          console.log("After subtracting amount, new bal: "+ existingBal);
 
-            console.log("Receivers' Current Balance: "+ studentBal);
-            studentBal = studentBal + amount;
-            obj4.$value = studentBal;
-            obj4.$save();
-            console.log("After adding amount, new bal: "+ studentBal);
+          console.log("Receivers' Current Balance: "+ studentBal);
+          studentBal = studentBal + amount;
+          obj4.$value = studentBal;
+          obj4.$save();
+          console.log("After adding amount, new bal: "+ studentBal);
 
-             console.log(first+" to " +second+ " Transfer Completed");
-           }
-           else{
-              console.log("Your account balance is insufficient");
-           }
+          console.log(first+" to " +second+ " Transfer Completed");
+        }
+        else{
+          console.log("Your account balance is insufficient");
+        }
       }
       else{
-          console.log("Invalid Transfer Request");
+        console.log("Invalid Transfer Request");
       }
-
     });
-
   }
-
-
 
   $scope.details = function(e){
     var absUrl ="";
@@ -251,19 +250,55 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     absUrl = absUrl + "/home/home.html#/transactions";
     console.log(absUrl);
     window.location.replace(absUrl);
-
-
-}
-
+  }
 });
 
-
-
-
 NCMainControllers.controller('EventDetailCtrl', ['$scope', '$stateParams', '$http',
-  function($scope, $stateParams, $http) {
-    $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
-      console.log('events json working');
-      $scope.event = data;
+function($scope, $stateParams, $http) {
+  $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
+    console.log('events json working');
+    $scope.event = data;
+  });
+}]);
+
+NCMainControllers.controller('FaqCtrl', ['$scope', '$http',
+function($scope, $http) {
+  $http.get('content/faq_data/faq.json').success(function(data) {
+    console.log('faqs json working');
+    $scope.faq = data;
+  });
+}]);
+
+NCMainControllers.controller('Faq2Ctrl', ['$scope', '$http',
+function($scope, $http) {
+  $http.get('../faq_data/faq.json').success(function(data) {
+    console.log('faqs json working');
+    $scope.faq = data;
+  });
+}]);
+
+NCMainControllers.controller('PurchaseCtrl', function(PurchaseService, $scope, $firebaseArray, $cookies) {
+  $scope.receipt = function(e) {
+    var userEmail = $cookies.get('sessionCookie');
+    console.log(userEmail);
+    var userPassword = $scope.userPassword;
+    PurchaseService.authenticate(userEmail, userPassword);
+  }
+});
+
+NCMainControllers.controller('AboutCtrl', ['$scope',
+function($scope) {
+  console.log("About controller working");
+  jq("#paraB").hide();
+  jq(document).ready(function(){
+    jq('#story').click(function(){
+      jq("#paraB").show();
+      jq("#paraA").hide();
     });
-  }]);
+    jq('#product').click(function(){
+      jq("#paraA").show();
+      jq("#paraB").hide();
+    });
+
+  })
+}]);
