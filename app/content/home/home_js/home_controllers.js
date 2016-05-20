@@ -111,10 +111,8 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
   console.log(email);
   $scope.userEmail = $cookies.get('sessionCookie');
 
-
   var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
   /*console.log("Loading Transaction Details...");
-
   $scope.transactions = $firebaseArray(myaccount);*/
   myaccount.on("value", function(snapshot) {
     //  for (var i = 0; i < snapshot.val().length; i++) {
@@ -122,17 +120,8 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
     console.log(length);
   $scope.transactions = $firebaseArray(myaccount);
   $scope.in = length -1;
-
-
 //  }
   })
-
-
-
-
-
-
-
   $scope.amount = function(e){
     console.log('amount function');
     console.log("Checking validity of email entered...");
@@ -146,13 +135,11 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
         if (eid == snapshot.val()[i]) {
           console.log("Student found");
           auth = true;
-
           break;
         }
         else{
           //console.log("Not found");
           auth = false;
-
         }
       }
     })
@@ -162,17 +149,14 @@ NCMainControllers.controller('AddAmountCtrl', function($scope, $firebaseObject, 
         if (eid == snapshot.val()[i]) {
           console.log("Vendor found");
           auth2 = true;
-
           break;
         }
         else{
           //console.log("Not found");
           auth2 = false;
-
         }
       }
     })
-
     var id = $scope.user.studentid;   //will have user 2's email id
     var amount = $scope.user.amount;  //the amount to be transferred
 
@@ -277,13 +261,35 @@ function($scope, $http) {
   });
 }]);
 
-NCMainControllers.controller('PurchaseCtrl', function(PurchaseService, $scope, $firebaseArray, $cookies) {
+NCMainControllers.controller('PurchaseCtrl', function(Authentication, PurchaseService, $scope, $firebaseArray,$firebaseObject, $cookies, $location) {
   $scope.receipt = function(e) {
     var userEmail = $cookies.get('sessionCookie');
     console.log(userEmail);
     var userPassword = $scope.userPassword;
-    PurchaseService.authenticate(userEmail, userPassword);
-  }
+    Authentication.login(userEmail, userPassword).then(function(){
+          //use authData
+          $scope.transactionCode = PurchaseService.GenerateCode();
+          $scope.email = userEmail;
+          var amount = parseInt($scope.user.amount);
+          console.log(amount);
+          userEmail = userEmail.substring(0, userEmail.indexOf("@"));
+          console.log(userEmail);
+          var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+userEmail+"/Balance");   // accesing user 1's balance from the databse
+          var obj = new $firebaseObject(ref);
+          var existingBal = obj.$value;    //user 1's existing balance in the database
+          console.log(existingBal);
+          existingBal = existingBal - amount;
+          console.log(existingBal);
+          obj.$value = existingBal;
+          obj.$save();
+          console.log("successful authentication in controller");
+          jq(".receipt").show();
+
+        }, function(error){
+          console.log(error);
+        });
+    } //login
+
 });
 
 NCMainControllers.controller('AboutCtrl', ['$scope',

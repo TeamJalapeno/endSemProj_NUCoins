@@ -5,26 +5,8 @@
 // var NCHomeService = angular.module('NCHomeServices', ['firebase', 'ngCookies']);
 
 MainApp.service('PurchaseService', function ($firebaseAuth) {
-  this.authenticate = function(username, userPassword, $scope) {
-    var usersAccount = new Firebase("https://nustcoin.firebaseio.com/usersData");
-    usersAccount.authWithPassword({
-      email: username,
-      password: userPassword
-    }, function(error, authData) {
-      if (error) {
-        //Failure callback
-        console.log('Authentication failure');
-        window.alert("wrong password entered");
-      }
-      else {
-        //success callback
-        console.log('Authentication SUCCESS');
-        var myID = CodeGenerator();
-        console.log(myID);
-      }
-  });
-  }
-  function CodeGenerator() {
+  this.GenerateCode = function() {
+    console.log("Generating Code");
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
       function(c) {
         var r = Math.random() * 16 | 0,
@@ -32,4 +14,5 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
         return v.toString(16);
       }).toUpperCase();
   }
+
 });

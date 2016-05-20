@@ -41,6 +41,10 @@ body {
   display: none;
 }
 
+.receipt {
+  display: none;
+}
+
 .eventimage {
   width:100px;
 }
