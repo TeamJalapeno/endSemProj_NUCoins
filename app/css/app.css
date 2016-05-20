@@ -41,6 +41,11 @@ body {
   display: none;
 }
 
+.logo {
+  max-width: 200px;
+  margin: 0 auto;
+}
+
 .receipt {
   display: none;
 }
@@ -58,9 +63,20 @@ body {
   margin-top: 150px;
 }
 
-/*@media(max-width:767px){
+@media(max-width:767px){
+  .logo {
+    max-width: 180px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  .toppadding {
+    padding: 0 auto;
+    margin-top: 50px;;
+  }
+  .verticalSpan{
 
-}*/
+  }
+}
 
 @media(min-width:768px){
 

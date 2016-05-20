@@ -1,29 +1,42 @@
 <script>jq(".homepagelink").attr("href", "#/student");</script>
-<div class = "page1" ng-controller='AddAmountCtrl'>
-<h1> You are a student. </h1>
+
+<div class = "jumbotron" ng-controller='AddAmountCtrl'>
 <h1 > Welcome, {{userEmail}} </h1>
-<h2>Info: {{userType}}</h2>
-<h3>Transfer:</h3>
+<h3>Your account history is as follows:</h3>
+</div>
 
-<div class = "amountAdder">
-  Please enter the following details of the user to transfer NUCoins<br><br>
-    Enter Email:
-  <input type="email" placeholder="email address" ng-model="user.reciever" required="required"/>
-    Enter Amount:
-  <input type="number" placeholder="transfer amount" ng-model="user.amount" required="required"/><br>
- <button ng-click='amount($event);'>Transfer</button>
- </div>
+<div class="container">
+  <div class = "row">
+    <div class = "col-md-8">
+
+      <div class = "amountAdder" ng-controller='AddAmountCtrl'>
+        <h2>Transaction</h2>
+        <p>Enter Email:
+        <input type="email" placeholder="email address" ng-model="user.reciever" required="required"/>
+        <p>Enter Amount:
+        <input type="number" placeholder="transfer amount" ng-model="user.amount" required="required"/><br>
+       <p><button ng-click='amount($event);'>Transfer</button><br>
 
 
+       <p><h2>Transaction history</h2>
+        <button ng-click='details($event);'>Transaction Details</button>
+       </div>
 
- <div Title in transactions>
-<br>Your Recent Transactions: {{in}}
-<ul ng-repeat ="transaction in transactions | filter: {$id: 1}">
-  <li > <b>Title:</b>{{transaction.Title}} <b>&nbspAmount:</b>{{transaction.Amount}} <b>&nbspDate:</b> {{transaction.Date }} <b>&nbspTime:</b> {{transaction.Time}} <b>&nbspDescription:</b>  {{transaction.Description}}</li><br>
- <br>
+    </div>
+    <div class = "col-md-4">
 
-</ul>
-Press button to check transaction history:
- <button ng-click='details($event);'>Transaction Details</button>
+      <div class = "transactiondiv" ng-controller = "RecentTransactionControl">
+        <br>Your Recent Transactions:
+        <ul ng-repeat ="transaction in transactions">
+          <li > <b>Title:</b>{{transaction.Title}} <br>
+            <b>Amount:</b>{{transaction.Amount}} <br>
+            <b>  Date:</b> {{transaction.Date }} <br>
+            <b>Time:</b> {{transaction.Time}} <br>
+            <b> Description:</b>  {{transaction.Description}}</li> <br>
+         <br>
+        </ul>
+      </div>
 
+    </div>
+  </div>
 </div>

@@ -42,6 +42,37 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
   }
 });
 
+NCMainControllers.controller('RecentTransactionControl', function($scope, $firebaseArray, $cookies) {
+  console.log("Rcent transactions Controller Initialised");
+
+  var email = $cookies.get('sessionCookie');
+  email = email.substring(0, email.indexOf("@"));
+  email = email.toLowerCase();
+  email = email.toString();
+  console.log(email);
+
+  // var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
+  var $load = jq('<div style = "width:100px;height:100px;"><img style = "width:150px;height:150px;"src="../../img/loading.gif"></div>').appendTo('.transactiondiv')
+  , myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email)
+  myaccount.on('value', function () {
+    $load.hide()
+  })
+
+  $scope.messages = $firebaseArray(myaccount);
+  var query = myaccount.orderByChild("Age").limitToLast(5);
+  $scope.transactions = $firebaseArray(query);
+});
+
+NCMainControllers.controller('RecentEventsControl', function($scope, $firebaseArray, $cookies) {
+  console.log("Rcent events Controller Initialised");
+
+  var myaccount = new Firebase("https://nustcoin.firebaseio.com/events");
+
+  $scope.messages = $firebaseArray(myaccount);
+  var query = myaccount.orderByChild("Age").limitToLast(5);
+  $scope.events = $firebaseArray(query);
+});
+
 NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
   var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('body')
   , db = new Firebase("https://nustcoin.firebaseio.com/events")
