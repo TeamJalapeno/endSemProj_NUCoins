@@ -91,10 +91,7 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
   var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
   myaccount.on("value", function(snapshot) {
     if (snapshot.val()) {
-      for (var i = 0; i < snapshot.val().length; i++) {
         $scope.transactions = $firebaseObject(myaccount);
-
-      }
     }
     else {
       jq('.errormessage').show();
@@ -104,7 +101,7 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
 
 });
 
-NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope, $cookies, $location) {
+NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope, $cookies, $location, $filter) {
 
   $scope.userEmail = $cookies.get('sessionCookie').substring(0, $cookies.get('sessionCookie').indexOf("@"));
 
@@ -114,9 +111,17 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
     email = email.toLowerCase();
     email = email.toString();
     $scope.userEmail = $cookies.get('sessionCookie');
-    var reciever = $scope.user.reciever;
+    var reciever = $scope.user.receiver;
     var amount = $scope.user.amount;
-    TransactionService.TwoWayTransaction(email, reciever, amount);
+    var title = $scope.user.titles;
+    var description = $scope.user.descriptions;
+    var date = new Date();
+    $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
+    $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
+    var tDate = $scope.ddMMyyyy;
+    var tTime = $scope.hhmmsstt;
+
+    TransactionService.TwoWayTransaction(email, reciever, amount, title, description, tDate, tTime);
   }
 
   $scope.details = function(e){
@@ -229,15 +234,4 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
 }
   });
 
-
-
-  // $scope.details = function(e){
-  //   var absUrl ="";
-  //   absUrl = $location.absUrl();
-  //   console.log(absUrl);
-  //   absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
-  //   absUrl = absUrl + "/home/home.html#/transactions";
-  //   console.log(absUrl);
-  //   window.location.replace(absUrl);
-  // }
 }]);

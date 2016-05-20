@@ -15,13 +15,21 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
 
 MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) {
 
-  this.TwoWayTransaction = function (sender, reciever, amount){
+  this.TwoWayTransaction = function (sender, reciever, amount, title, description, tDate, tTime){
     var studentEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/studentEmail");
     var vendorEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/vendorEmail");
     var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+sender);
 
     var auth = false;
     var auth2 =false;
+<<<<<<< HEAD
+=======
+   console.log("SERVICE");
+    console.log(sender);
+    console.log(reciever);
+    console.log(amount);
+
+>>>>>>> 9b518ba17d9237d5bf14a5f0aa17e6f2154dc02c
 
     studentEmailAuth.on("value", function(snapshot){
       for (var i = 0; i < snapshot.val().length; i++) {
@@ -30,6 +38,10 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
           break;
         }
         else{
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9b518ba17d9237d5bf14a5f0aa17e6f2154dc02c
           auth = false;
         }
       }
@@ -42,6 +54,10 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
           break;
         }
         else{
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9b518ba17d9237d5bf14a5f0aa17e6f2154dc02c
           auth2 = false;
         }
       }
@@ -68,6 +84,7 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
       var second = ""
       var existingBal = 0;
       var studentBal =0;
+      var transfer = false;
       first = obj.$value;
       second= obj2.$value;
       existingBal = parseInt(obj3.$value);    //user 1's existing balance in the database
@@ -84,12 +101,49 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
           studentBal = studentBal + amount;
           obj4.$value = studentBal;
           obj4.$save();
+<<<<<<< HEAD
+=======
+          console.log("After adding amount, new bal: "+ studentBal);
+
+          console.log(first+" to " +second+ " Transfer Completed");
+          transfer = true;
+          if(transfer){
+            console.log("yayy");
+            console.log(sender);
+             var user1 = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+sender);
+             var user2 = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+rec);
+
+            var user1Ref = user1.push();
+            var user2Ref = user2.push();
+
+              user1Ref.set({
+                'Title': title,
+                'Description': description,
+                'Amount': amount,
+                'Date': tDate,
+                'Time': tTime
+              });
+
+               var dTitle = "Received from "+sender;
+                console.log(dTitle);
+                user2Ref.set({
+                  'Title': dTitle,
+                  'Description': description,
+                  'Amount': amount,
+                  'Date': tDate,
+                  'Time': tTime
+                });
+
+    }
+>>>>>>> 9b518ba17d9237d5bf14a5f0aa17e6f2154dc02c
         }
         else{
         }
       }
       else{
       }
+
+
     });
     }
 });
