@@ -26,7 +26,7 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
 
     var auth = false;
     var auth2 =false;
-
+   console.log("SERVICE");
     console.log(sender);
     console.log(reciever);
     console.log(amount);
@@ -37,17 +37,20 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
     //   $scope.transactions = $firebaseArray(myaccount);
     //   $scope.in = length -1;
     // });
-
+    //var eid = $scope.user.reciever;
+  //  console.log(eid);
     //search for students
+
+
     studentEmailAuth.on("value", function(snapshot){
       for (var i = 0; i < snapshot.val().length; i++) {
-        if (sender == snapshot.val()[i]) {
+        if (reciever == snapshot.val()[i]) {
           console.log("Student found");
           auth = true;
           break;
         }
         else{
-          //console.log("Not found");
+          //console.log("Student Not found ");
           auth = false;
         }
       }
@@ -61,29 +64,29 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
           break;
         }
         else{
-          //console.log("Not found");
+          //console.log("Vendor Not found");
           auth2 = false;
         }
       }
     })
 
-    reciever = reciever.substring(0, reciever.indexOf("@"));  //extracting user2's id from email
+    var rec = reciever.substring(0, reciever.indexOf("@"));  //extracting user2's id from email
     console.log(reciever);
-    reciever = reciever.toLowerCase();
-    reciever = reciever.toString();
-    console.log("User2's id:" +reciever);
+    rec = rec.toLowerCase();
+    rec = rec.toString();
+    console.log("User2's id:" +rec);
     console.log("Processing Transfer Request..");
 
     var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+sender+"/AccessLevel");
     var obj = new $firebaseObject(ref);
 
-    var ref2 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+reciever+"/AccessLevel");
+    var ref2 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+rec+"/AccessLevel");
     var obj2 = new $firebaseObject(ref2);
 
     var ref3 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+sender+"/Balance");   // accesing user 1's balance from the databse
     var obj3 = new $firebaseObject(ref3);
 
-    var ref4 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+reciever+"/Balance");   // accesing user 2's balance from the databse
+    var ref4 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+rec+"/Balance");   // accesing user 2's balance from the databse
     var obj4 = new $firebaseObject(ref4);
 
     obj2.$loaded(),obj.$loaded(),obj3.$loaded(),obj4.$loaded().then(function(){

@@ -2,61 +2,64 @@
     {
         "age": 0,
         "id": "question1",
-        "question": "<Question No. 1>",
-        "answer": "<Answer to question no. 1>"
+        "question": "Q: Why do you mean by valid NUST email ID?",
+        "answer": "A: Email ID provided to you by your department when you joined NUST. It will have yor department name after @ for example efatima.bscs@seecs.edu.pk"
     },
     {
         "age": 1,
         "id": "question2",
-        "question": "<Question No. 2>",
-        "answer": "<Answer to question no. 2>"
+        "question": "Q: I am not a student/teacher/vendor at NUST. Can I join NUCoins?",
+        "answer": "A: No you can't. This service is currently available only for NUSTIANS."
     },
     {
         "age": 2,
         "id": "question3",
-        "question": "<Question No. 3>",
-        "answer": "<Answer to question no. 3>"
+        "question": "Q: I work/study at NUST but I haven't been given a NUST email ID. How do I access NUCoins?",
+        "answer": "A: Please contact the NUST administration and get your NUST email ID."
     },
     {
         "age": 3,
         "id": "question4",
-        "question": "<Question No. 4>",
-        "answer": "<Answer to question no. 4>"
+        "question": "Q: I am at NUST temporarily and don't have a NUST email ID, how do I login?",
+        "answer": "A: Please get some sort of proof that you're a NUSTIAN and contact Team Jalapeno, we'll add your personal email ID to our system after the completion of our verification process."
     },
     {
-        "age": 4,
-        "id": "question5",
-        "question": "<Question No. 5>",
-        "answer": "<Answer to question no. 5>"
+      "age": 4,
+      "id": "question6",
+      "question": "How many types of accounts are there?",
+      "answer": "There are three types of accounts. Student account for current students only. Admin account for NUST staff and teachers. Vendor account for cafe staff"
     },
     {
-        "age": 5,
-        "id": "question6",
-        "question": "<Question No. 6>",
-        "answer": "<Answer to question no. 6>"
+
+
+      "age": 5,
+      "id": "question5",
+      "question": "Q: Why is my transaction INVALID?",
+      "answer": "An admin can only transfer NUCOins to a student account. A student can transfer to a student or a vendor account. Please make sure your transaction falls in one of the mentioned categories. "
+
     },
     {
         "age": 6,
         "id": "question7",
-        "question": "<Question No. 7>",
-        "answer": "<Answer to question no. 7>"
+        "question": "Q: How do I get NUCoins transferred to CASH?",
+        "answer": "A: If you're a vendor or a student , simply click on the 'Withdraw' option on the navbar and after filling the details, a receipt will be generated. Use it to get cash from the conversion booth."
     },
     {
         "age": 7,
         "id": "question8",
-        "question": "<Question No. 8>",
-        "answer": "<Answer to question no. 8>"
+        "question": "Q: I have generated my receipt. Where is the conversion booth?",
+        "answer": "A: You'll find it at each cafe as well as inside your department in the lobby or in the common area."
     },
     {
         "age": 8,
         "id": "question9",
-        "question": "<Question No. 9>",
-        "answer": "<Answer to question no. 9>"
+        "question": "Q: How do I buy an event ticket using NUCoins?",
+        "answer": "A: Click on the events page and select 'buy' button on the event of your choice. Fill in the details, print the receipt generated. The receipt is NOT your ticket. you need to show it to the concerned person and exchange it for your receipt."
     },
     {
         "age": 9,
         "id": "question10",
-        "question": "<Question No. 10>",
-        "answer": "<Answer to question no. 10>"
+        "question": "Q: What is the benefit of buying a ticket through NUCoins?",
+        "answer": "A: After transfer is complete and receipt has been generated, no one else can take your seat in the workshop/event. So you can confirm your ticket by paying from home."
     }
 ]
