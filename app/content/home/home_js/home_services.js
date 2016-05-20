@@ -31,16 +31,6 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
     console.log(reciever);
     console.log(amount);
 
-    // myaccount.on("value", function(snapshot) {
-    //   var length= snapshot.val().length;
-    //   console.log(length);
-    //   $scope.transactions = $firebaseArray(myaccount);
-    //   $scope.in = length -1;
-    // });
-    //var eid = $scope.user.reciever;
-  //  console.log(eid);
-    //search for students
-
 
     studentEmailAuth.on("value", function(snapshot){
       for (var i = 0; i < snapshot.val().length; i++) {
@@ -50,7 +40,7 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
           break;
         }
         else{
-          //console.log("Student Not found ");
+
           auth = false;
         }
       }
@@ -64,7 +54,7 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
           break;
         }
         else{
-          //console.log("Vendor Not found");
+
           auth2 = false;
         }
       }
@@ -129,11 +119,9 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
             console.log(sender);
              var user1 = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+sender);
              var user2 = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+rec);
-            //  var obj = $firebaseAuth(firebaseObj);
+
             var user1Ref = user1.push();
             var user2Ref = user2.push();
-
-          //  if (first == "student") {
 
               user1Ref.set({
                 'Title': title,
@@ -152,14 +140,6 @@ MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) 
                   'Date': tDate,
                   'Time': tTime
                 });
-
-
-
-            /*obj.$createUser({
-              email: email,
-              password: password
-            })*/
-          //}
 
     }
         }

@@ -103,10 +103,7 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
   console.log("Loading Transaction Details...");
   myaccount.on("value", function(snapshot) {
     if (snapshot.val()) {
-    //  for (var i = 0; i < snapshot.val().length; i++) {
         $scope.transactions = $firebaseObject(myaccount);
-
-    //  }
     }
     else {
       jq('.errormessage').show();
@@ -269,15 +266,4 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
 }
   });
 
-
-
-  // $scope.details = function(e){
-  //   var absUrl ="";
-  //   absUrl = $location.absUrl();
-  //   console.log(absUrl);
-  //   absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
-  //   absUrl = absUrl + "/home/home.html#/transactions";
-  //   console.log(absUrl);
-  //   window.location.replace(absUrl);
-  // }
 }]);
