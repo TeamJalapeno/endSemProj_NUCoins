@@ -73,6 +73,29 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
 
   MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) {
 
+    this.withdrawal = function(accountEmail, amount, tDate, tTime) {
+      var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+accountEmail);
+      var ref3 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+accountEmail+"/Balance");   // accesing user 1's balance from the databse
+      var obj3 = new $firebaseObject(ref3);
+
+      obj3.$loaded().then(function(){
+        var existingBal = 0;
+        existingBal = parseInt(obj3.$value);
+        existingBal = existingBal - amount;
+        obj3.$value = existingBal;
+        obj3.$save();
+        var userdetail = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+accountEmail);
+        var userRef = userdetail.push();
+        userRef.set({
+          'Title': "Withdrawal",
+          'Description': "Withdrawal",
+          'Amount': amount,
+          'Date': tDate,
+          'Time': tTime
+        });
+      });
+    }
+
     this.TwoWayTransaction = function (sender, reciever, amount, title, description, tDate, tTime){
       var studentEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/studentEmail");
       var vendorEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/vendorEmail");
