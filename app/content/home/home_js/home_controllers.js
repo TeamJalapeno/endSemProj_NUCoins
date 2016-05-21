@@ -56,6 +56,16 @@ NCMainControllers.controller('RecentTransactionControl', function($scope, $fireb
   $scope.transactions = $firebaseArray(query);
 });
 
+NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $scope, $firebaseArray, $cookies) {
+  $scope.recharge = function(e) {
+    var code = $scope.rechargeCode;
+    var email = $cookies.get('sessionCookie');
+    email = email.substring(0, email.indexOf("@"));
+    email = email.toString();
+    RechargeService.Recharge(email, code);
+  }
+});
+
 NCMainControllers.controller('RecentEventsControl', function($scope, $firebaseArray, $cookies) {
   var myaccount = new Firebase("https://nustcoin.firebaseio.com/events");
 
