@@ -60,3 +60,21 @@
   color: red;
   display: none;
 }
+
+.sessionExpiredMessage {
+  margin-top: 50px;
+  color: red;
+}
+
+.feedback {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}

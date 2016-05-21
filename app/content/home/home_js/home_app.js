@@ -25,6 +25,11 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "partials/vendor.html",
       controller: 'LoginCheck'
     })
+    .state('loggedOut', {
+      url: "/loggedOut",
+      templateUrl: "partials/loggedOut.html",
+      controller: 'feedbackCtrl'
+    })
     .state('adminhomepage', {
       url: "/admin",
       templateUrl: "partials/admin.html",

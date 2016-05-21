@@ -18,11 +18,10 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
     var cookie = $cookies.get('sessionCookie');
 
     if (cookie == undefined) {
-      //to do if user is not logged in
-      window.alert("You are not logged in.");
       absUrl = $location.absUrl();
       absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
-      absUrl = absUrl + "/login/login.html";
+
+      absUrl = absUrl + "/login/sessionExpired.html";
       window.location.replace(absUrl);
     }
   });
@@ -33,7 +32,7 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
     var cookie = $cookies.get('sessionCookie');
     absUrl = $location.absUrl();
     absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
-    absUrl = absUrl + "/login/login.html";
+    absUrl = absUrl + "/login/loggedOut.html";
     window.location.replace(absUrl);
   }
 });
@@ -56,13 +55,19 @@ NCMainControllers.controller('RecentTransactionControl', function($scope, $fireb
   $scope.transactions = $firebaseArray(query);
 });
 
-NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $scope, $firebaseArray, $cookies) {
+NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $scope, $firebaseArray, $cookies, $filter) {
   $scope.recharge = function(e) {
     var code = $scope.rechargeCode;
     var email = $cookies.get('sessionCookie');
     email = email.substring(0, email.indexOf("@"));
     email = email.toString();
-    RechargeService.Recharge(email, code);
+    var date = new Date();
+    $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
+    $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
+    var tDate = $scope.ddMMyyyy;
+    var tTime = $scope.hhmmsstt;
+    RechargeService.Recharge(email, code, tDate, tTime);
+
   }
 });
 
@@ -323,4 +328,43 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
       })
     })
   })
+}]);
+
+NCMainControllers.controller('feedbackCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject',
+function($scope, $cookies, $location, $rootScope, $firebaseObject) {
+      var absUrl = "";
+  console.log("feedbackCtrl working");
+  $scope.LogOut = function() {
+    //delete cookie here
+    console.log("logout working");
+    $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
+    var cookie = $cookies.get('sessionCookie');
+    absUrl = $location.absUrl();
+    absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+    absUrl = absUrl + "/login/login.html";
+    window.location.replace(absUrl);
+  }
+
+  $scope.SubmitFeedback = function() {
+    //delete cookie here
+    console.log('Feedback submit working');
+    var Feedback = $scope.feedback;
+    console.log(Feedback);
+    var userEmail = $cookies.get('sessionCookie');
+    userEmail = userEmail.substring(0, userEmail.indexOf("@"));
+    var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
+    var obj = new $firebaseObject(ref);
+    obj.$loaded().then(function() {
+      ref.child(userEmail).update({
+        "Feedback" : Feedback
+      });
+      $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
+      var cookie = $cookies.get('sessionCookie');
+      absUrl = $location.absUrl();
+      absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+      absUrl = absUrl + "/login/login.html";
+      window.location.replace(absUrl);
+    })
+
+  }
 }]);
