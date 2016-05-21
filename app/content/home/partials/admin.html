@@ -28,14 +28,12 @@ jq( document ).ready(function() {
         <input type="text" placeholder="Transaction Description" ng-model="user.descriptions" required="required"/><br>
        <p><button ng-click='amount($event);'>Transfer</button><br>
 
-
+       </div>
        <p><h2>Transaction history</h2>
         <button ng-click='details($event);'>Transaction Details</button>
-       </div>
 
     </div>
     <div class = "col-md-4">
-
       <div class = "transactiondiv" ng-controller = "RecentTransactionControl">
         <br>Your Recent Transactions:
         <ul ng-repeat ="transaction in transactions">

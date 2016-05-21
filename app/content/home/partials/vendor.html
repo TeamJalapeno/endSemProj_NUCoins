@@ -4,7 +4,16 @@
 <div class = "page1" ng-controller='AddAmountCtrl'>
 <h1 > Welcome, {{userEmail}} </h1>
 <h2>Info: {{userType}}</h2>
-
-
-<div class = "amountAdder">
- </div>
+<p><h2>Transaction history</h2>
+ <button ng-click='details($event);'>Transaction Details</button>
+<div class = "transactiondiv" ng-controller = "RecentTransactionControl">
+  <br>Your Recent Transactions:
+  <ul ng-repeat ="transaction in transactions">
+    <li > <b>Title:</b>{{transaction.Title}} <br>
+      <b>Amount:</b>{{transaction.Amount}} <br>
+      <b>  Date:</b> {{transaction.Date }} <br>
+      <b>Time:</b> {{transaction.Time}} <br>
+      <b> Description:</b>  {{transaction.Description}}</li> <br>
+   <br>
+  </ul>
+</div>
