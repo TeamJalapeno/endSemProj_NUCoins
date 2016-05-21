@@ -32,7 +32,7 @@
 
       <div class = "transactiondiv" ng-controller = "RecentTransactionControl">
         <br>Your Recent Transactions:
-        <ul ng-repeat ="transaction in transactions">
+        <ul ng-repeat ="transaction in transactions.slice().reverse()">
           <li > <b>Title:</b>{{transaction.Title}} <br>
             <b>Amount:</b>{{transaction.Amount}} <br>
             <b>  Date:</b> {{transaction.Date }} <br>
@@ -44,7 +44,7 @@
 
       <div class = "eventsdiv" ng-controller = "RecentEventsControl">
         <br>Latest Events:
-        <ul ng-repeat ="event in events">
+        <ul ng-repeat ="event in events.slice().reverse()">
           <li > <b>Name:</b>{{event.name}} <br>
             <b> Description:</b>  {{event.snippet}}</li> <br>
          <br>

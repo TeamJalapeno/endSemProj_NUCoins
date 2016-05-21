@@ -73,7 +73,6 @@ NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $s
 
 NCMainControllers.controller('RecentEventsControl', function($scope, $firebaseArray, $cookies) {
   var myaccount = new Firebase("https://nustcoin.firebaseio.com/events");
-
   $scope.messages = $firebaseArray(myaccount);
   var query = myaccount.orderByChild("Age").limitToLast(3);
   $scope.events = $firebaseArray(query);
@@ -103,16 +102,25 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
   email = email.toLowerCase();
   email = email.toString();
 
-  var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
-  myaccount.on("value", function(snapshot) {
-    if (snapshot.val()) {
-      $scope.transactions = $firebaseObject(myaccount);
-    }
-    else {
-      jq('.errormessage').show();
-      $scope.error = "You don't have any transactions.";
-    }
+  // var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
+  var $load = jq('<div style = "width:100px;height:100px;"><img style = "width:150px;height:150px;"src="../../img/loading.gif"></div>').appendTo('.transactiondiv')
+  , myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email)
+  myaccount.on('value', function () {
+    $load.hide()
   })
+
+  $scope.messages = $firebaseArray(myaccount);
+  var query = myaccount.orderByChild("Age").limitToLast(50);
+  $scope.transactions = $firebaseArray(query);
+  // myaccount.on("value", function(snapshot) {
+  //   if (snapshot.val()) {
+  //     $scope.transactions = $firebaseObject(myaccount);
+  //   }
+  //   else {
+  //     jq('.errormessage').show();
+  //     $scope.error = "You don't have any transactions.";
+  //   }
+  // })
 });
 
 NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope,$firebaseObject, $cookies, $location, $filter) {
