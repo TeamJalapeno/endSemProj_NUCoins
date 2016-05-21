@@ -1,0 +1,32 @@
+{
+    "description": [
+      "ONE DAY TRIP TO KHANPUR",
+      "Cliff Diving, Jet Ski, Swimming, Paragliding.",
+      "Life Jackets will be provided to every person.",
+      " ",
+      "CLIFF DIVING:",
+      "It’s something that you should do at least once in your life.",
+      "  ",
+      "JET SKI:",
+      "An instructor will be provided with the jet ski.",
+      "   ",
+      "SWIMMING:",
+      "The only thing people love in summers. Don’t worry if you can’t swim there will be instructors and life jackets to help you swim.",
+      "    ",
+      "PARAGLIDING:",
+      "Additional charges will be applied for paragliding.",
+      "     ",
+      "Registration fee includes transport, food, swimming, jet ski, cliff diving and life jacket. The team of Next Events will be there to help you in every step."
+    ],
+    "id": "trip-to-khanpur",
+    "cost": "1500",
+    "images": [
+        "../../img/nevents.jpg",
+        "../../img/ne1.jpg",
+        "../../img/ne2.jpg"
+    ],
+    "name": "Next Events - Trip To Khanpur",
+    "date": "3rd June",
+    "link": "https://www.facebook.com/events/771583412943269/",
+    "recEmail": "taimoorkhalid@gmail.com"
+}

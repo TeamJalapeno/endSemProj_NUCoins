@@ -31,6 +31,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
         for (var i = 0; i < snapshot.val().length; i++) {
           if (reciever == snapshot.val()[i]) {
             auth = true;
+            console.log('auth wrk');
             break;
           }
           else{
@@ -77,7 +78,10 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
         second= obj2.$value;
         existingBal = parseInt(obj3.$value);    //user 1's existing balance in the database
         studentBal = parseInt(obj4.$value);    //user 2's existing balance in the database
-
+        console.log(first);
+        console.log(second);
+        console.log(transfer);
+        console.log(auth);
         // if user 1 is admin and user 2 is a student
         if(((first == "admin" && second =="student") || (first == "student" && second =="student") || (first == "student" && second =="vendor")) && ((auth ==true) || (auth2 == true))){
           if(existingBal >= amount)  { //checking if the amount user wants to transfer is available in his account
@@ -94,6 +98,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
 
             console.log(first+" to " +second+ " Transfer Completed");
             transfer = true;
+            console.log(transfer);
             if(transfer){
               console.log("yayy");
               console.log(sender);
@@ -120,10 +125,11 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
                 'Date': tDate,
                 'Time': tTime
               });
-
+              jq(".receipt").show();
             }
           }
           else{
+            jq(".recError").show();
           }
         }
         else{

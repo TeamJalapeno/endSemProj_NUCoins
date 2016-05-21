@@ -9,13 +9,17 @@
     </div>
 
     <div class="desEvent">
-      <br><p>{{event.description[0]}}</p>
-      <p>{{event.description[1]}}</p>
-      <p>{{event.description[2]}}</p>
-      <p>{{event.description[3]}}</p><br>
+      <br>
+      <p ng-repeat="x in event.description" class="">
+        {{x}}
+      </p>
+      <br>
     </div>
 
     <h3>Visit the event page on Facebook: <a target="_blank" href="{{event.link}}"><img ng-src="../../img/fb.png" class="fbLogo"></a></h3>
+    <div class="btn">
+      <a class="eButton2" href="#/eventsbuy/{{event.id}}">Buy Ticket</a>
+    </div>
   </div>
   <h1>Date: {{event.date}}</h1>
 </div>

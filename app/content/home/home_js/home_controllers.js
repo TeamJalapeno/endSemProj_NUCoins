@@ -199,7 +199,11 @@ NCMainControllers.controller('EventsBuyCtrl', ['TransactionService', 'PurchaseSe
 function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $http, $firebaseObject, Authentication, $filter) {
   $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
     $scope.event = data;
-
+    jq(".balError").hide();
+    jq(".recError").hide();
+    jq(".pwError").hide();
+    jq(".stuError").hide();
+    var stuCheck = true;
     var userEmail = $cookies.get('sessionCookie');
 
     userEmail = userEmail.substring(0, userEmail.indexOf("@"));
@@ -209,13 +213,24 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
       var balance = obj.$value;
       $scope.balance = balance;
       $scope.balance2 = balance - parseInt($scope.event.cost);
+      var reciever = $scope.event.recEmail;
+      if($scope.balance2 < 0) {
+        jq(".balance2").hide();
+        jq(".balError").show();
+      }
+      else if ($cookies.get('sessionCookie') == reciever) {
+        jq(".stuError").show();
+        jq(".balance2").hide();
+        stuCheck = false;
+      }
     })
-
+    if (stuCheck) {
     $scope.eventBuy = function(e) {
       var userEmail = $cookies.get('sessionCookie');
       var userPassword = $scope.userPassword;
       Authentication.login(userEmail, userPassword).then(function(){
         //use authData
+        jq(".pwError").hide();
         $scope.transactionCode = PurchaseService.GenerateCode();
 
         userEmail = userEmail.substring(0, userEmail.indexOf("@"));
@@ -230,15 +245,23 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
         $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
         var tDate = $scope.ddMMyyyy;
         var tTime = $scope.hhmmsstt;
-        TransactionService.TwoWayTransaction(userEmail, reciever, amount, title, description, tDate, tTime);
+
+        if (stuCheck)
+          TransactionService.TwoWayTransaction(userEmail, reciever, amount, title, description, tDate, tTime);
+        else {
+          jq(".stuError2").show();
+        }
+
         $scope.username = userEmail;
-        jq(".receipt").show();
 
       }, function(error){
         console.log("Password authentication failed!");
+        if (stuCheck)
+          jq(".pwError").show();
       });
 
     }
+  }
   });
 
 }]);

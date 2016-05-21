@@ -3,15 +3,19 @@
 <p>Transaction details:</p>
 <p> Cost for the event: {{event.cost}} </p>
 <p> Your current balance: {{balance}} </p>
-<p> Your balance after buying ticket: {{balance2}} </p></br></br>
+<p class="balError"> You've insufficient balance to buy this ticket.</p>
+<p class="stuError"> You can't buy ticket from yourself.</p>
+<p class="balance2"> Your balance after buying ticket: {{balance2}} </p></br></br>
 
 <div class = "amountAdder">
   For security purposes you are required to enter your password again
   <input type="password" ng-model="userPassword" placeholder="password"/><br>
 
-  <button ng-click='eventBuy($event);'>Create Receipt</button></br></br>
+  <button class="buyEventButton" ng-click='eventBuy($event);'>Create Receipt</button></br></br>
 </div>
-
+<p class="recError"> Your transaction can't be processed due to insufficient balance.</p>
+<p class="pwError"> You enterred wrong password, enter again.</p>
+<p class="stuError2"> You can't transfer coins in your own account yourself.</p>
 <div class = "receipt">
   Your code is {{transactionCode}} <br>
   Your username is {{username}} <br>
