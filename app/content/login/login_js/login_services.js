@@ -30,11 +30,9 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
     return email;
   }
 
-
   this.AuthEmail = function(useremail) {
     jq('.loading').show();
     jq('.emailerrormessage').hide();
-
 
     var auth = false;
     var authCode = "";

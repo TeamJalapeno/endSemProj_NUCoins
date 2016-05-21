@@ -1,7 +1,6 @@
 'use strict';
 
 /* Controllers */
-
 var NCLoginController = angular.module('NCLoginControllers', ['firebase', 'ngCookies']);
 
 NCLoginController.controller('LoginCtrl', ['$scope', '$location', 'LoginService', function($scope, $location, LoginService) {
@@ -20,7 +19,7 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', 'LoginService'
     var password = $scope.user.password;
     LoginService.SignIn(username, password);
   }
-
+  
   $scope.RegisterUser = function(e) {
     e.preventDefault();
     var firstName = $scope.user.firstName;
