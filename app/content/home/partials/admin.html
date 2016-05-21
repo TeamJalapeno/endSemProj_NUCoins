@@ -27,10 +27,10 @@ jq( document ).ready(function() {
         <p>Enter Description:
         <input type="text" placeholder="Transaction Description" ng-model="user.descriptions" required="required"/><br>
        <p><button ng-click='amount($event);'>Transfer</button><br>
-
+         <p><h2>Transaction history</h2>
+          <button ng-click='details($event);'>Transaction Details</button>
        </div>
-       <p><h2>Transaction history</h2>
-        <button ng-click='details($event);'>Transaction Details</button>
+
 
     </div>
     <div class = "col-md-4">
@@ -47,5 +47,11 @@ jq( document ).ready(function() {
       </div>
 
     </div>
+    <div ng-controller = "RechargeAccountCtrl">
+      <p>Enter code to recharge NUCoins
+      <input type="text" placeholder="recharge code" ng-model="rechargeCode"/><br>
+      <p><button ng-click='recharge($event);'>Recharge</button>
+    </div>
+
   </div>
 </div>
