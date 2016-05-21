@@ -193,7 +193,8 @@ function($scope, $http) {
   });
 }]);
 
-NCMainControllers.controller('PurchaseCtrl', function(Authentication, PurchaseService, $scope, $firebaseArray,$firebaseObject, $cookies, $location) {
+NCMainControllers.controller('WithdrawCtrl', function(Authentication, TransactionService, PurchaseService, $scope, $firebaseArray,$firebaseObject, $cookies,$filter,  $location) {
+
   $scope.receipt = function(e) {
     var userEmail = $cookies.get('sessionCookie');
     var userPassword = $scope.userPassword;
@@ -203,12 +204,13 @@ NCMainControllers.controller('PurchaseCtrl', function(Authentication, PurchaseSe
       $scope.email = userEmail;
       var amount = parseInt($scope.user.amount);
       userEmail = userEmail.substring(0, userEmail.indexOf("@"));
-      var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+userEmail+"/Balance");   // accesing user 1's balance from the databse
-      var obj = new $firebaseObject(ref);
-      var existingBal = obj.$value;    //user 1's existing balance in the database
-      existingBal = existingBal - amount;
-      obj.$value = existingBal;
-      obj.$save();
+      var date = new Date();
+      $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
+      $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
+      var tDate = $scope.ddMMyyyy;
+      var tTime = $scope.hhmmsstt;
+
+      TransactionService.withdrawal(userEmail, amount, tDate, tTime);
       jq(".receipt").show();
 
     }, function(error){

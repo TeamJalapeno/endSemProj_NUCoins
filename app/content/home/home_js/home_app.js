@@ -30,10 +30,10 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "partials/admin.html",
       controller: 'LoginCheck'
     })
-    .state('purchase', {
-      url: "/purchase",
-      templateUrl: "partials/purchase.html",
-      controller: 'PurchaseCtrl'
+    .state('withdraw', {
+      url: "/withdraw",
+      templateUrl: "partials/withdraw.html",
+      controller: 'WithdrawCtrl'
     })
     .state('receipt', {
       url: "/receipt",
