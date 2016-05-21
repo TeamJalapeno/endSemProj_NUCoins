@@ -55,7 +55,7 @@
   display: none;
 }
 
-.loginerrormessage, .emailerrormessage {
+.loginerrormessage, .emailerrormessage, .loginerrormessage2 {
   margin-top: 50px;
   color: red;
   display: none;

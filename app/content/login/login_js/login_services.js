@@ -119,73 +119,78 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
   }
 
   this.SignIn = function(useremail, userpassword) {
-    jq('.loading').show();
-    jq('.loginerrormessage').hide();
+    if (!userpassword) {
+      jq('.loginerrormessage2').show();
+    }
+    else {
+      jq('.loading').show();
+      jq('.loginerrormessage').hide();
+      jq('.loginerrormessage2').hide();
 
-    usersAccount.authWithPassword({
-      email: useremail,
-      password: userpassword
-    }, function(error, authData) {
-      if (error) {
-        //Failure callback
-        console.log('Authentication failure!');
-        jq('.loginerrormessage').show();
-        jq('.loading').hide();
+      usersAccount.authWithPassword({
+        email: useremail,
+        password: userpassword
+      }, function(error, authData) {
+        if (error) {
+          //Failure callback
+          console.log('Authentication failure!');
+          jq('.loginerrormessage').show();
+          jq('.loading').hide();
 
-      }
-      else {
-        //Success callback
-        var loginemail = authData.password.email;
-        //create new cookie
-        var now = new Date(),
-        // this will set the expiration to 100 seconds
-        exp = new Date(now.getTime() + (10000 * 1000));
+        }
+        else {
+          //Success callback
+          var loginemail = authData.password.email;
+          //create new cookie
+          var now = new Date(),
+          // this will set the expiration to 100 seconds
+          exp = new Date(now.getTime() + (10000 * 1000));
 
-        $cookies.put('sessionCookie', loginemail, {
-          expires: exp,
-          path: '/app/content/home/home.html'
-        });
+          $cookies.put('sessionCookie', loginemail, {
+            expires: exp,
+            path: '/app/content/home/home.html'
+          });
 
-        absUrl = $location.absUrl();
-        absUrl = absUrl.substring(0, absUrl.indexOf("/login/login.html"));
+          absUrl = $location.absUrl();
+          absUrl = absUrl.substring(0, absUrl.indexOf("/login/login.html"));
 
-        //get username
-        studentEmailAuth.on("value", function(snapshot) {
-          for (var i = 0; i < snapshot.val().length; i++) {
-            if (loginemail == snapshot.val()[i]) {
-              absUrl = absUrl + "/home/home.html#/student";
-              break;
+          //get username
+          studentEmailAuth.on("value", function(snapshot) {
+            for (var i = 0; i < snapshot.val().length; i++) {
+              if (loginemail == snapshot.val()[i]) {
+                absUrl = absUrl + "/home/home.html#/student";
+                break;
+              }
             }
-          }
-        }, function (errorObject) {
-          console.log("The read failed: " + errorObject.code);
-        });
-        vendorEmailAuth.on("value", function(snapshot) {
-          for (var i = 0; i < snapshot.val().length; i++) {
-            if (loginemail == snapshot.val()[i]) {
-              absUrl = absUrl + "/home/home.html#/vendor";
-              break;
+          }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+          });
+          vendorEmailAuth.on("value", function(snapshot) {
+            for (var i = 0; i < snapshot.val().length; i++) {
+              if (loginemail == snapshot.val()[i]) {
+                absUrl = absUrl + "/home/home.html#/vendor";
+                break;
+              }
             }
-          }
-        }, function (errorObject) {
-          console.log("The read failed: " + errorObject.code);
-        });
-        adminEmailAuth.on("value", function(snapshot) {
-          for (var i = 0; i < snapshot.val().length; i++) {
-            if (loginemail == snapshot.val()[i]) {
-              absUrl = absUrl + "/home/home.html#/admin";
-              break;
+          }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+          });
+          adminEmailAuth.on("value", function(snapshot) {
+            for (var i = 0; i < snapshot.val().length; i++) {
+              if (loginemail == snapshot.val()[i]) {
+                absUrl = absUrl + "/home/home.html#/admin";
+                break;
+              }
             }
-          }
-        }, function (errorObject) {
-          console.log("The read failed: " + errorObject.code);
-        });
-        jq('.loading').hide();
-        window.location.replace(absUrl);
-      }
-    });
+          }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+          });
+          jq('.loading').hide();
+          window.location.replace(absUrl);
+        }
+      });
+    }
   }
-
 
   this.RegisterUser = function(firstName, lastName, email, password, gender) {
 
