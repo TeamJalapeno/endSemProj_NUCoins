@@ -78,7 +78,7 @@ NCMainControllers.controller('RecentEventsControl', function($scope, $firebaseAr
   $scope.events = $firebaseArray(query);
 });
 
-NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
+NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $filter) {
   var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('.ev')
   , db = new Firebase("https://nustcoin.firebaseio.com/events")
   db.on('value', function () {
@@ -88,9 +88,32 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray) {
   var ref = new Firebase("https://nustcoin.firebaseio.com/events");
   // download the data into a local object
   $scope.events = $firebaseArray(ref);
-  // synchronize the object with a three-way data binding
-  // click on `index.html` above to see it used in the DOM!
-  // syncObject.$bindTo($scope, "events");
+
+  $scope.updateEvents = function() {
+    var date = new Date();
+    console.log(date);
+    var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('.ev')
+    , db = new Firebase("https://nustcoin.firebaseio.com/events")
+    db.on('value', function (snapshot) {
+      for(var i=0; i< snapshot.val().length; i++) {
+        //loop throught all events
+          // console.log(todaysDate);
+        console.log(snapshot.val()[i].date);
+        var eventDate = new Date(snapshot.val()[i].date);
+        console.log(eventDate);
+        if (eventDate <= date) {
+          console.log("event is past");
+          //delete event
+          var eventdb = new Firebase("https://nustcoin.firebaseio.com/events/" + i);
+          eventdb.remove();
+          break;
+        }
+      }
+      $load.hide();
+    })
+
+  }
+
 });
 
 //This control redirects to the Transaction Details page after clicking a button on homepage
@@ -112,15 +135,7 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
   $scope.messages = $firebaseArray(myaccount);
   var query = myaccount.orderByChild("Age").limitToLast(50);
   $scope.transactions = $firebaseArray(query);
-  // myaccount.on("value", function(snapshot) {
-  //   if (snapshot.val()) {
-  //     $scope.transactions = $firebaseObject(myaccount);
-  //   }
-  //   else {
-  //     jq('.errormessage').show();
-  //     $scope.error = "You don't have any transactions.";
-  //   }
-  // })
+
 });
 
 NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope,$firebaseObject, $cookies, $location, $filter) {

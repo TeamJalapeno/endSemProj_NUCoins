@@ -16,7 +16,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
   MainApp.service('RechargeService', function ($firebaseAuth, $firebaseObject) {
     this.Recharge = function(email, rechargeCode, tDate, tTime) {
       var db = new Firebase("https://nustcoin.firebaseio.com/Recharge/rechargeCodes");
-      var db2 = new Firebase("https://nustcoin.firebaseio.com//Recharge/codeValues");
+      var db2 = new Firebase("https://nustcoin.firebaseio.com/Recharge/codeValues");
 
       var ref = new Firebase("https://nustcoin.firebaseio.com/Recharge")
       var obj = new $firebaseObject(db);
@@ -37,7 +37,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
             console.log("You entered:" + rechargeCode);
             if (rechargeCode == snapshot.val()[i]) {
               db2.on("value", function(snapshot){
-                var ref2 = new Firebase("https://nustcoin.firebaseio.com//Recharge/codeValues/"+rechargeCode);
+                var ref2 = new Firebase("https://nustcoin.firebaseio.com/Recharge/codeValues/"+rechargeCode);
                 var obj2 = new $firebaseObject(ref2);
                 obj2.$loaded(),obj3.$loaded().then(function(){
                   amount = parseInt(obj2.$value);
