@@ -1,6 +1,8 @@
-<div>
-  <h1><img ng-src="{{event.images[0]}}" class="img-circle eventimage"> {{event.name}}</h1></span>
-  <div class="mainDiv">
+
+<h1><img ng-src="{{event.images[0]}}" class="img-circle eventimage"> {{event.name}}</h1></span>
+
+<div class="mainDiv">
+  <div class="outerDiv">
     <h2>Cost: {{event.cost}} NUCs</h2>
 
     <div class="imgDiv">
@@ -21,5 +23,5 @@
       <a class="eButton2" href="#/eventsbuy/{{event.id}}">Buy Ticket</a>
     </div>
   </div>
-  <h1>Date: {{event.date}}</h1>
 </div>
+<h1>Date: {{event.date}}</h1>

@@ -4,12 +4,14 @@
 
 <p>Search: <input ng-model="query"><br>
 
-<ul class="events">
-  <li ng-repeat="event in events | filter:query | orderBy:orderProp" class="thumbnail">
-    <a href="#/events/{{event.id}}"><img class = "img-circle eventimage" ng-src="{{event.imageUrl}}" alt="{{event.name}}"></a>
-    <a href="#/events/{{event.id}}">{{event.name}}</a>
-    <a class="eButton" href="#/eventsbuy/{{event.id}}">Buy Ticket</a>
-    <p>{{event.cost}} NUCs</p>
-    <p>{{event.snippet}}</p>
-  </li>
-</ul>
+<div class="ev">
+  <ul class="events">
+    <li ng-repeat="event in events | filter:query | orderBy:orderProp" class="thumbnail">
+      <a href="#/events/{{event.id}}"><img class = "img-circle eventimage" ng-src="{{event.imageUrl}}" alt="{{event.name}}"></a>
+      <a href="#/events/{{event.id}}">{{event.name}}</a>
+      <a class="eButton" href="#/eventsbuy/{{event.id}}">Buy Ticket</a>
+      <p>{{event.cost}} NUCs</p>
+      <p>{{event.snippet}}</p>
+    </li>
+  </ul>
+</div>
