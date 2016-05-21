@@ -14,62 +14,80 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
   });
 
   MainApp.service('RechargeService', function ($firebaseAuth, $firebaseObject) {
-    this.Recharge = function(email, rechargeCode) {
-      var db = new Firebase("https://nustcoin.firebaseio.com/rechargeCodes");
-      var db2 = new Firebase("https://nustcoin.firebaseio.com/codeValues");
+    this.Recharge = function(email, rechargeCode, tDate, tTime) {
+      var db = new Firebase("https://nustcoin.firebaseio.com/Recharge/rechargeCodes");
+      var db2 = new Firebase("https://nustcoin.firebaseio.com//Recharge/codeValues");
 
-     var ref = new Firebase("https://nustcoin.firebaseio.com/rechargeCodes/Code")
-     var obj = new $firebaseObject(ref);
+     var ref = new Firebase("https://nustcoin.firebaseio.com/Recharge")
+     var obj = new $firebaseObject(db);
 
      var ref3 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email+"/Balance");   // accesing user 1's balance from the databse
      var obj3 = new $firebaseObject(ref3);
 
+
      var found = false;
+     var amount = 0;
+     var check = false;
 
       console.log("Welcome to Recharge Service!");
-      console.log("You entered code: " +rechargeCode);
 
+   var i =0;
 
-
-      db.on("value", function(snapshot){
-       obj.$loaded().then(function(){
-        for(var i=0; i< snapshot.val().length; i++) {
-         if (rechargeCode == snapshot.val()[i]) {
-            console.log('Your code is valid');
+db.once("value", function(snapshot){
+   obj.$loaded().then(function(){
+    for(i=0; i< snapshot.val().length; i++) {
+        console.log("You entered:" + rechargeCode);
+       if (rechargeCode == snapshot.val()[i]) {
            db2.on("value", function(snapshot){
-             var ref2 = new Firebase("https://nustcoin.firebaseio.com/codeValues/"+rechargeCode);
+             var ref2 = new Firebase("https://nustcoin.firebaseio.com//Recharge/codeValues/"+rechargeCode);
              var obj2 = new $firebaseObject(ref2);
              obj2.$loaded(),obj3.$loaded().then(function(){
-              obj3.$value = parseInt(obj3.$value) + parseInt(obj2.$value); //value being added in the balance depending on card number
+               amount = parseInt(obj2.$value);
+               if( amount != 0){
+               amount = parseInt(obj2.$value);
+              obj3.$value = parseInt(obj3.$value) + amount; //value is being added in the balance depending on card code
               obj3.$save();
-              console.log(obj2.$value+" added");
-              console.log("Recharge Completed. Your new balance is: " +obj3.$value)
+              console.log(amount+" added");
+              console.log("Your new balance is: " +obj3.$value)
+              obj2.$value =0;
+              obj2.$save();
+              var userdetail = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
+              var userRef = userdetail.push();
+              userRef.set({
+                'Title':  "Account Recharge",
+                'Description': "Recharge code has been used",
+                'Amount': amount,
+                'Date': tDate,
+                'Time': tTime
 
-             })
-
+              })
+              console.log("Recharge Completed");
+            }
+            else{
+              //console.log("This code has been already used. Please use a valid code");
+            }
+               })
            })
-           found = true;
+            found = true;
             break;
-          }
-          else{
-            found = false;
-
-          }
-
         }
+        else{
+            found = false;
+          }
+
+     }
+
         if(found == false){
             console.log('The code you entered is Invalid. Please enter a valid Recharge Code');
         }
-      })
 
-      })
+  })
 
+});//db.on ends here
 
+  }//function ends here
 
-
-}
-
-  });
+});
 
   MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) {
 
