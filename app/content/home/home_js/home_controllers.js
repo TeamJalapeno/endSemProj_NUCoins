@@ -98,7 +98,6 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
       $scope.error = "You don't have any transactions.";
     }
   })
-
 });
 
 NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope, $cookies, $location, $filter) {
@@ -133,11 +132,20 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
   }
 });
 
-NCMainControllers.controller('EventDetailCtrl', ['$scope', '$stateParams', '$http',
-function($scope, $stateParams, $http) {
-  $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
-    $scope.event = data;
-  });
+NCMainControllers.controller('EventDetailCtrl', ['$scope', '$stateParams', '$http', '$firebaseArray',
+function($scope, $stateParams, $http, $firebaseArray) {
+  var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('body')
+  , db = new Firebase("https://nustcoin.firebaseio.com/eventDetails"+$stateParams.eventId)
+  db.on('value', function () {
+    $load.hide()
+  })
+
+  var ref = new Firebase("https://nustcoin.firebaseio.com/eventDetails/"+$stateParams.eventId);
+
+  ref.on("value", function(snapshot){
+    console.log(snapshot.val());
+    $scope.event = snapshot.val();
+  })
 }]);
 
 NCMainControllers.controller('FaqCtrl', ['$scope', '$http',
@@ -195,36 +203,49 @@ function($scope) {
   })
 }]);
 
-NCMainControllers.controller('EventsBuyCtrl', ['TransactionService', 'PurchaseService', '$cookies', '$scope', '$stateParams', '$http', '$firebaseObject', 'Authentication', '$filter',
-function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $http, $firebaseObject, Authentication, $filter) {
-  $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
-    $scope.event = data;
-    jq(".balError").hide();
-    jq(".recError").hide();
-    jq(".pwError").hide();
-    jq(".stuError").hide();
-    var stuCheck = true;
-    var userEmail = $cookies.get('sessionCookie');
+NCMainControllers.controller('EventsBuyCtrl', ['TransactionService', 'PurchaseService', '$cookies', '$scope', '$stateParams', '$http', '$firebaseObject', 'Authentication', '$filter', '$firebaseArray',
+function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $http, $firebaseObject, Authentication, $filter, $firebaseArray) {
+  // $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
+  //   $scope.event = data;
+  var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('body')
+  , db = new Firebase("https://nustcoin.firebaseio.com/eventDetails"+$stateParams.eventId)
+  db.on('value', function () {
+    $load.hide()
+  })
 
-    userEmail = userEmail.substring(0, userEmail.indexOf("@"));
-    var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+userEmail+"/Balance");   // accesing user 1's balance from the databse
-    var obj = new $firebaseObject(ref);
-    obj.$loaded().then(function() {
-      var balance = obj.$value;
-      $scope.balance = balance;
-      $scope.balance2 = balance - parseInt($scope.event.cost);
-      var reciever = $scope.event.recEmail;
-      if($scope.balance2 < 0) {
-        jq(".balance2").hide();
-        jq(".balError").show();
-      }
-      else if ($cookies.get('sessionCookie') == reciever) {
-        jq(".stuError").show();
-        jq(".balance2").hide();
-        stuCheck = false;
-      }
-    })
-    if (stuCheck) {
+  var ref = new Firebase("https://nustcoin.firebaseio.com/eventDetails/"+$stateParams.eventId);
+
+  ref.on("value", function(snapshot){
+    console.log(snapshot.val());
+    $scope.event = snapshot.val();
+  })
+
+  jq(".balError").hide();
+  jq(".recError").hide();
+  jq(".pwError").hide();
+  jq(".stuError").hide();
+  var stuCheck = true;
+  var userEmail = $cookies.get('sessionCookie');
+
+  userEmail = userEmail.substring(0, userEmail.indexOf("@"));
+  var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+userEmail+"/Balance");   // accesing user 1's balance from the databse
+  var obj = new $firebaseObject(ref);
+  obj.$loaded().then(function() {
+    var balance = obj.$value;
+    $scope.balance = balance;
+    $scope.balance2 = balance - parseInt($scope.event.cost);
+    var reciever = $scope.event.recEmail;
+    if($scope.balance2 < 0) {
+      jq(".balance2").hide();
+      jq(".balError").show();
+    }
+    else if ($cookies.get('sessionCookie') == reciever) {
+      jq(".stuError").show();
+      jq(".balance2").hide();
+      stuCheck = false;
+    }
+  })
+  if (stuCheck) {
     $scope.eventBuy = function(e) {
       var userEmail = $cookies.get('sessionCookie');
       var userPassword = $scope.userPassword;
@@ -247,7 +268,7 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
         var tTime = $scope.hhmmsstt;
 
         if (stuCheck)
-          TransactionService.TwoWayTransaction(userEmail, reciever, amount, title, description, tDate, tTime);
+        TransactionService.TwoWayTransaction(userEmail, reciever, amount, title, description, tDate, tTime);
         else {
           jq(".stuError2").show();
         }
@@ -257,11 +278,10 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
       }, function(error){
         console.log("Password authentication failed!");
         if (stuCheck)
-          jq(".pwError").show();
+        jq(".pwError").show();
       });
 
     }
-  }
-  });
+  };
 
 }]);
