@@ -48,9 +48,10 @@
   </nav>
   <div class="verticalSpan" ng-controller="FaqCtrl">
     <h1 class="heading1">Frequently Asked Questions</h1>
+    <p>Search: <input ng-model="query"><br>
     <div class="div1">
       <ul class="div2">
-        <li ng-repeat="q in faq" class="thumbnail">
+        <li ng-repeat="q in faq | filter:query" class="thumbnail">
           <p><b>{{q.question}}</b></p>
           <p>{{q.answer}}</p>
         </li>

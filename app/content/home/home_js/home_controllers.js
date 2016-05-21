@@ -118,8 +118,8 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
 NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope,$firebaseObject, $cookies, $location, $filter) {
 
   $scope.userEmail = $cookies.get('sessionCookie').substring(0, $cookies.get('sessionCookie').indexOf("@"));
-
-  $scope.userCoins = function() {
+  updateCoins();
+  function updateCoins() {
     var email = $cookies.get('sessionCookie');
     email = email.substring(0, email.indexOf("@"));
     email = email.toLowerCase();
@@ -149,6 +149,11 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
     var tTime = $scope.hhmmsstt;
 
     TransactionService.TwoWayTransaction(email, reciever, amount, title, description, tDate, tTime);
+
+  }
+
+  $scope.userCoins = function() {
+    updateCoins();
   }
 
   $scope.details = function(e){
