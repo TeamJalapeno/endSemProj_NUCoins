@@ -103,3 +103,12 @@ div {
 .ev {
   width: 100%;
 }
+
+.loading {
+  background: url("../img/loading.gif") no-repeat left top;
+  background-size: 100px 80px;
+  margin: 0 auto;
+  height: 100px;
+  width: 100px;
+  display: none;
+}

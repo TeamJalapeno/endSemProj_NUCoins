@@ -265,8 +265,6 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
       console.log(snapshot.val());
       $scope.event = snapshot.val();
 
-
-
       var stuCheck = true;
       var userEmail = $cookies.get('sessionCookie');
 
@@ -332,7 +330,7 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
 
 NCMainControllers.controller('feedbackCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject',
 function($scope, $cookies, $location, $rootScope, $firebaseObject) {
-      var absUrl = "";
+  var absUrl = "";
   console.log("feedbackCtrl working");
   $scope.LogOut = function() {
     //delete cookie here
@@ -367,4 +365,76 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
     })
 
   }
+}]);
+
+NCMainControllers.controller('profileCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject', '$firebaseArray',
+function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArray) {
+  //var absUrl = "";
+  $scope.user = {};
+  jq('.succMessage').hide();
+  jq('.errMessage1').hide();
+  jq('.errMessage2').hide();
+  jq('.errMessage3').hide();
+  jq('.succMessage2').hide();
+
+  console.log("profileCtrl working");
+
+  var email = $cookies.get('sessionCookie');
+  email = email.substring(0, email.indexOf("@"));
+  console.log(email);
+  var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
+  var ref2 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email)
+  var obj = new $firebaseObject(ref);
+  var obj2 = new $firebaseObject(ref2);
+
+  obj.$loaded(),obj2.$loaded().then(function() {
+    ref2.on("value", function(snapshot) {
+      var user = snapshot.val();
+      $scope.user = user;
+      $scope.Update = function() {
+        user = $scope.user;
+        ref.child(email).update({
+          "Feedback" : user.Feedback,
+          "FirstName" : user.FirstName,
+          "LastName" : user.LastName
+        });
+        jq('.succMessage').show();
+      }
+
+      $scope.Update2 = function() {
+        jq('.errMessage1').hide();
+        jq('.errMessage2').hide();
+        jq('.errMessage3').hide();
+        jq('.succMessage2').hide();
+        var oPw = $scope.oPw;
+        var nPw = $scope.nPw;
+        ref.changePassword({
+          email: $cookies.get('sessionCookie'),
+          oldPassword: oPw,
+          newPassword: nPw
+        }, function(error) {
+          if (error) {
+            switch (error.code) {
+              case "INVALID_PASSWORD":
+              console.log("The specified user account password is incorrect.");
+              jq('.errMessage1').show();
+              break;
+              case "INVALID_USER":
+              console.log("The specified user account does not exist.");
+              jq('.errMessage2').show();
+              break;
+              default:
+              console.log("Error changing password:", error);
+              jq('.errMessage3').show();
+            }
+          } else {
+            console.log("User password changed successfully!");
+            jq('.succMessage2').show();
+          }
+        });
+      }
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+  })
 }]);

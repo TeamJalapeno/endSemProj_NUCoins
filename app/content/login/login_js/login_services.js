@@ -30,11 +30,9 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
     return email;
   }
 
-
   this.AuthEmail = function(useremail) {
     jq('.loading').show();
     jq('.emailerrormessage').hide();
-
 
     var auth = false;
     var authCode = "";
@@ -144,7 +142,7 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
           //create new cookie
           var now = new Date(),
           // this will set the expiration to 100 seconds
-          exp = new Date(now.getTime() + (100 * 1000));
+          exp = new Date(now.getTime() + (10000 * 1000));
 
           $cookies.put('sessionCookie', loginemail, {
             expires: exp,
@@ -202,8 +200,8 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
 
       if (isStudent) {
         usersRef.set({
-          'First Name': firstName,
-          'Last Name': lastName,
+          'FirstName': firstName,
+          'LastName': lastName,
           'Gender': gender,
           'Email': email,
           'Balance': '10',
@@ -212,8 +210,8 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
       }
       else if (isAdmin){
         usersRef.set({
-          'First Name': firstName,
-          'Last Name': lastName,
+          'FirstName': firstName,
+          'LastName': lastName,
           'Gender': gender,
           'Email': email,
           'Balance': '10',
@@ -222,8 +220,8 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
       }
       else if (isVendor){
         usersRef.set({
-          'First Name': firstName,
-          'Last Name': lastName,
+          'FirstName': firstName,
+          'LastName': lastName,
           'Gender': gender,
           'Email': email,
           'Balance': '10',
