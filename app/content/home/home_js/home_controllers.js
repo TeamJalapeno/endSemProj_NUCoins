@@ -56,13 +56,19 @@ NCMainControllers.controller('RecentTransactionControl', function($scope, $fireb
   $scope.transactions = $firebaseArray(query);
 });
 
-NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $scope, $firebaseArray, $cookies) {
+NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $scope, $firebaseArray, $cookies, $filter) {
   $scope.recharge = function(e) {
     var code = $scope.rechargeCode;
     var email = $cookies.get('sessionCookie');
     email = email.substring(0, email.indexOf("@"));
     email = email.toString();
-    RechargeService.Recharge(email, code);
+    var date = new Date();
+    $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
+    $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
+    var tDate = $scope.ddMMyyyy;
+    var tTime = $scope.hhmmsstt;
+    RechargeService.Recharge(email, code, tDate, tTime);
+
   }
 });
 
