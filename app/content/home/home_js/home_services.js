@@ -16,34 +16,59 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
   MainApp.service('RechargeService', function ($firebaseAuth, $firebaseObject) {
     this.Recharge = function(email, rechargeCode) {
       var db = new Firebase("https://nustcoin.firebaseio.com/rechargeCodes");
-      var codelink = new Firebase("https://nustcoin.firebaseio.com/rechargeCodes" + rechargeCode);
-      var ref3 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email+"/Balance");   // accesing user 1's balance from the databse
-      var obj3 = new $firebaseObject(ref3);
+      var db2 = new Firebase("https://nustcoin.firebaseio.com/codeValues");
 
-      var amount = 0;
+     var ref = new Firebase("https://nustcoin.firebaseio.com/rechargeCodes/Code")
+     var obj = new $firebaseObject(ref);
 
-      console.log("rechargeservice");
-      console.log(rechargeCode);
-      console.log(email);
+     var ref3 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email+"/Balance");   // accesing user 1's balance from the databse
+     var obj3 = new $firebaseObject(ref3);
 
-      // var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('body')
-      // ,
+     var found = false;
+
+      console.log("Welcome to Recharge Service!");
+      console.log("You entered code: " +rechargeCode);
+
+
+
       db.on("value", function(snapshot){
-        for (var i = 0; i < snapshot.val().length; i++) {
-          if (rechargeCode == snapshot.val()[i]) {
-            console.log('RechargeCode found');
-            amount = parseInt(obj3.$value);
-            amount = amount + 500;
-            obj3.$value = parseInt(amount);
-            obj3.$save();
+       obj.$loaded().then(function(){
+        for(var i=0; i< snapshot.val().length; i++) {
+         if (rechargeCode == snapshot.val()[i]) {
+            console.log('Your code is valid');
+           db2.on("value", function(snapshot){
+             var ref2 = new Firebase("https://nustcoin.firebaseio.com/codeValues/"+rechargeCode);
+             var obj2 = new $firebaseObject(ref2);
+             obj2.$loaded(),obj3.$loaded().then(function(){
+              obj3.$value = parseInt(obj3.$value) + parseInt(obj2.$value); //value being added in the balance depending on card number
+              obj3.$save();
+              console.log(obj2.$value+" added");
+              console.log("Recharge Completed. Your new balance is: " +obj3.$value)
+
+             })
+
+           })
+           found = true;
             break;
           }
           else{
-            console.log('RechargeCode not found');
+            found = false;
+
           }
+
         }
-      });
-    }
+        if(found == false){
+            console.log('The code you entered is Invalid. Please enter a valid Recharge Code');
+        }
+      })
+
+      })
+
+
+
+
+}
+
   });
 
   MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) {
