@@ -144,11 +144,7 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
           //create new cookie
           var now = new Date(),
           // this will set the expiration to 100 seconds
-<<<<<<< HEAD
           exp = new Date(now.getTime() + (10000 * 1000));
-=======
-          exp = new Date(now.getTime() + (100000 * 1000));
->>>>>>> d943a217a1de6a00962dd8f1c75511029c61b000
 
           $cookies.put('sessionCookie', loginemail, {
             expires: exp,
