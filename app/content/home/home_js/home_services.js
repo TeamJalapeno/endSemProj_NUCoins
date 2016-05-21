@@ -30,24 +30,42 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
      var check = false;
 
       console.log("Welcome to Recharge Service!");
-      console.log("You entered code: " +rechargeCode);
 
    var i =0;
 
-db.on("value", function(snapshot){
+db.once("value", function(snapshot){
    obj.$loaded().then(function(){
     for(i=0; i< snapshot.val().length; i++) {
+        console.log("You entered:" + rechargeCode);
        if (rechargeCode == snapshot.val()[i]) {
-            console.log('Your code is valid');
            db2.on("value", function(snapshot){
              var ref2 = new Firebase("https://nustcoin.firebaseio.com//Recharge/codeValues/"+rechargeCode);
              var obj2 = new $firebaseObject(ref2);
              obj2.$loaded(),obj3.$loaded().then(function(){
                amount = parseInt(obj2.$value);
+               if( amount != 0){
+               amount = parseInt(obj2.$value);
               obj3.$value = parseInt(obj3.$value) + amount; //value is being added in the balance depending on card code
               obj3.$save();
               console.log(amount+" added");
-              console.log("Recharge Completed. Your new balance is: " +obj3.$value)
+              console.log("Your new balance is: " +obj3.$value)
+              obj2.$value =0;
+              obj2.$save();
+              var userdetail = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
+              var userRef = userdetail.push();
+              userRef.set({
+                'Title':  "Account Recharge",
+                'Description': "Recharge code has been used",
+                'Amount': amount,
+                'Date': tDate,
+                'Time': tTime
+
+              })
+              console.log("Recharge Completed");
+            }
+            else{
+              //console.log("This code has been already used. Please use a valid code");
+            }
                })
            })
             found = true;
@@ -62,34 +80,6 @@ db.on("value", function(snapshot){
         if(found == false){
             console.log('The code you entered is Invalid. Please enter a valid Recharge Code');
         }
-        else{
-          var userdetail = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email);
-          var newref = new Firebase("https://nustcoin.firebaseio.com//Recharge/codeValues/"+rechargeCode);
-          var newobj = new $firebaseObject(newref);
-          console.log(userdetail);
-          var userRef = userdetail.push();
-          newobj.$loaded().then(function(){userRef.set({
-            'Title':  "Account Recharge",
-            'Description': "Recharge code has been used",
-            'Amount': amount,
-            'Date': tDate,
-            'Time': tTime
-
-          })
-           check = true;
-           var del = new Firebase("https://nustcoin.firebaseio.com//Recharge/codeValues/"+rechargeCode);
-           var del2 = new Firebase("https://nustcoin.firebaseio.com//Recharge/rechargeCodes/"+i);
-
-           del.remove(); // deletes a child from codeVolues ensuring one time use of the card
-          del2.remove()
-           //del2.child(i).remove(); // deletes a child from rechargeCodes ensuring one time use of the card
-           console.log("deleted");
-
-        });
-
-
-        }
-
 
   })
 
