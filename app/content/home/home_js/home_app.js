@@ -15,6 +15,11 @@ MainApp.config(function($stateProvider, $urlRouterProvider) {
       url: "/",
       controller: 'LoginCheck'
     })
+    .state('profile', {
+      url: "/profile",
+      templateUrl: "partials/profile.html",
+      controller: 'profileCtrl'
+    })
     .state('studenthomepage', {
       url: "/student",
       templateUrl: "partials/student.html",
