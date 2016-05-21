@@ -117,7 +117,7 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
 
 NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope,$firebaseObject, $cookies, $location, $filter) {
 
-  $scope.userEmail = $cookies.get('sessionCookie').substring(0, $cookies.get('sessionCookie').indexOf("@"));
+  //$scope.userEmail = $cookies.get('sessionCookie').substring(0, $cookies.get('sessionCookie').indexOf("@"));
   updateCoins();
   function updateCoins() {
     var email = $cookies.get('sessionCookie');
@@ -126,9 +126,11 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
     email = email.toString();
     var ref3 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email+"/Balance");   // accesing user 1's balance from the databse
     var obj3 = new $firebaseObject(ref3);
-    obj3.$loaded().then(function() {
-      console.log(obj3.$value);
+    var ref4 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email+"/FirstName");
+    var obj4 = new $firebaseObject(ref4);
+    obj3.$loaded(),obj4.$loaded().then(function() {
       $scope.coins = obj3.$value;
+      $scope.name = obj4.$value;
     });
   }
 
@@ -137,7 +139,7 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
     email = email.substring(0, email.indexOf("@"));
     email = email.toLowerCase();
     email = email.toString();
-    $scope.userEmail = $cookies.get('sessionCookie');
+    //$scope.userEmail = $cookies.get('sessionCookie');
     var reciever = $scope.user.receiver;
     var amount = $scope.user.amount;
     var title = $scope.user.titles;
