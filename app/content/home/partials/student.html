@@ -2,12 +2,13 @@
 
 <div class = "jumbotron" ng-controller='AddAmountCtrl'>
 <h1 > Welcome, {{userEmail}} </h1>
-<h3>Your account history is as follows:</h3>
+<h3>Your NUCoins: {{coins}}</h3>
+ <p><button ng-click='userCoins();'>Refresh coins</button><br>
 </div>
 
 <div class="container">
   <div class = "row">
-    <div class = "col-md-8">
+    <div class = "col-md-7">
 
       <div class = "amountAdder" ng-controller='AddAmountCtrl'>
         <h2>Transaction</h2>
@@ -21,13 +22,18 @@
         <input type="text" placeholder="Transaction Description" ng-model="user.descriptions" required="required"/><br>
        <p><button ng-click='amount($event);'>Transfer</button><br>
 
+         <div ng-controller = "RechargeAccountCtrl">
+           <p>Enter code to recharge NUCoins
+           <input type="text" placeholder="recharge code" ng-model="rechargeCode"/><br>
+           <p><button ng-click='recharge($event);'>Recharge</button>
+         </div>
 
        <p><h2>Transaction history</h2>
         <button ng-click='details($event);'>Transaction Details</button>
        </div>
 
     </div>
-    <div class = "col-md-4">
+    <div class = "col-md-5">
 
       <div class = "transactiondiv" ng-controller = "RecentTransactionControl">
         <br>Your Recent Transactions:
@@ -37,6 +43,15 @@
             <b>  Date:</b> {{transaction.Date }} <br>
             <b>Time:</b> {{transaction.Time}} <br>
             <b> Description:</b>  {{transaction.Description}}</li> <br>
+         <br>
+        </ul>
+      </div>
+
+      <div class = "eventsdiv" ng-controller = "RecentEventsControl">
+        <br>Latest Events:
+        <ul ng-repeat ="event in events">
+          <li > <b>Name:</b>{{event.name}} <br>
+            <b> Description:</b>  {{event.snippet}}</li> <br>
          <br>
         </ul>
       </div>

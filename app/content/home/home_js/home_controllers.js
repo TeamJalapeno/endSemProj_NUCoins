@@ -56,11 +56,21 @@ NCMainControllers.controller('RecentTransactionControl', function($scope, $fireb
   $scope.transactions = $firebaseArray(query);
 });
 
+NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $scope, $firebaseArray, $cookies) {
+  $scope.recharge = function(e) {
+    var code = $scope.rechargeCode;
+    var email = $cookies.get('sessionCookie');
+    email = email.substring(0, email.indexOf("@"));
+    email = email.toString();
+    RechargeService.Recharge(email, code);
+  }
+});
+
 NCMainControllers.controller('RecentEventsControl', function($scope, $firebaseArray, $cookies) {
   var myaccount = new Firebase("https://nustcoin.firebaseio.com/events");
 
   $scope.messages = $firebaseArray(myaccount);
-  var query = myaccount.orderByChild("Age").limitToLast(5);
+  var query = myaccount.orderByChild("Age").limitToLast(3);
   $scope.events = $firebaseArray(query);
 });
 
@@ -100,9 +110,22 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
   })
 });
 
-NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope, $cookies, $location, $filter) {
+NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope,$firebaseObject, $cookies, $location, $filter) {
 
   $scope.userEmail = $cookies.get('sessionCookie').substring(0, $cookies.get('sessionCookie').indexOf("@"));
+
+  $scope.userCoins = function() {
+    var email = $cookies.get('sessionCookie');
+    email = email.substring(0, email.indexOf("@"));
+    email = email.toLowerCase();
+    email = email.toString();
+    var ref3 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email+"/Balance");   // accesing user 1's balance from the databse
+    var obj3 = new $firebaseObject(ref3);
+    obj3.$loaded().then(function() {
+      console.log(obj3.$value);
+      $scope.coins = obj3.$value;
+    });
+  }
 
   $scope.amount = function(e){
     var email = $cookies.get('sessionCookie');

@@ -13,6 +13,39 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
 
   });
 
+  MainApp.service('RechargeService', function ($firebaseAuth, $firebaseObject) {
+    this.Recharge = function(email, rechargeCode) {
+      var db = new Firebase("https://nustcoin.firebaseio.com/rechargeCodes");
+      var codelink = new Firebase("https://nustcoin.firebaseio.com/rechargeCodes" + rechargeCode);
+      var ref3 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email+"/Balance");   // accesing user 1's balance from the databse
+      var obj3 = new $firebaseObject(ref3);
+
+      var amount = 0;
+
+      console.log("rechargeservice");
+      console.log(rechargeCode);
+      console.log(email);
+
+      // var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('body')
+      // ,
+      db.on("value", function(snapshot){
+        for (var i = 0; i < snapshot.val().length; i++) {
+          if (rechargeCode == snapshot.val()[i]) {
+            console.log('RechargeCode found');
+            amount = parseInt(obj3.$value);
+            amount = amount + 500;
+            obj3.$value = parseInt(amount);
+            obj3.$save();
+            break;
+          }
+          else{
+            console.log('RechargeCode not found');
+          }
+        }
+      });
+    }
+  });
+
   MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) {
 
     this.TwoWayTransaction = function (sender, reciever, amount, title, description, tDate, tTime){
