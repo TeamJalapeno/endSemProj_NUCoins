@@ -3,9 +3,10 @@
 
 <div class ="Page1">
 <h1> Transaction Details Page </h1>
+<p>Search: <input ng-model="query"><br>
 
 <h3>
-  <ul ng-repeat ="transaction in transactions.slice().reverse()">
+  <ul ng-repeat ="transaction in transactions.slice().reverse() | filter:query">
 
   <li > <b>Title:</b>{{transaction.Title }} <b>&nbspAmount:</b>{{transaction.Amount }} <b>&nbspDate:</b> {{transaction.Date }} <b>&nbspTime:</b> {{transaction.Time }} <b>&nbspDescription:</b>  {{transaction.Description}}</li><br>
 
