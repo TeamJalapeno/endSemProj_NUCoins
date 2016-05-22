@@ -52,6 +52,7 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
 });
 
 NCMainControllers.controller('RecentTransactionControl', function($scope, $firebaseArray, $cookies) {
+  jq(".noRecents").hide();
   var ref = new Firebase("https://nustcoin.firebaseio.com");
   var authData = ref.getAuth();
   var email = authData.password.email;
@@ -69,6 +70,12 @@ NCMainControllers.controller('RecentTransactionControl', function($scope, $fireb
   $scope.messages = $firebaseArray(myaccount);
   var query = myaccount.orderByChild("Age").limitToLast(5);
   $scope.transactions = $firebaseArray(query);
+  console.log($scope.transactions.length);
+  var length = parseInt($scope.transactions.length);
+  console.log(length);
+  if(length == 0){
+    jq(".noRecents").show();
+  }
 });
 
 NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $scope, $firebaseArray, $cookies, $filter) {
@@ -155,6 +162,7 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $
 NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebaseArray, $firebaseObject, $cookies, $location) {
   jq('.errormessage').hide();
 
+
   var ref = new Firebase("https://nustcoin.firebaseio.com");
   var authData = ref.getAuth();
   var email = authData.password.email;
@@ -172,11 +180,14 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
   $scope.messages = $firebaseArray(myaccount);
   var query = myaccount.orderByChild("Age").limitToLast(50);
   $scope.transactions = $firebaseArray(query);
+  if($scope.transactions.length == 0){
+    jq('.errormessage').show();  //no transactions
+  }
 
 });
 
 NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope,$firebaseObject, $cookies, $location, $filter) {
-     jq(".errorMsg").show();
+     jq(".errorMsg").hide();
      jq(".invalidEmail").hide();
   //$scope.userEmail = $cookies.get('sessionCookie').substring(0, $cookies.get('sessionCookie').indexOf("@"));
   updateCoins();
