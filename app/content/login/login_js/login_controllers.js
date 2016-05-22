@@ -57,3 +57,15 @@ jq('#userPassword').focus(function() {
     jq('.loginerrormessage2').hide();
     jq(".accountcreation").hide();
 });
+jq('#pw').focus(function() {
+    jq('.generalError').hide();
+});
+jq('#fName').focus(function() {
+    jq('.generalError').hide();
+});
+jq('#lName').focus(function() {
+    jq('.generalError').hide();
+});
+jq('#gender').focus(function() {
+    jq('.generalError').hide();
+});
