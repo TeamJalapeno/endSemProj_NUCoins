@@ -86,14 +86,16 @@
                   </form>
                   <form class="register-form">
                     <div class="registerrequired">You need to register</div>
-                    <input type="text" placeholder="first name" ng-model="user.firstName" required="required" autofocus=""/>
-                    <input type="text" placeholder="last name" ng-model="user.lastName" required="required"/>
-                    <label class="radio-button"><input type="radio" ng-model="user.gender" value="Male" required="required"> Male</label>
-                    <label class="radio-button"><input type="radio" ng-model="user.gender" value="Female" required="required"> Female<br></label>
+                    <input type="text" placeholder="first name" ng-model="user.firstName" required="" autofocus=""/>
+                    <input type="text" placeholder="last name" ng-model="user.lastName" required=""/>
+                    <label class="radio-button"><input type="radio" ng-model="user.gender" value="Male" required=""> Male</label>
+                    <label class="radio-button"><input type="radio" ng-model="user.gender" value="Female" required=""> Female<br></label>
                     <input type="email" placeholder="email" ng-model="user.email" disabled=""/>
                     <input type="password" placeholder="password" ng-model="user.password" required=""/>
 
                     <button class = "register" ng-click="RegisterUser($event)">create</button>
+                    <div class="generalError">Please provide all the information to continue</div>
+
                     <!-- <p class="message">Already registered? <a href="#">Sign In</a></p> -->
                   </form>
                   <div class="registerloading"></div>
