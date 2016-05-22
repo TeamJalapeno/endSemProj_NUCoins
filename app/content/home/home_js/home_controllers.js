@@ -60,11 +60,11 @@ NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $s
     var code = $scope.rechargeCode;
     var email = $cookies.get('sessionCookie');
     var adminEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/adminEmail");
-  var admin;
+    var admin;
     adminEmailAuth.on("value", function(snapshot){
       for (var i = 0; i < snapshot.val().length; i++) {
         if (email == snapshot.val()[i]) {
-           admin = true;
+          admin = true;
           console.log('admin is recharging');
           break;
         }
@@ -72,7 +72,7 @@ NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $s
           admin = false;  //could be a student or a vendor
         }
       }
-    //  console.log(admin);
+      //  console.log(admin);
 
       email = email.substring(0, email.indexOf("@"));
       email = email.toString();
@@ -304,6 +304,7 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
   jq(".balError").hide();
   jq(".recError").hide();
   jq(".pwError").hide();
+  jq(".pwError2").hide();
   jq(".stuError").hide();
   jq(".stuError2").hide();
 
@@ -338,39 +339,48 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
 
         if (stuCheck) {
           $scope.eventBuy = function(e) {
+            jq(".pwError").hide();
+            jq(".pwError2").hide();
             var userEmail = $cookies.get('sessionCookie');
             var userPassword = $scope.userPassword;
-            Authentication.login(userEmail, userPassword).then(function(){
-              //use authData
-              jq(".pwError").hide();
-              $scope.transactionCode = PurchaseService.GenerateCode();
+            if(!userPassword)
+              jq('.pwError2').show();
+            else {
+              Authentication.login(userEmail, userPassword).then(function(){
+                //use authData
 
-              userEmail = userEmail.substring(0, userEmail.indexOf("@"));
-              userEmail = userEmail.toLowerCase();
-              userEmail = userEmail.toString();
-              var reciever = $scope.event.recEmail;
-              var amount = parseInt($scope.event.cost);
-              var title = "Bought ticket";
-              var description = "Bought "+ $scope.event.name+"'s event  ticket for " + $scope.event.cost+ " NUCs.";
-              var date = new Date();
-              $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
-              $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
-              var tDate = $scope.ddMMyyyy;
-              var tTime = $scope.hhmmsstt;
+                $scope.transactionCode = PurchaseService.GenerateCode();
 
-              if (stuCheck)
-              TransactionService.TwoWayTransaction(userEmail, reciever, amount, title, description, tDate, tTime);
-              else {
-                jq(".stuError2").show();
-              }
+                userEmail = userEmail.substring(0, userEmail.indexOf("@"));
+                userEmail = userEmail.toLowerCase();
+                userEmail = userEmail.toString();
+                var reciever = $scope.event.recEmail;
+                var amount = parseInt($scope.event.cost);
+                var title = "Bought ticket";
+                var description = "Bought "+ $scope.event.name+"'s event  ticket for " + $scope.event.cost+ " NUCs.";
+                var date = new Date();
+                $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
+                $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
+                var tDate = $scope.ddMMyyyy;
+                var tTime = $scope.hhmmsstt;
 
-              $scope.username = userEmail;
+                if (stuCheck) {
+                  TransactionService.TwoWayTransaction(userEmail, reciever, amount, title, description, tDate, tTime);
+                  userPassword = "";
+                  $scope.userPassword = userPassword;
+                }
+                else {
+                  jq(".stuError2").show();
+                }
 
-            }, function(error){
-              console.log("Password authentication failed!");
-              if (stuCheck)
-              jq(".pwError").show();
-            });
+                $scope.username = userEmail;
+
+              }, function(error){
+                console.log("Password authentication failed!");
+                if (stuCheck)
+                jq(".pwError").show();
+              });
+            }
           }
         };
       })

@@ -10,12 +10,13 @@
 
   <div class = "amountAdder">
     For security purposes you are required to enter your password again
-    <input type="password" ng-model="userPassword" placeholder="password"/><br>
+    <input id="pw2" type="password" ng-model="userPassword" placeholder="password"/><br>
 
-    <button class="buyEventButton" ng-click='eventBuy($event);'>Create Receipt</button></br></br>
+    <button class="buyEventButton" ng-click='eventBuy($event)'>Create Receipt</button></br></br>
   </div>
   <p class="recError"> Your transaction can't be processed due to insufficient balance.</p>
   <p class="pwError"> You enterred wrong password, enter again.</p>
+  <p class="pwError2"> Please enter a password to proceed.</p>
   <p class="stuError2"> You can't transfer coins in your own account yourself.</p>
   <div class = "receipt">
     Your code is {{transactionCode}} <br>
