@@ -55,7 +55,7 @@
   display: none;
 }
 
-.loginerrormessage, .emailerrormessage, .loginerrormessage2, .generalError {
+.loginerrormessage, .emailerrormessage, .loginerrormessage2, .generalError, .sessionexpired {
   margin-top: 50px;
   color: red;
   display: none;

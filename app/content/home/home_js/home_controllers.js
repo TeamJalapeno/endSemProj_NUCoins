@@ -14,31 +14,48 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
     // viewConfig.targetView
     var absUrl = "";
 
+    // if (authData) {
+    //   console.log("Authenticated user with uid:", authData.password.email);
+    // }
+
     //check for cookie, if exists keep log in, if not redirect the user to login page
     var cookie = $cookies.get('sessionCookie');
+    console.log(cookie);
+    // $scope.user.savedemail = cookie;
 
-    if (cookie == undefined) {
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.getAuth();
+
+    if (!authData) {
       absUrl = $location.absUrl();
       absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
-
-      absUrl = absUrl + "/login/sessionExpired.html";
+      absUrl = absUrl + "/login/login.html";
       window.location.replace(absUrl);
+    }
+    else {
+      console.log("authenticated");
     }
   });
 
   $scope.logOut = function() {
     //delete cookie here
-    $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
+
+    $cookies.remove('sessionCookie', {path: 'app/content/login'});
     var cookie = $cookies.get('sessionCookie');
+    console.log(cookie);
+
     absUrl = $location.absUrl();
     absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
     absUrl = absUrl + "/login/loggedOut.html";
-    window.location.replace(absUrl);
+    //window.location.replace(absUrl);
   }
 });
 
 NCMainControllers.controller('RecentTransactionControl', function($scope, $firebaseArray, $cookies) {
-  var email = $cookies.get('sessionCookie');
+  jq(".noRecents").hide();
+  var ref = new Firebase("https://nustcoin.firebaseio.com");
+  var authData = ref.getAuth();
+  var email = authData.password.email;
   email = email.substring(0, email.indexOf("@"));
   email = email.toLowerCase();
   email = email.toString();
@@ -53,6 +70,12 @@ NCMainControllers.controller('RecentTransactionControl', function($scope, $fireb
   $scope.messages = $firebaseArray(myaccount);
   var query = myaccount.orderByChild("Age").limitToLast(5);
   $scope.transactions = $firebaseArray(query);
+  console.log($scope.transactions.length);
+  var length = parseInt($scope.transactions.length);
+  console.log(length);
+  if(length == 0){
+    jq(".noRecents").show();
+  }
 });
 
 NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $scope, $firebaseArray, $cookies, $filter) {
@@ -62,7 +85,9 @@ NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $s
     jq('.rechargeMessage1').hide();
     jq('.rechargeMessage2').hide();
     var code = $scope.rechargeCode;
-    var email = $cookies.get('sessionCookie');
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.getAuth();
+    var email = authData.password.email;
     var adminEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/adminEmail");
     var admin;
     adminEmailAuth.on("value", function(snapshot){
@@ -141,7 +166,10 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $
 NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebaseArray, $firebaseObject, $cookies, $location) {
   jq('.errormessage').hide();
 
-  var email = $cookies.get('sessionCookie');
+
+  var ref = new Firebase("https://nustcoin.firebaseio.com");
+  var authData = ref.getAuth();
+  var email = authData.password.email;
   email = email.substring(0, email.indexOf("@"));
   email = email.toLowerCase();
   email = email.toString();
@@ -156,19 +184,29 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
   $scope.messages = $firebaseArray(myaccount);
   var query = myaccount.orderByChild("Age").limitToLast(50);
   $scope.transactions = $firebaseArray(query);
+  if($scope.transactions.length == 0){
+    jq('.errormessage').show();  //no transactions
+  }
 
 });
 
 NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope,$firebaseObject, $cookies, $location, $filter) {
+<<<<<<< HEAD
   jq(".errorMsg").hide();
   jq('.errorMsg2').hide();
   jq(".invalidEmail").hide();
   jq('.succMessage3').hide();
 
+=======
+     jq(".errorMsg").hide();
+     jq(".invalidEmail").hide();
+>>>>>>> 463a05fd1862b10b0af355b62d6abbcff5072efe
   //$scope.userEmail = $cookies.get('sessionCookie').substring(0, $cookies.get('sessionCookie').indexOf("@"));
   updateCoins();
   function updateCoins() {
-    var email = $cookies.get('sessionCookie');
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.getAuth();
+    var email = authData.password.email;
     email = email.substring(0, email.indexOf("@"));
     email = email.toLowerCase();
     email = email.toString();
@@ -183,11 +221,19 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
   }
 
   $scope.amount = function(e){
+<<<<<<< HEAD
     jq(".errorMsg").hide();
     jq('.errorMsg2').hide();
     jq(".invalidEmail").hide();
     jq('.succMessage3').hide();
     var email = $cookies.get('sessionCookie');
+=======
+      jq(".errorMsg").hide();
+      jq(".invalidEmail").hide();
+      var ref = new Firebase("https://nustcoin.firebaseio.com");
+      var authData = ref.getAuth();
+      var email = authData.password.email;
+>>>>>>> 463a05fd1862b10b0af355b62d6abbcff5072efe
     var reciever = $scope.user.receiver;
     console.log(reciever);
 
@@ -277,7 +323,9 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
     jq(".withdrawError").hide();
     jq(".withdrawError2").hide();
     jq(".receipt").hide();
-    var userEmail = $cookies.get('sessionCookie');
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.getAuth();
+    var userEmail = authData.password.email;
     var userPassword = $scope.userPassword;
     Authentication.login(userEmail, userPassword).then(function(){
       //use authData
@@ -344,7 +392,9 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
       $scope.event = snapshot.val();
 
       var stuCheck = true;
-      var userEmail = $cookies.get('sessionCookie');
+      var ref = new Firebase("https://nustcoin.firebaseio.com");
+      var authData = ref.getAuth();
+      var userEmail = authData.password.email;
 
       userEmail = userEmail.substring(0, userEmail.indexOf("@"));
       var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+userEmail+"/Balance");   // accesing user 1's balance from the databse
@@ -425,7 +475,9 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
   jq('.errMessage3').hide();
   jq('.succMessage2').hide();
 
-  var email = $cookies.get('sessionCookie');
+  var ref = new Firebase("https://nustcoin.firebaseio.com");
+  var authData = ref.getAuth();
+  var email = authData.password.email;
   email = email.substring(0, email.indexOf("@"));
   console.log(email);
   var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
@@ -500,8 +552,9 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
   })
 
   $scope.LogOut = function() {
-    $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
-    var cookie = $cookies.get('sessionCookie');
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    ref.unauth();
+    $cookies.remove('sessionCookie', {path: '/app/content/login'});
     absUrl = $location.absUrl();
     absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
     absUrl = absUrl + "/login/login.html";
@@ -510,6 +563,7 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
 
   $scope.SubmitFeedback = function() {
     var Feedback = $scope.feedback;
+<<<<<<< HEAD
     if (!$scope.feedback) {
       jq('.feedbackError').show();
     }
@@ -530,6 +584,28 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
         window.location.replace(absUrl);
       })
     }
+=======
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.getAuth();
+    var userEmail = authData.password.email;
+    userEmail = userEmail.substring(0, userEmail.indexOf("@"));
+    var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
+    var obj = new $firebaseObject(ref);
+    obj.$loaded().then(function() {
+      ref.child(userEmail).update({
+        "Feedback" : Feedback
+      });
+      var ref = new Firebase("https://nustcoin.firebaseio.com");
+      ref.unauth();
+      $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
+      var cookie = $cookies.get('sessionCookie');
+      absUrl = $location.absUrl();
+      absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+      absUrl = absUrl + "/login/login.html";
+      window.location.replace(absUrl);
+    })
+
+>>>>>>> 463a05fd1862b10b0af355b62d6abbcff5072efe
   }
 }]);
 
