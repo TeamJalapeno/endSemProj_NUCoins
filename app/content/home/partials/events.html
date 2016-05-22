@@ -1,4 +1,4 @@
-<div class = "jumbotron">
+<div class = "jumbotron splashscreen">
 <h2>Available Events</h2>
 <button ng-click = "updateEvents()">Update Events</button>
 </div>
@@ -7,7 +7,7 @@
 
 <div class="ev">
   <ul class="events">
-    <li ng-repeat="event in events | filter:query | orderBy:orderProp" class="thumbnail">
+    <li ng-repeat="event in events | filter:query | orderBy:orderProp" class="splashscreen">
       <a href="#/events/{{event.id}}"><img class = "img-circle eventimage" ng-src="{{event.imageUrl}}" alt="{{event.name}}"></a>
       <a href="#/events/{{event.id}}">{{event.name}}</a>
       <a class="eButton" href="#/eventsbuy/{{event.id}}">Buy Ticket</a>
