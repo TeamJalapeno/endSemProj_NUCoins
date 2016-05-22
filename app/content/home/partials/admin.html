@@ -27,6 +27,7 @@ jq( document ).ready(function() {
         <p>Enter Description:
         <input type="text" placeholder="Transaction Description" ng-model="user.descriptions" required="required"/><br>
        <p><button ng-click='amount($event);'>Transfer</button><br>
+         <p class = "errorMsg">You cannot transfer NUCoins to your own account. Please enter a Valid Email Address</p>
          <p><h2>Transaction history</h2>
           <button ng-click='details($event);'>Transaction Details</button>
        </div>
