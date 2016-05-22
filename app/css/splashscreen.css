@@ -64,6 +64,14 @@ h1 {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.aboutscreen {
+  position:fixed;
+  width: 100%;
+  margin-top: 100px;
+  background-color: rgba(0, 0, 0, 0.5);
+
+}
+
 .logo {
   max-width: 45px;
   max-height: 45px;
@@ -88,6 +96,9 @@ h1 {
   margin-top: 15px;
 }
 
+.loginbutton:hover, .faqbutton:hover, .aboutusbutton:hover {
+}
+
 .footer {
   height: 28px;
   position: absolute;
@@ -109,10 +120,25 @@ h1 {
 
 @media(max-width:767px){
   .splashscreen {
-    margin-top: 180px;
+    margin-top: 120px;
+  }
+  .aboutscreen {
+    margin-top: 80px;
   }
   .navcolour {
     background-color: rgba(0 , 0, 0 , 0.7);
+  }
+  .footertext {
+    font-size: 14px;
+  }
+  .footer {
+    height: 22px;
+  }
+  .aboutscreen h1 {
+    font-size: 38px;
+  }
+  .aboutscreen p {
+    font-size: 18px;
   }
 }
 
