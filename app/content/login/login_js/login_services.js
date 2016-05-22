@@ -140,13 +140,8 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
           //Success callback
           var loginemail = authData.password.email;
           //create new cookie
-          // var now = new Date(),
-          // // this will set the expiration to 100 seconds
-          // exp = new Date(now.getTime() + (10000 * 1000));
 
-          $cookies.put('sessionCookie', loginemail, {
-            path: '/app/content/login/sessionExpired.html'
-          });
+          $cookies.put('sessionCookie', loginemail );
 
           absUrl = $location.absUrl();
           absUrl = absUrl.substring(0, absUrl.indexOf("/login/login.html"));
