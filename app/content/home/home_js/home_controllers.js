@@ -490,7 +490,7 @@ function($scope, $cookies, $location, $firebaseObject, $firebaseArray) {
   var obj = new $firebaseObject(ref);
 
   obj.$loaded().then(function() {
-    ref.on("value", function(snapshot) {
+    ref.once("value", function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
 
         if(childSnapshot.val().Feedback) {
@@ -540,7 +540,7 @@ function($scope, $cookies, $location, $firebaseObject, $firebaseArray) {
           }
         }
       })
-      
+
       $scope.user1 = user1;
       $scope.user1Transactions = user1Transactions;
       $scope.user2 = user2;
