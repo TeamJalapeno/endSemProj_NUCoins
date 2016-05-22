@@ -156,7 +156,8 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
 });
 
 NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope,$firebaseObject, $cookies, $location, $filter) {
-
+     jq(".errorMsg").show();
+     jq(".invalidEmail").hide();
   //$scope.userEmail = $cookies.get('sessionCookie').substring(0, $cookies.get('sessionCookie').indexOf("@"));
   updateCoins();
   function updateCoins() {
@@ -175,12 +176,14 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
   }
 
   $scope.amount = function(e){
+      jq(".errorMsg").hide();
+      jq(".invalidEmail").hide();
     var email = $cookies.get('sessionCookie');
+    var reciever = $scope.user.receiver;
+   if(email != reciever){
     email = email.substring(0, email.indexOf("@"));
     email = email.toLowerCase();
     email = email.toString();
-    //$scope.userEmail = $cookies.get('sessionCookie');
-    var reciever = $scope.user.receiver;
     var amount = $scope.user.amount;
     var title = $scope.user.titles;
     var description = $scope.user.descriptions;
@@ -189,8 +192,11 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
     $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
     var tDate = $scope.ddMMyyyy;
     var tTime = $scope.hhmmsstt;
-
-    TransactionService.TwoWayTransaction(email, reciever, amount, title, description, tDate, tTime);
+     TransactionService.TwoWayTransaction(email, reciever, amount, title, description, tDate, tTime);
+   }
+   else{
+      jq(".errorMsg").show();
+   }
 
   }
 

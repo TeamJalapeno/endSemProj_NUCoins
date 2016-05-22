@@ -58,7 +58,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
                       'Amount': amount,
                       'Date': tDate,
                       'Time': tTime
-                      
+
                     })
 
                     if(admin == false){
@@ -135,7 +135,6 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
     this.TwoWayTransaction = function (sender, reciever, amount, title, description, tDate, tTime){
       var studentEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/studentEmail");
       var vendorEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/vendorEmail");
-      //var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+sender); //not used
 
       var auth = false;
       var auth2 =false;
@@ -199,6 +198,10 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
         console.log(second);
         console.log(transfer);
         console.log(auth);
+         if(auth == false && auth2 == false){
+           jq(".invalidEmail").show();
+         }
+
         // if user 1 is admin and user 2 is a student
         if(((first == "admin" && second =="student") || (first == "student" && second =="student") || (first == "student" && second =="vendor")) && ((auth ==true) || (auth2 == true))){
           if(existingBal >= amount)  { //checking if the amount user wants to transfer is available in his account
