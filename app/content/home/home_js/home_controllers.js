@@ -378,44 +378,6 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
   })
 }]);
 
-NCMainControllers.controller('feedbackCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject',
-function($scope, $cookies, $location, $rootScope, $firebaseObject) {
-  var absUrl = "";
-  $scope.LogOut = function() {
-    //delete cookie here
-    console.log("logout working");
-    $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
-    var cookie = $cookies.get('sessionCookie');
-    absUrl = $location.absUrl();
-    absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
-    absUrl = absUrl + "/login/login.html";
-    window.location.replace(absUrl);
-  }
-
-  $scope.SubmitFeedback = function() {
-    //delete cookie here
-    console.log('Feedback submit working');
-    var Feedback = $scope.feedback;
-    console.log(Feedback);
-    var userEmail = $cookies.get('sessionCookie');
-    userEmail = userEmail.substring(0, userEmail.indexOf("@"));
-    var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
-    var obj = new $firebaseObject(ref);
-    obj.$loaded().then(function() {
-      ref.child(userEmail).update({
-        "Feedback" : Feedback
-      });
-      $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
-      var cookie = $cookies.get('sessionCookie');
-      absUrl = $location.absUrl();
-      absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
-      absUrl = absUrl + "/login/login.html";
-      window.location.replace(absUrl);
-    })
-
-  }
-}]);
-
 NCMainControllers.controller('profileCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject', '$firebaseArray',
 function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArray) {
   //var absUrl = "";
@@ -490,8 +452,6 @@ NCMainControllers.controller('feedbackCtrl', ['$scope', '$cookies', '$location',
 function($scope, $cookies, $location, $rootScope, $firebaseObject) {
   var absUrl = "";
   $scope.LogOut = function() {
-    //delete cookie here
-    console.log("logout working");
     $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
     var cookie = $cookies.get('sessionCookie');
     absUrl = $location.absUrl();
@@ -502,7 +462,6 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
 
   $scope.SubmitFeedback = function() {
     var Feedback = $scope.feedback;
-    console.log(Feedback);
     var userEmail = $cookies.get('sessionCookie');
     userEmail = userEmail.substring(0, userEmail.indexOf("@"));
     var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
@@ -522,8 +481,8 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
   }
 }]);
 
-NCMainControllers.controller('ratingCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject', '$firebaseArray',
-function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArray) {
+NCMainControllers.controller('ratingCtrl', ['$scope', '$cookies', '$location', '$firebaseObject', '$firebaseArray',
+function($scope, $cookies, $location, $firebaseObject, $firebaseArray) {
   var rating = 0;
   var numberOfRatings = 0;
 
@@ -541,6 +500,7 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
       })
       if(rating) {
         rating = rating / numberOfRatings;
+        rating = Math.round(rating * 10) / 10;
       }
       $scope.rating = rating;
       $scope.numberOfRatings = numberOfRatings;
@@ -548,8 +508,8 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
   })
 }]);
 
-NCMainControllers.controller('frequentUsersCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject', '$firebaseArray',
-function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArray) {
+NCMainControllers.controller('frequentUsersCtrl', ['$scope', '$cookies', '$location', '$firebaseObject', '$firebaseArray',
+function($scope, $cookies, $location, $firebaseObject, $firebaseArray) {
   var user1 = "";
   var user1Transactions = 0;
   var user2 = "";
@@ -562,10 +522,16 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
     ref.on("value", function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
         if(childSnapshot.val().Transactions) {
-          if(childSnapshot.val().Transactions >= user2Transactions) {
-            user2 = childSnapshot.key();
-            user2Transactions = childSnapshot.val().Transactions;
-            if(user2Transactions >= user1Transactions) {
+          if(childSnapshot.val().Transactions > user2Transactions) {
+            if (childSnapshot.key() != user1) {
+              user2 = childSnapshot.key();
+              user2Transactions = childSnapshot.val().Transactions;
+            }
+            else {
+              user1 = childSnapshot.key();
+              user1Transactions = childSnapshot.val().Transactions;
+            }
+            if(user2Transactions > user1Transactions ) {
               user2 = user1;
               user2Transactions = user1Transactions;
               user1 = childSnapshot.key();
@@ -574,7 +540,7 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
           }
         }
       })
-
+      
       $scope.user1 = user1;
       $scope.user1Transactions = user1Transactions;
       $scope.user2 = user2;

@@ -55,9 +55,14 @@
   display: none;
 }
 
-.loginerrormessage, .emailerrormessage, .loginerrormessage2, .accountcreation {
+.loginerrormessage, .emailerrormessage, .loginerrormessage2, .generalError {
   margin-top: 50px;
   color: red;
+  display: none;
+}
+
+.accountcreation {
+  margin-top: 50px;
   display: none;
 }
 

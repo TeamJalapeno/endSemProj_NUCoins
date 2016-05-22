@@ -19,15 +19,22 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', 'LoginService'
     var password = $scope.user.password;
     LoginService.SignIn(username, password);
   }
-
+  // if ($scope.user.firstName && $scope.user.lastName && $scope.user.gender && $scope.user.email && $scope.user.password) {
+  //   jq('#signupRegister').removeAttr('disabled');
+  // }
   $scope.RegisterUser = function(e) {
+        jq('.generalError').hide();
     e.preventDefault();
     var firstName = $scope.user.firstName;
     var lastName = $scope.user.lastName;
     var gender = $scope.user.gender;
     var email = $scope.user.email;
     var password = $scope.user.password;
-    LoginService.RegisterUser(firstName, lastName, email, password, gender);
+
+    if ($scope.user.firstName && $scope.user.lastName && $scope.user.gender && $scope.user.email && $scope.user.password)
+      LoginService.RegisterUser(firstName, lastName, email, password, gender);
+    else
+      jq('.generalError').show();
   }
 
 }]);

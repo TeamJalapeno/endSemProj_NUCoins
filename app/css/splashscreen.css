@@ -183,3 +183,7 @@ h1 {
 .b{
     height:100px;
 }
+
+#story, #product {
+  cursor: pointer;
+}
