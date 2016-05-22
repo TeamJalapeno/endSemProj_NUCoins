@@ -1,9 +1,9 @@
 <script>jq(".homepagelink").attr("href", "#/student");</script>
 
 <div class = "jumbotron" ng-controller='AddAmountCtrl'>
-<h1 > Welcome, {{name}}! </h1>
-<h3>Your NUCoins: {{coins}}</h3>
- <p><button ng-click='userCoins()'>Refresh coins</button><br>
+  <h1 > Welcome, {{name}}! </h1>
+  <h3>Your NUCoins: {{coins}}</h3>
+  <p><button ng-click='userCoins()'>Refresh coins</button><br></p>
 </div>
 
 <div class="container">
@@ -12,22 +12,25 @@
 
       <div class = "amountAdder" ng-controller='AddAmountCtrl'>
         <h2>Transaction</h2>
-        <p>Enter Email:
-        <input type="email" placeholder="Receiver's email address" ng-model="user.receiver" required="required"/>
-        <p>Enter Amount:
-        <input type="number" placeholder="transfer amount" ng-model="user.amount" required="required"/><br>
-        <p>Enter Title:
-        <input type="text" placeholder="A title for your transaction" ng-model="user.titles" required="required"/>
-        <p>Enter Description:
-        <input type="text" placeholder="Transaction Description" ng-model="user.descriptions" required="required"/><br>
-       <p><button ng-click='amount($event);'>Transfer</button><br>
-        <p class = "errorMsg">You cannot transfer NUCoins to your own account. Please enter a Valid Email Address</p>
-        <p class = "invalidEmail">The email entered doesn't exist in our database. You can only send NUCoins to NUCoin users.</p>
+        <form>
+          <p>Enter Email:</p>
+          <input type="email" placeholder="Receiver's email address" ng-model="user.receiver" required=""/>
+          <p>Enter Amount:</p>
+          <input type="number" placeholder="transfer amount" ng-model="user.amount" required=""/><br>
+          <p>Enter Title:</p>
+          <input type="text" placeholder="A title for your transaction" ng-model="user.titles" required=""/>
+          <p>Enter Description:</p>
+          <input type="text" placeholder="Transaction Description" ng-model="user.descriptions" required=""/><br>
+          <p><button ng-click='amount($event);'>Transfer</button><br></p>
+          <p class = "errorMsg">You cannot transfer NUCoins to your own account. Please enter a Valid Email Address</p>
+          <p class = "errorMsg2">Please provide all details to transfer coins.</p>
+          <p class = "invalidEmail">The email entered doesn't exist in our database. You can only send NUCoins to NUCoin users.</p>
+          <p class = "succMessage3">{{user.amount}} NUCs have successfully been transferred.</p>
+        </form>
 
-
-       <p><h2>Transaction history</h2>
+        <p><h2>Transaction history</h2></p>
         <button ng-click='details($event);'>Transaction Details</button>
-       </div>
+      </div>
 
     </div>
     <div class = "col-md-5">
@@ -40,27 +43,31 @@
             <b>  Date:</b> {{transaction.Date }} <br>
             <b>Time:</b> {{transaction.Time}} <br>
             <b> Description:</b>  {{transaction.Description}}</li> <br>
-         <br>
-        </ul>
+            <br>
+          </ul>
           <p class ="noRecents">You have no Recent Transactions to show</p>
+        </div>
+
+        <div class = "eventsdiv" ng-controller = "RecentEventsControl">
+          <br>Latest Events:
+          <ul ng-repeat ="event in events.slice().reverse()">
+            <li > <b>Name:</b>{{event.name}} <br>
+              <b> Description:</b>  {{event.snippet}}</li> <br>
+              <br>
+            </ul>
+          </div>
+
+        </div>
       </div>
 
-      <div class = "eventsdiv" ng-controller = "RecentEventsControl">
-        <br>Latest Events:
-        <ul ng-repeat ="event in events.slice().reverse()">
-          <li > <b>Name:</b>{{event.name}} <br>
-            <b> Description:</b>  {{event.snippet}}</li> <br>
-         <br>
-        </ul>
-      </div>
 
+      <div ng-controller = "RechargeAccountCtrl">
+        <form>
+          <p>Enter code to recharge NUCoins</p>
+          <input type="text" placeholder="recharge code" ng-model="rechargeCode" required=""/><br>
+          <p><button ng-click='recharge($event);'>Recharge</button></p>
+          <p class="rechargeMessage1">You entered wrong code!</p>
+          <p class="rechargeMessage2">Coins successfully added!</p>
+        </form>
+      </div>
     </div>
-  </div>
-
-
-           <div ng-controller = "RechargeAccountCtrl">
-             <p>Enter code to recharge NUCoins
-             <input type="text" placeholder="recharge code" ng-model="rechargeCode"/><br>
-             <p><button ng-click='recharge($event);'>Recharge</button>
-           </div>
-</div>
