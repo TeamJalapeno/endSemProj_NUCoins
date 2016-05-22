@@ -14,7 +14,8 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
   });
 
   MainApp.service('RechargeService', function ($firebaseAuth, $firebaseObject) {
-    this.Recharge = function(email, rechargeCode, tDate, tTime) {
+    this.Recharge = function(email, rechargeCode, tDate, tTime, admin) {
+      console.log("admin?" +admin);
       var db = new Firebase("https://nustcoin.firebaseio.com/Recharge/rechargeCodes");
       var db2 = new Firebase("https://nustcoin.firebaseio.com/Recharge/codeValues");
 
@@ -31,7 +32,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
 
       var i =0;
 
-      db.once("value", function(snapshot){
+      db.on("value", function(snapshot){
         obj.$loaded().then(function(){
           for(i=0; i< snapshot.val().length; i++) {
             console.log("You entered:" + rechargeCode);
@@ -59,6 +60,17 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
                       'Time': tTime
 
                     })
+
+                    if(admin == false){
+                      var numofTransactions = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email+"/Transactions");
+                      var object = new $firebaseObject(numofTransactions);
+                    object.$loaded().then(function(){
+                      console.log(object.$value);
+                       object.$value = object.$value + 1;
+                       object.$save();
+                       console.log(object.$value);
+                    });
+                    }
                     console.log("Recharge Completed");
                   }
                   else{
@@ -86,16 +98,21 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
   MainApp.service('TransactionService', function ($firebaseAuth, $firebaseObject) {
 
     this.withdrawal = function(accountEmail, amount, tDate, tTime) {
-      //var myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+accountEmail); // not used
+      var receipt;
       var ref3 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+accountEmail+"/Balance");   // accesing user 1's balance from the databse
       var obj3 = new $firebaseObject(ref3);
+      var numofTransactions = new Firebase("https://nustcoin.firebaseio.com/usersData/"+accountEmail+"/Transactions");
+      var obj = new $firebaseObject(numofTransactions);
 
-      obj3.$loaded().then(function(){
+      obj3.$loaded(),obj.$loaded().then(function(){
         var existingBal = 0;
         existingBal = parseInt(obj3.$value);
+        if(existingBal >= amount){
         existingBal = existingBal - amount;
         obj3.$value = existingBal;
         obj3.$save();
+        obj.$value = obj.$value + 1;  //incrementing the "transactions" variable for the user
+        obj.$save();
         var userdetail = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+accountEmail);
         var userRef = userdetail.push();
         userRef.set({
@@ -105,7 +122,14 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
           'Date': tDate,
           'Time': tTime
         });
+          jq(".receipt").show();
+      }
+      else{
+        jq(".withdrawError").show();
+        console.log("Insufficient balance. Please Recharge your account");
+      }
       });
+
     }
 
     this.TwoWayTransaction = function (sender, reciever, amount, title, description, tDate, tTime){
@@ -209,16 +233,32 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
                 'Date': tDate,
                 'Time': tTime
               });
+              if(first != "admin"){
+                  var numofTransactions = new Firebase("https://nustcoin.firebaseio.com/usersData/"+sender+"/Transactions");
+                  var object = new $firebaseObject(numofTransactions);
+                object.$loaded().then(function(){
+                  console.log(object.$value);
+                   object.$value = object.$value + 1;
+                   object.$save();
+                   console.log(object.$value);
+                });
+              }
 
               var dTitle = "Received from "+sender;
               console.log(dTitle);
+              var numofTransactions2 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+rec+"/Transactions");
+              var object2 = new $firebaseObject(numofTransactions2);
+              object2.$loaded().then(function(){
+                object2.$value = object2.$value + 1;
+                object2.$save();
               user2Ref.set({
                 'Title': dTitle,
                 'Description': description,
                 'Amount': amount,
                 'Date': tDate,
-                'Time': tTime
+                'Time': tTime,
               });
+            });
               jq(".receipt").show();
             }
           }
