@@ -8,6 +8,7 @@ jq( document ).ready(function() {
 </script>
 <div class = "jumbotron" ng-controller='AddAmountCtrl'>
 <h1 > Welcome, {{name}}! </h1>
+<h3>Your NUCoins: {{coins}}</h3>
 <h3>Your account history is as follows:</h3>
 </div>
 
@@ -18,18 +19,24 @@ jq( document ).ready(function() {
 
       <div class = "amountAdder" ng-controller='AddAmountCtrl'>
         <h2>Transaction</h2>
-        <p>Enter Email:
-        <input type="email" placeholder="Receiver's email address" ng-model="user.receiver" required="required"/>
-        <p>Enter Amount:
-        <input type="number" placeholder="transfer amount" ng-model="user.amount" required="required"/><br>
-        <p>Enter Title:
-        <input type="text" placeholder="A title for your transaction" ng-model="user.titles" required="required"/>
-        <p>Enter Description:
-        <input type="text" placeholder="Transaction Description" ng-model="user.descriptions" required="required"/><br>
-       <p><button ng-click='amount($event);'>Transfer</button><br>
-         <p class = "errorMsg">You cannot transfer NUCoins to your own account. Please enter a Valid Email Address</p>
-         <p><h2>Transaction history</h2>
-          <button ng-click='details($event);'>Transaction Details</button>
+        <form>
+          <p>Enter Email:
+          <input type="email" placeholder="Receiver's email address" ng-model="user.receiver" required=""/>
+          <p>Enter Amount:
+          <input type="number" placeholder="transfer amount" ng-model="user.amount" required=""/><br>
+          <p>Enter Title:
+          <input type="text" placeholder="A title for your transaction" ng-model="user.titles" required=""/>
+          <p>Enter Description:
+          <input type="text" placeholder="Transaction Description" ng-model="user.descriptions" required=""/><br>
+          <p><button ng-click='amount($event);'>Transfer</button><br>
+          <p class = "errorMsg">You cannot transfer NUCoins to your own account. Please enter a Valid Email Address</p>
+          <p class = "errorMsg2">Please provide all details to transfer coins.</p>
+          <p class = "invalidEmail">The email entered doesn't exist in our database. You can only send NUCoins to NUCoin users.</p>
+          <p class = "succMessage3">{{user.amount}} NUCs have successfully been transferred.</p>
+        </form>
+
+        <p><h2>Transaction history</h2>
+        <button ng-click='details($event);'>Transaction Details</button>
        </div>
 
 
@@ -67,9 +74,13 @@ jq( document ).ready(function() {
 
     </div>
     <div ng-controller = "RechargeAccountCtrl">
-      <p>Enter code to recharge NUCoins
-      <input type="text" placeholder="recharge code" ng-model="rechargeCode"/><br>
-      <p><button ng-click='recharge($event);'>Recharge</button>
+      <form>
+        <p>Enter code to recharge NUCoins
+        <input type="text" placeholder="recharge code" ng-model="rechargeCode" required=""/><br>
+        <p><button ng-click='recharge($event);'>Recharge</button>
+        <p class="rechargeMessage1">You entered wrong code!</p>
+        <p class="rechargeMessage2">Coins successfully added!</p>
+      </form>
     </div>
 
   </div>

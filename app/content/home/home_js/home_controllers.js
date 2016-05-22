@@ -56,7 +56,11 @@ NCMainControllers.controller('RecentTransactionControl', function($scope, $fireb
 });
 
 NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $scope, $firebaseArray, $cookies, $filter) {
+  jq('.rechargeMessage1').hide();
+  jq('.rechargeMessage2').hide();
   $scope.recharge = function(e) {
+    jq('.rechargeMessage1').hide();
+    jq('.rechargeMessage2').hide();
     var code = $scope.rechargeCode;
     var email = $cookies.get('sessionCookie');
     var adminEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/adminEmail");
@@ -156,8 +160,11 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
 });
 
 NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope,$firebaseObject, $cookies, $location, $filter) {
-     jq(".errorMsg").show();
-     jq(".invalidEmail").hide();
+  jq(".errorMsg").hide();
+  jq('.errorMsg2').hide();
+  jq(".invalidEmail").hide();
+  jq('.succMessage3').hide();
+
   //$scope.userEmail = $cookies.get('sessionCookie').substring(0, $cookies.get('sessionCookie').indexOf("@"));
   updateCoins();
   function updateCoins() {
@@ -176,28 +183,39 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
   }
 
   $scope.amount = function(e){
-      jq(".errorMsg").hide();
-      jq(".invalidEmail").hide();
+    jq(".errorMsg").hide();
+    jq('.errorMsg2').hide();
+    jq(".invalidEmail").hide();
+    jq('.succMessage3').hide();
     var email = $cookies.get('sessionCookie');
     var reciever = $scope.user.receiver;
-   if(email != reciever){
-    email = email.substring(0, email.indexOf("@"));
-    email = email.toLowerCase();
-    email = email.toString();
-    var amount = $scope.user.amount;
-    var title = $scope.user.titles;
-    var description = $scope.user.descriptions;
-    var date = new Date();
-    $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
-    $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
-    var tDate = $scope.ddMMyyyy;
-    var tTime = $scope.hhmmsstt;
-     TransactionService.TwoWayTransaction(email, reciever, amount, title, description, tDate, tTime);
-   }
-   else{
-      jq(".errorMsg").show();
-   }
+    console.log(reciever);
 
+    if (!reciever)
+    jq('.errorMsg2').show();
+    else {
+      if(email != reciever){
+        email = email.substring(0, email.indexOf("@"));
+        email = email.toLowerCase();
+        email = email.toString();
+        var amount = $scope.user.amount;
+        var title = $scope.user.titles;
+        var description = $scope.user.descriptions;
+        var date = new Date();
+        $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
+        $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
+        var tDate = $scope.ddMMyyyy;
+        var tTime = $scope.hhmmsstt;
+        if(reciever && amount && title && description) {
+          TransactionService.TwoWayTransaction(email, reciever, amount, title, description, tDate, tTime);
+        }
+        else
+        jq('.errorMsg2').show();
+      }
+      else{
+        jq(".errorMsg").show();
+      }
+    }
   }
 
   $scope.userCoins = function() {
@@ -253,9 +271,11 @@ function($scope, $http) {
 
 NCMainControllers.controller('WithdrawCtrl', function(Authentication, TransactionService, PurchaseService, $scope, $firebaseArray,$firebaseObject, $cookies,$filter,  $location) {
   jq(".withdrawError").hide();
+  jq(".withdrawError2").hide();
   jq(".receipt").hide();
   $scope.receipt = function(e) {
     jq(".withdrawError").hide();
+    jq(".withdrawError2").hide();
     jq(".receipt").hide();
     var userEmail = $cookies.get('sessionCookie');
     var userPassword = $scope.userPassword;
@@ -276,6 +296,7 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
 
     }, function(error){
       console.log(error);
+      jq(".withdrawError2").show();
     });
   } //login
 
@@ -350,7 +371,7 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
             var userEmail = $cookies.get('sessionCookie');
             var userPassword = $scope.userPassword;
             if(!userPassword)
-              jq('.pwError2').show();
+            jq('.pwError2').show();
             else {
               Authentication.login(userEmail, userPassword).then(function(){
                 //use authData
@@ -466,7 +487,18 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
 
 NCMainControllers.controller('feedbackCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject',
 function($scope, $cookies, $location, $rootScope, $firebaseObject) {
+  jq('.feedbackError').hide();
   var absUrl = "";
+
+  var email = $cookies.get('sessionCookie');
+  email = email.substring(0, email.indexOf("@"));
+  var ref1 = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email+"/Feedback");   // accesing user 1's balance from the databse
+  var obj1 = new $firebaseObject(ref1);
+
+  obj1.$loaded().then(function() {
+    $scope.feedback = obj1.$value;
+  })
+
   $scope.LogOut = function() {
     $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
     var cookie = $cookies.get('sessionCookie');
@@ -478,22 +510,26 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
 
   $scope.SubmitFeedback = function() {
     var Feedback = $scope.feedback;
-    var userEmail = $cookies.get('sessionCookie');
-    userEmail = userEmail.substring(0, userEmail.indexOf("@"));
-    var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
-    var obj = new $firebaseObject(ref);
-    obj.$loaded().then(function() {
-      ref.child(userEmail).update({
-        "Feedback" : Feedback
-      });
-      $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
-      var cookie = $cookies.get('sessionCookie');
-      absUrl = $location.absUrl();
-      absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
-      absUrl = absUrl + "/login/login.html";
-      window.location.replace(absUrl);
-    })
-
+    if (!$scope.feedback) {
+      jq('.feedbackError').show();
+    }
+    else {
+      var userEmail = $cookies.get('sessionCookie');
+      userEmail = userEmail.substring(0, userEmail.indexOf("@"));
+      var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
+      var obj = new $firebaseObject(ref);
+      obj.$loaded().then(function() {
+        ref.child(userEmail).update({
+          "Feedback" : Feedback
+        });
+        $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
+        var cookie = $cookies.get('sessionCookie');
+        absUrl = $location.absUrl();
+        absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+        absUrl = absUrl + "/login/login.html";
+        window.location.replace(absUrl);
+      })
+    }
   }
 }]);
 

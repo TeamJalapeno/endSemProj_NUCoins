@@ -4,9 +4,11 @@
       <h1>Thank-you for using our website!</h1></p>
       <h4>How was your experience?</br></h4>
       <form class="login-form">
-        <p>Feedback (on a scale of 1-10): <input type="number" ng-model="feedback" min="1" max="10"/></p></br>
-        <button class = "login" ng-click="SubmitFeedback()">submit</button> OR 
-        <button class = "login" ng-click="LogOut()">logout</button>
+        <p>Feedback (on a scale of 1-10): <input ng-model="feedback" type="number" ng-model="feedback" min="1" max="10" required=""/></p></br>
+        <button class = "" ng-click="SubmitFeedback()">submit</button> OR
+        <button class = "" ng-click="LogOut()">logout</button>
       </form>
+
+        <p class="feedbackError">Please fill out the value for feedback to submit it.</p>
     </div>
   </div>

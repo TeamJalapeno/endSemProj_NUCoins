@@ -72,6 +72,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
                       });
                     }
                     console.log("Recharge Completed");
+                    jq('.rechargeMessage2').show();
                   }
                   else{
                     //console.log("This code has been already used. Please use a valid code");
@@ -88,6 +89,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
 
           if(found == false){
             console.log('The code you entered is Invalid. Please enter a valid Recharge Code');
+            jq('.rechargeMessage1').show();
           }
         })
       });//db.on ends here
@@ -263,6 +265,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
                 });
               });
               jq(".receipt").show();
+              jq('.succMessage3').show();
             }
           }
           else{
