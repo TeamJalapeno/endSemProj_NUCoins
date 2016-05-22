@@ -193,7 +193,9 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
   this.RegisterUser = function(firstName, lastName, email, password, gender) {
 
     escapeToggle = false;
-    jq('.loading').show();
+    jq('.register-form').hide();
+    jq('.registerloading').show();
+    jq('.registerrequired').show();
 
     if (email && password) {
       var usersRef = usersAccount.child(escapeEmailAddress(email))
@@ -236,9 +238,9 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
       })
       .then(function() {
         jq('.register-form').hide();
-        jq('.loading').hide();
+        jq('.registerloading').hide();
         jq('.login-form').show();
-
+        jq(".accountcreation").show();
       }, function(error) {
         console.log(error);
       });

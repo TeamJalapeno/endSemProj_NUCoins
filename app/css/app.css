@@ -32,7 +32,7 @@ body {
   font-family: Regencie;
 }
 
-.loading {
+.loading, .registerloading {
   background: url("../img/loading.gif") no-repeat left top;
   background-size: 100px 80px;
   margin: 0 auto;
