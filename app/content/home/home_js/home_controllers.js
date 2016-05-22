@@ -583,8 +583,8 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
         ref.child(userEmail).update({
           "Feedback" : Feedback
         });
-        $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
-        var cookie = $cookies.get('sessionCookie');
+        ref.unauth();
+        $cookies.remove('sessionCookie', {path: '/app/content/login'});
         absUrl = $location.absUrl();
         absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
         absUrl = absUrl + "/login/login.html";
