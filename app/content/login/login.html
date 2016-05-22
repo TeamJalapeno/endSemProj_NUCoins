@@ -44,38 +44,27 @@
       </div>
     </div>
   </nav>
-  <div class="verticalSpan">
-    <div class="bg-div">
-      <BR>
-          <div class="container">
-            <div class = "row toppadding">
+          <div class="container toppadding">
+            <div class = "row">
               <div class = "col-md-2">
               </div>
-              <div class = "col-md-3">
-                <!-- <div class = "logo"> -->
+              <div class = "col-md-3 logodiv">
                 <img class = "img-responsive logo"  src="../../img/nust-logo.png">
-                <!-- </div> -->
               </div>
               <div class = "col-md-5">
-                <!-- This section is for login
-                .
-                . -->
                 <div class="login-page">
                   <div class="form"  ng-controller="LoginCtrl">
                   <h2>NUCoins Login</h2><br>
                   <form class="email-auth-form">
                     <input type="email" ng-model="user.email" id = "userEmail" placeholder="email"/>
                     <div class="loading"></div>
-                    <!-- <input type="password" placeholder="password"/> -->
                     <button class="emailauth" ng-click="AuthEmail($event)">go</button>
-                    <!-- <p class="message">Not registered? <a href="#">Create an account</a></p> -->
                   </form>
                   <div class="emailerrormessage">Please enter valid NUST Email ID</div>
                   <div class="sessionexpired">Session expired, login again</div>
 
                   <form class="login-form">
                     <input type="email"ng-model="user.email" placeholder="email" disabled=""/>
-                    <!-- <input type="text" placeholder="username"/> -->
                     <input type="password" ng-model="user.password" id = "userPassword" placeholder="password"/>
                     <div class="loading"></div>
 
@@ -83,7 +72,6 @@
                     <div class="loginerrormessage">You entered an incorrect password</div>
                     <div class="loginerrormessage2">Please enter a password</div>
                     <div class="accountcreation">Your account has been created</div>
-
 
                   </form>
                   <form class="register-form">
@@ -98,7 +86,6 @@
                     <button class = "register" ng-click="RegisterUser($event)">create</button>
                     <div class="generalError">Please provide all the information to continue</div>
 
-                    <!-- <p class="message">Already registered? <a href="#">Sign In</a></p> -->
                   </form>
                   <div class="registerloading"></div>
 
@@ -109,10 +96,7 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
     <nav class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
       <div class = "navbar-brand">
         Created by Team Jalapeño

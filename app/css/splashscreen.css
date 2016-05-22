@@ -69,7 +69,6 @@ h1 {
   width: 100%;
   margin-top: 100px;
   background-color: rgba(0, 0, 0, 0.5);
-
 }
 
 .logo {
@@ -123,7 +122,7 @@ h1 {
     margin-top: 120px;
   }
   .aboutscreen {
-    margin-top: 80px;
+    margin-top: 70px;
   }
   .navcolour {
     background-color: rgba(0 , 0, 0 , 0.7);
@@ -135,10 +134,10 @@ h1 {
     height: 22px;
   }
   .aboutscreen h1 {
-    font-size: 38px;
+    font-size: 32px;
   }
   .aboutscreen p {
-    font-size: 18px;
+    font-size: 14px;
   }
 }
 
