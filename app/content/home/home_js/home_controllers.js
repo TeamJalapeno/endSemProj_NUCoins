@@ -535,28 +535,23 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
   var user2 = "";
   var user2Transactions = 0;
 
-  var numberOfTransactions = 0;
-
-  var ref = new Firebase("https://nustcoin.firebaseio.com/transactionDetails");   // accesing user 1's balance from the databse
+  var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
   var obj = new $firebaseObject(ref);
 
   obj.$loaded().then(function() {
     ref.on("value", function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
-        if (childSnapshot.key() == "admin") {
-          // ignoring admin transactions
-        }
-        else {
-          childSnapshot.forEach(function(grandChildSnapshot) {
-            numberOfTransactions++;
-          })
-          if(numberOfTransactions >= user1Transactions) {
-            user2 = user1;
-            user2Transactions = user1Transactions;
-            user1 = childSnapshot.key();
-            user1Transactions = numberOfTransactions;
+        if(childSnapshot.val().Transactions) {
+          if(childSnapshot.val().Transactions >= user2Transactions) {
+            user2 = childSnapshot.key();
+            user2Transactions = childSnapshot.val().Transactions;
+            if(user2Transactions >= user1Transactions) {
+              user2 = user1;
+              user2Transactions = user1Transactions;
+              user1 = childSnapshot.key();
+              user1Transactions = childSnapshot.val().Transactions;
+            }
           }
-          numberOfTransactions = 0;
         }
       })
 
