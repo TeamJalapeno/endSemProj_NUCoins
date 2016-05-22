@@ -1,7 +1,7 @@
 <!-- <script>jq(".homepagelink").attr("href", "#/student");</script> -->
 <div class = "page1" ng-controller='WithdrawCtrl'>
 
-<h3>Transfer:</h3>
+<h3>Withdraw:</h3>
 
 <div class = "amountAdder">
   Please enter the following details of the transaction<br><br>
@@ -10,9 +10,9 @@
     For security purposes you are required to enter your password again
     <input type="password" ng-model="userPassword" placeholder="password"/><br>
     Enter Amount:
-   <input type="number" placeholder="transfer amount" ng-model="user.amount" required="required"/><br>
+   <input type="number" placeholder="Amount to Withdraw" ng-model="user.amount" required="required"/><br>
     Enter name of beneficiary:<br>
-    <input type="text" placeholder="name" ng-model="user.beneficiary" required="required"/><br>
+    <input type="text" placeholder="Receiver's name" ng-model="user.beneficiary" required="required"/><br>
 
  <button ng-click='receipt($event);'>Create Receipt</button>
  </div>
@@ -22,6 +22,9 @@ Your code is {{transactionCode}} <br>
 Your email is {{email}} <br>
 Beneficiary is {{user.beneficiary}} <br>
 </div>
+
+<p class = "withdrawError">Your Balance is Insufficient for the amount entered. Please Recharge your Account</p>
+
 
 </div>
 </div>

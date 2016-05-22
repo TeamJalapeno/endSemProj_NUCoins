@@ -59,14 +59,31 @@ NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $s
   $scope.recharge = function(e) {
     var code = $scope.rechargeCode;
     var email = $cookies.get('sessionCookie');
-    email = email.substring(0, email.indexOf("@"));
-    email = email.toString();
-    var date = new Date();
-    $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
-    $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
-    var tDate = $scope.ddMMyyyy;
-    var tTime = $scope.hhmmsstt;
-    RechargeService.Recharge(email, code, tDate, tTime);
+    var adminEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/adminEmail");
+  var admin;
+    adminEmailAuth.on("value", function(snapshot){
+      for (var i = 0; i < snapshot.val().length; i++) {
+        if (email == snapshot.val()[i]) {
+           admin = true;
+          console.log('admin is recharging');
+          break;
+        }
+        else{
+          admin = false;  //could be a student or a vendor
+        }
+      }
+    //  console.log(admin);
+
+      email = email.substring(0, email.indexOf("@"));
+      email = email.toString();
+      var date = new Date();
+      $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
+      $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
+      var tDate = $scope.ddMMyyyy;
+      var tTime = $scope.hhmmsstt;
+      RechargeService.Recharge(email, code, tDate, tTime, admin);
+
+    });
 
   }
 });
@@ -229,8 +246,11 @@ function($scope, $http) {
 }]);
 
 NCMainControllers.controller('WithdrawCtrl', function(Authentication, TransactionService, PurchaseService, $scope, $firebaseArray,$firebaseObject, $cookies,$filter,  $location) {
-
+  jq(".withdrawError").hide();
+  jq(".receipt").hide();
   $scope.receipt = function(e) {
+    jq(".withdrawError").hide();
+    jq(".receipt").hide();
     var userEmail = $cookies.get('sessionCookie');
     var userPassword = $scope.userPassword;
     Authentication.login(userEmail, userPassword).then(function(){
@@ -245,8 +265,8 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
       var tDate = $scope.ddMMyyyy;
       var tTime = $scope.hhmmsstt;
 
-      TransactionService.withdrawal(userEmail, amount, tDate, tTime);
-      jq(".receipt").show();
+      var receipt = TransactionService.withdrawal(userEmail, amount, tDate, tTime);
+
 
     }, function(error){
       console.log(error);
