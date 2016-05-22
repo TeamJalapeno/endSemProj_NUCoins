@@ -500,7 +500,7 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
   $scope.LogOut = function() {
     var ref = new Firebase("https://nustcoin.firebaseio.com");
     ref.unauth();
-    $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
+    $cookies.remove('sessionCookie', {path: '/app/content/login'});
     absUrl = $location.absUrl();
     absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
     absUrl = absUrl + "/login/login.html";
