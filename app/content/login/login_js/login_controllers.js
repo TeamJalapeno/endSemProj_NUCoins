@@ -3,9 +3,19 @@
 /* Controllers */
 var NCLoginController = angular.module('NCLoginControllers', ['firebase', 'ngCookies']);
 
-NCLoginController.controller('LoginCtrl', ['$scope', '$location', 'LoginService', function($scope, $location, LoginService) {
+NCLoginController.controller('LoginCtrl', ['$scope', '$location', 'LoginService', '$cookies', function($scope, $location, LoginService, $cookies) {
 
   $scope.user = {};
+
+  var cookie = $cookies.get('sessionCookie');
+  $scope.user.savedemail = cookie;
+  var ref = new Firebase("https://nustcoin.firebaseio.com");
+  // ref.unauth();
+  var authData = ref.getAuth();
+  if (authData) {
+    console.log("Authenticated user with uid:", authData.password.email);
+    $scope.user.email = authData.password.email;
+  }
 
   $scope.AuthEmail = function(e) {
     e.preventDefault();

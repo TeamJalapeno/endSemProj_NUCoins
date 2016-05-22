@@ -5,7 +5,7 @@ var jq = $.noConflict();
 
 var NCMainControllers = angular.module('NCMainControllers', ['ngCookies']);
 
-NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location, $rootScope) {
+NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location, $rootScope, $firebaseAuth) {
   var absUrl = "";
   $rootScope.$on('$viewContentLoading',
   function(event, viewConfig){
@@ -14,22 +14,32 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
     // viewConfig.targetView
     var absUrl = "";
 
+    // if (authData) {
+    //   console.log("Authenticated user with uid:", authData.password.email);
+    // }
+
     //check for cookie, if exists keep log in, if not redirect the user to login page
     var cookie = $cookies.get('sessionCookie');
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.getAuth();
 
-    if (cookie == undefined) {
+    if (!authData) {
       absUrl = $location.absUrl();
       absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
-
+      $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
       absUrl = absUrl + "/login/sessionExpired.html";
       window.location.replace(absUrl);
+    }
+    else {
+      console.log("authenticated");
     }
   });
 
   $scope.logOut = function() {
     //delete cookie here
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.unauth();
     $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
-    var cookie = $cookies.get('sessionCookie');
     absUrl = $location.absUrl();
     absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
     absUrl = absUrl + "/login/loggedOut.html";
@@ -38,7 +48,9 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
 });
 
 NCMainControllers.controller('RecentTransactionControl', function($scope, $firebaseArray, $cookies) {
-  var email = $cookies.get('sessionCookie');
+  var ref = new Firebase("https://nustcoin.firebaseio.com");
+  var authData = ref.getAuth();
+  var email = authData.password.email;
   email = email.substring(0, email.indexOf("@"));
   email = email.toLowerCase();
   email = email.toString();
@@ -137,7 +149,9 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $
 NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebaseArray, $firebaseObject, $cookies, $location) {
   jq('.errormessage').hide();
 
-  var email = $cookies.get('sessionCookie');
+  var ref = new Firebase("https://nustcoin.firebaseio.com");
+  var authData = ref.getAuth();
+  var email = authData.password.email;
   email = email.substring(0, email.indexOf("@"));
   email = email.toLowerCase();
   email = email.toString();
@@ -160,7 +174,9 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
   //$scope.userEmail = $cookies.get('sessionCookie').substring(0, $cookies.get('sessionCookie').indexOf("@"));
   updateCoins();
   function updateCoins() {
-    var email = $cookies.get('sessionCookie');
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.getAuth();
+    var email = authData.password.email;
     email = email.substring(0, email.indexOf("@"));
     email = email.toLowerCase();
     email = email.toString();
@@ -175,7 +191,9 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
   }
 
   $scope.amount = function(e){
-    var email = $cookies.get('sessionCookie');
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.getAuth();
+    var email = authData.password.email;
     email = email.substring(0, email.indexOf("@"));
     email = email.toLowerCase();
     email = email.toString();
@@ -251,7 +269,9 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
   $scope.receipt = function(e) {
     jq(".withdrawError").hide();
     jq(".receipt").hide();
-    var userEmail = $cookies.get('sessionCookie');
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.getAuth();
+    var userEmail = authData.password.email;
     var userPassword = $scope.userPassword;
     Authentication.login(userEmail, userPassword).then(function(){
       //use authData
@@ -316,7 +336,9 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
       $scope.event = snapshot.val();
 
       var stuCheck = true;
-      var userEmail = $cookies.get('sessionCookie');
+      var ref = new Firebase("https://nustcoin.firebaseio.com");
+      var authData = ref.getAuth();
+      var userEmail = authData.password.email;
 
       userEmail = userEmail.substring(0, userEmail.indexOf("@"));
       var ref = new Firebase("https://nustcoin.firebaseio.com/usersData/"+userEmail+"/Balance");   // accesing user 1's balance from the databse
@@ -338,7 +360,9 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
 
         if (stuCheck) {
           $scope.eventBuy = function(e) {
-            var userEmail = $cookies.get('sessionCookie');
+            var ref = new Firebase("https://nustcoin.firebaseio.com");
+            var authData = ref.getAuth();
+            var userEmail = authData.password.email;
             var userPassword = $scope.userPassword;
             Authentication.login(userEmail, userPassword).then(function(){
               //use authData
@@ -388,7 +412,9 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
   jq('.errMessage3').hide();
   jq('.succMessage2').hide();
 
-  var email = $cookies.get('sessionCookie');
+  var ref = new Firebase("https://nustcoin.firebaseio.com");
+  var authData = ref.getAuth();
+  var email = authData.password.email;
   email = email.substring(0, email.indexOf("@"));
   console.log(email);
   var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
@@ -417,8 +443,11 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
         jq('.succMessage2').hide();
         var oPw = $scope.oPw;
         var nPw = $scope.nPw;
+        var ref = new Firebase("https://nustcoin.firebaseio.com");
+        var authData = ref.getAuth();
+        var email = authData.password.email;
         ref.changePassword({
-          email: $cookies.get('sessionCookie'),
+          email: email,
           oldPassword: oPw,
           newPassword: nPw
         }, function(error) {
@@ -453,7 +482,8 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
   var absUrl = "";
   $scope.LogOut = function() {
     $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
-    var cookie = $cookies.get('sessionCookie');
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    ref.unauth();
     absUrl = $location.absUrl();
     absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
     absUrl = absUrl + "/login/login.html";
@@ -462,7 +492,9 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
 
   $scope.SubmitFeedback = function() {
     var Feedback = $scope.feedback;
-    var userEmail = $cookies.get('sessionCookie');
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.getAuth();
+    var userEmail = authData.password.email;
     userEmail = userEmail.substring(0, userEmail.indexOf("@"));
     var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
     var obj = new $firebaseObject(ref);
@@ -471,7 +503,8 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
         "Feedback" : Feedback
       });
       $cookies.remove('sessionCookie', {path: '/app/content/home/home.html'});
-      var cookie = $cookies.get('sessionCookie');
+      var ref = new Firebase("https://nustcoin.firebaseio.com");
+      ref.unauth();
       absUrl = $location.absUrl();
       absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
       absUrl = absUrl + "/login/login.html";
