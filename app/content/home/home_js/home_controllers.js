@@ -97,7 +97,7 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $
     db.on('value', function (snapshot) {
       for(var i=0; i< snapshot.val().length; i++) {
         //loop throught all events
-          // console.log(todaysDate);
+        // console.log(todaysDate);
         console.log(snapshot.val()[i].date);
         var eventDate = new Date(snapshot.val()[i].date);
         console.log(eventDate);
@@ -361,7 +361,6 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
 NCMainControllers.controller('feedbackCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject',
 function($scope, $cookies, $location, $rootScope, $firebaseObject) {
   var absUrl = "";
-  console.log("feedbackCtrl working");
   $scope.LogOut = function() {
     //delete cookie here
     console.log("logout working");
@@ -406,8 +405,6 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
   jq('.errMessage2').hide();
   jq('.errMessage3').hide();
   jq('.succMessage2').hide();
-
-  console.log("profileCtrl working");
 
   var email = $cookies.get('sessionCookie');
   email = email.substring(0, email.indexOf("@"));
@@ -472,7 +469,6 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
 NCMainControllers.controller('feedbackCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject',
 function($scope, $cookies, $location, $rootScope, $firebaseObject) {
   var absUrl = "";
-  console.log("feedbackCtrl working");
   $scope.LogOut = function() {
     //delete cookie here
     console.log("logout working");
@@ -485,8 +481,6 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
   }
 
   $scope.SubmitFeedback = function() {
-    //delete cookie here
-    console.log('Feedback submit working');
     var Feedback = $scope.feedback;
     console.log(Feedback);
     var userEmail = $cookies.get('sessionCookie');
@@ -513,8 +507,6 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
   var rating = 0;
   var numberOfRatings = 0;
 
-  console.log("ratingCtrl working");
-
   var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
   var obj = new $firebaseObject(ref);
 
@@ -532,6 +524,46 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
       }
       $scope.rating = rating;
       $scope.numberOfRatings = numberOfRatings;
+    })
+  })
+}]);
+
+NCMainControllers.controller('frequentUsersCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject', '$firebaseArray',
+function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArray) {
+  var user1 = "";
+  var user1Transactions = 0;
+  var user2 = "";
+  var user2Transactions = 0;
+
+  var numberOfTransactions = 0;
+
+  var ref = new Firebase("https://nustcoin.firebaseio.com/transactionDetails");   // accesing user 1's balance from the databse
+  var obj = new $firebaseObject(ref);
+
+  obj.$loaded().then(function() {
+    ref.on("value", function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        if (childSnapshot.key() == "admin") {
+          // ignoring admin transactions
+        }
+        else {
+          childSnapshot.forEach(function(grandChildSnapshot) {
+            numberOfTransactions++;
+          })
+          if(numberOfTransactions >= user1Transactions) {
+            user2 = user1;
+            user2Transactions = user1Transactions;
+            user1 = childSnapshot.key();
+            user1Transactions = numberOfTransactions;
+          }
+          numberOfTransactions = 0;
+        }
+      })
+
+      $scope.user1 = user1;
+      $scope.user1Transactions = user1Transactions;
+      $scope.user2 = user2;
+      $scope.user2Transactions = user2Transactions;
     })
   })
 }]);

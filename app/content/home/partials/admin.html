@@ -40,6 +40,18 @@ jq( document ).ready(function() {
         <b>Number of Users:</b> {{numberOfRatings}} <br>
       </div>
 
+      <div class="frequentUsers" ng-controller="frequentUsersCtrl">
+        <br><h2>Frequent Users:</h2></br>
+        <ul>
+          <li><b> First:</b> {{user1}} <br>
+              <b> Number of Transactions:</b> {{user1Transactions}}
+          </li> <br>
+          <li><b>Second:</b> {{user2}} <br>
+              <b> Number of Transactions:</b> {{user2Transactions}}
+          </li> <br>
+        <ul>
+      </div>
+
       <div class = "transactiondiv" ng-controller = "RecentTransactionControl">
         <br>Your Recent Transactions:
         <ul ng-repeat ="transaction in transactions">
