@@ -9,7 +9,7 @@
   <title>NUCoins</title>
   <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/splashscreen.css">
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -30,9 +30,9 @@
     </div>
       <div class="collapse navbar-collapse navbuttons navcolour navbar-right" id="navMain">
         <ul class="nav navbar-nav">
-          <li class="navbutton"><a href="content/login/login.html">Login</a></li>
-          <li class="navbutton"><a href="about.html">About Us</a></li>
-          <li class="navbutton"><a href="faq.html">FAQs</a></li>
+          <li class="loginbutton"><a href="content/login/login.html"><span style="color:#f2f2f2;">Login<span></a></li>
+          <li class="aboutusbutton"><a href="about.html"><span style="color:#f2f2f2;">About Us</span></a></li>
+          <li class="faqbutton"><a href="faq.html"><span style="color:#f2f2f2;">FAQs</span></a></li>
         </ul>
       </div>
   </div>
@@ -52,14 +52,6 @@
 
 </body>
 <script>
-/*
- **********************************************************
- * OPAQUE NAVBAR SCRIPT
- **********************************************************
- */
-
- // Toggle tranparent navbar when the user scrolls the page
-
  $(window).scroll(function() {
    if($(this).scrollTop() > 50)  /*height in pixels when the navbar becomes non opaque*/
    {

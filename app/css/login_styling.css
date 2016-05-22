@@ -55,7 +55,7 @@
   display: none;
 }
 
-.loginerrormessage, .emailerrormessage, .loginerrormessage2 {
+.loginerrormessage, .emailerrormessage, .loginerrormessage2, .accountcreation {
   margin-top: 50px;
   color: red;
   display: none;

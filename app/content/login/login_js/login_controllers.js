@@ -19,7 +19,7 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', 'LoginService'
     var password = $scope.user.password;
     LoginService.SignIn(username, password);
   }
-  
+
   $scope.RegisterUser = function(e) {
     e.preventDefault();
     var firstName = $scope.user.firstName;
@@ -31,3 +31,12 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', 'LoginService'
   }
 
 }]);
+
+jq('#userEmail').focus(function() {
+    jq('.emailerrormessage').hide();
+});
+jq('#userPassword').focus(function() {
+    jq('.loginerrormessage').hide();
+    jq('.loginerrormessage2').hide();
+    jq(".accountcreation").hide();
+});

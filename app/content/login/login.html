@@ -8,7 +8,7 @@
   <title>NUCoins</title>
   <meta name="description" content="">
   <link rel="shortcut icon" type="image/x-icon" href="../../img/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../../css/app.css">
   <link rel="stylesheet" href="../../css/login_styling.css">
@@ -64,7 +64,7 @@
                   <div class="form"  ng-controller="LoginCtrl">
                   <h2>NUCoins Login</h2><br>
                   <form class="email-auth-form">
-                    <input type="email" ng-model="user.email" placeholder="email"/>
+                    <input type="email" ng-model="user.email" id = "userEmail" placeholder="email"/>
                     <div class="loading"></div>
                     <!-- <input type="password" placeholder="password"/> -->
                     <button class="emailauth" ng-click="AuthEmail($event)">go</button>
@@ -74,27 +74,30 @@
                   <form class="login-form">
                     <input type="email"ng-model="user.email" placeholder="email" disabled=""/>
                     <!-- <input type="text" placeholder="username"/> -->
-                    <input type="password" ng-model="user.password" placeholder="password"/>
+                    <input type="password" ng-model="user.password" id = "userPassword" placeholder="password"/>
                     <div class="loading"></div>
 
                     <button class = "login" ng-click="SignIn($event)">login</button>
                     <div class="loginerrormessage">You entered an incorrect password</div>
                     <div class="loginerrormessage2">Please enter a password</div>
+                    <div class="accountcreation">Your account has been created</div>
 
 
                   </form>
                   <form class="register-form">
-                    <input type="text" placeholder="first name" ng-model="user.firstName" required="" autofocus=""/>
-                    <input type="text" placeholder="last name" ng-model="user.lastName" required=""/>
-                    <label class="radio-button"><input type="radio" ng-model="user.gender" value="Male" required=""> Male</label>
-                    <label class="radio-button"><input type="radio" ng-model="user.gender" value="Female" required=""> Female<br></label>
+                    <div class="registerrequired">You need to register</div>
+                    <input type="text" placeholder="first name" ng-model="user.firstName" required="required" autofocus=""/>
+                    <input type="text" placeholder="last name" ng-model="user.lastName" required="required"/>
+                    <label class="radio-button"><input type="radio" ng-model="user.gender" value="Male" required="required"> Male</label>
+                    <label class="radio-button"><input type="radio" ng-model="user.gender" value="Female" required="required"> Female<br></label>
                     <input type="email" placeholder="email" ng-model="user.email" disabled=""/>
                     <input type="password" placeholder="password" ng-model="user.password" required=""/>
-                    <div class="loading"></div>
 
                     <button class = "register" ng-click="RegisterUser($event)">create</button>
                     <!-- <p class="message">Already registered? <a href="#">Sign In</a></p> -->
                   </form>
+                  <div class="registerloading"></div>
+
                   </div>
                   </div>
               </div>
@@ -113,6 +116,8 @@
     </nav>
 
   </body>
+  <script>
+  </script>
     <script src="login_js/login_app.js"></script>
     <script src="login_js/login_controllers.js"></script>
     <script src="login_js/login_directives.js"></script>
