@@ -58,18 +58,18 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
                       'Amount': amount,
                       'Date': tDate,
                       'Time': tTime
-
+                      
                     })
 
                     if(admin == false){
                       var numofTransactions = new Firebase("https://nustcoin.firebaseio.com/usersData/"+email+"/Transactions");
                       var object = new $firebaseObject(numofTransactions);
-                    object.$loaded().then(function(){
-                      console.log(object.$value);
-                       object.$value = object.$value + 1;
-                       object.$save();
-                       console.log(object.$value);
-                    });
+                      object.$loaded().then(function(){
+                        console.log(object.$value);
+                        object.$value = object.$value + 1;
+                        object.$save();
+                        console.log(object.$value);
+                      });
                     }
                     console.log("Recharge Completed");
                   }
@@ -108,26 +108,26 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
         var existingBal = 0;
         existingBal = parseInt(obj3.$value);
         if(existingBal >= amount){
-        existingBal = existingBal - amount;
-        obj3.$value = existingBal;
-        obj3.$save();
-        obj.$value = obj.$value + 1;  //incrementing the "transactions" variable for the user
-        obj.$save();
-        var userdetail = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+accountEmail);
-        var userRef = userdetail.push();
-        userRef.set({
-          'Title': "Withdrawal",
-          'Description': "Withdrawal",
-          'Amount': amount,
-          'Date': tDate,
-          'Time': tTime
-        });
+          existingBal = existingBal - amount;
+          obj3.$value = existingBal;
+          obj3.$save();
+          obj.$value = obj.$value + 1;  //incrementing the "transactions" variable for the user
+          obj.$save();
+          var userdetail = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+accountEmail);
+          var userRef = userdetail.push();
+          userRef.set({
+            'Title': "Withdrawal",
+            'Description': "Withdrawal",
+            'Amount': amount,
+            'Date': tDate,
+            'Time': tTime
+          });
           jq(".receipt").show();
-      }
-      else{
-        jq(".withdrawError").show();
-        console.log("Insufficient balance. Please Recharge your account");
-      }
+        }
+        else{
+          jq(".withdrawError").show();
+          console.log("Insufficient balance. Please Recharge your account");
+        }
       });
 
     }
@@ -234,13 +234,13 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
                 'Time': tTime
               });
               if(first != "admin"){
-                  var numofTransactions = new Firebase("https://nustcoin.firebaseio.com/usersData/"+sender+"/Transactions");
-                  var object = new $firebaseObject(numofTransactions);
+                var numofTransactions = new Firebase("https://nustcoin.firebaseio.com/usersData/"+sender+"/Transactions");
+                var object = new $firebaseObject(numofTransactions);
                 object.$loaded().then(function(){
                   console.log(object.$value);
-                   object.$value = object.$value + 1;
-                   object.$save();
-                   console.log(object.$value);
+                  object.$value = object.$value + 1;
+                  object.$save();
+                  console.log(object.$value);
                 });
               }
 
@@ -251,14 +251,14 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
               object2.$loaded().then(function(){
                 object2.$value = object2.$value + 1;
                 object2.$save();
-              user2Ref.set({
-                'Title': dTitle,
-                'Description': description,
-                'Amount': amount,
-                'Date': tDate,
-                'Time': tTime,
+                user2Ref.set({
+                  'Title': dTitle,
+                  'Description': description,
+                  'Amount': amount,
+                  'Date': tDate,
+                  'Time': tTime,
+                });
               });
-            });
               jq(".receipt").show();
             }
           }
