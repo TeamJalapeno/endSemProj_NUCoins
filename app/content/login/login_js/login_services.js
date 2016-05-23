@@ -212,8 +212,7 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
           'Gender': gender,
           'Email': email,
           'Balance': '10',
-          'AccessLevel':"admin",
-          'Transactions': 0
+          'AccessLevel':"admin"
         });
       }
       else if (isVendor){
