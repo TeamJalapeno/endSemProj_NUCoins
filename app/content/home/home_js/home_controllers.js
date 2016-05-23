@@ -131,7 +131,7 @@ NCMainControllers.controller('RecentEventsControl', function($scope, $firebaseAr
 });
 
 NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $filter) {
-  var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('.ev')
+  var $load = jq('.fullbodyloading').show()
   , db = new Firebase("https://nustcoin.firebaseio.com/events")
   db.on('value', function () {
     $load.hide();
