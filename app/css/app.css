@@ -90,7 +90,6 @@ body {
   text-align: justify;
 }
 
-
 .aboutscreen p {
   text-align: justify;
 }
@@ -183,4 +182,8 @@ body {
     margin-top: 25px;
   }
 
+}
+
+#story, #product {
+  cursor: pointer;
 }

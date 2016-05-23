@@ -147,7 +147,7 @@ NCMainControllers.controller('RecentEventsControl', function($scope, $firebaseAr
   $scope.events = $firebaseArray(query);
 });
 
-NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $filter) {
+NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $filter, $location) {
 
   var $load = jq('.fullbodyloading').show()
   , db = new Firebase("https://nustcoin.firebaseio.com/events")
@@ -161,6 +161,16 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $
   $scope.events = $firebaseArray(ref);
 
   $scope.updateEvents = function() {
+    var absoluteUrl = "";
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.getAuth();
+
+    if (!authData) {
+      absoluteUrl = $location.absUrl();
+      absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+      absoluteUrl = absoluteUrl + "/login/login.html";
+      window.location.replace(absoluteUrl);
+    }
     var date = new Date();
     console.log(date);
     var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('.ev')
@@ -169,15 +179,17 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $
       for(var i=0; i< snapshot.val().length; i++) {
         //loop throught all events
         // console.log(todaysDate);
-        console.log(snapshot.val()[i].date);
-        var eventDate = new Date(snapshot.val()[i].date);
-        console.log(eventDate);
-        if (eventDate <= date) {
-          console.log("event is past");
-          //delete event
-          var eventdb = new Firebase("https://nustcoin.firebaseio.com/events/" + i);
-          eventdb.remove();
-          break;
+        if (snapshot.val()[i]) {
+          console.log(snapshot.val()[i].date);
+          var eventDate = new Date(snapshot.val()[i].date);
+          console.log(eventDate);
+          if (eventDate <= date) {
+            console.log("event is past");
+            //delete event
+            var eventdb = new Firebase("https://nustcoin.firebaseio.com/events/" + i);
+            eventdb.remove();
+            break;
+          }
         }
       }
       $load.hide();
@@ -370,6 +382,7 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
   jq(".withdrawError2").hide();
   jq(".receipt").hide();
   jq("#myview").removeClass('noview');
+  console.log('test');
 
   $scope.receipt = function(e) {
     jq(".withdrawError").hide();
