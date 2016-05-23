@@ -9,8 +9,7 @@ jq( document ).ready(function() {
 
 <div class = "jumbotron splashscreen" ng-controller='AddAmountCtrl'>
 <h1 > Welcome, {{name}}! </h1>
-<h3>Your NUCoins: {{coins}}</h3>
-<h3>Your account history is as follows:</h3>
+<h2>Your NUCoins: <span style="color:lightblue">{{coins}}</span></h2>
 </div>
 
 
@@ -21,10 +20,12 @@ jq( document ).ready(function() {
       <div class = "amountAdder" ng-controller='AddAmountCtrl'>
         <h2>Transaction</h2>
         <form class = "form-group">
+          <div class = "formentries">
           <p>Enter Email:<span><input type="email" class = "form-control pull-right" placeholder="Receiver's email address" ng-model="user.receiver" required=""/></span></p><br>
           <p>Enter Amount:<span><input type="number" class = "form-control pull-right" placeholder="Transfer amount" ng-model="user.amount" required="" min="10"/><br></span></p><br>
           <p>Enter Title:<span><input type="text"  class = "form-control pull-right"placeholder="A title for your transaction" ng-model="user.titles" required=""/></span></p><br>
           <p>Enter Description:<span><input type="text"  class = "form-control pull-right"placeholder="Transaction Description" ng-model="user.descriptions" required=""/><br></span></p><br>
+        </div>
           <p><button  class = "form-control transfer" ng-click='amount($event);'>Transfer</button></p>
           <p class = "errorMsg">*You cannot transfer NUCoins to your own account. Please enter a Valid Email Address</p>
           <p class = "errorMsg2">*Please provide all details to transfer coins.</p>
