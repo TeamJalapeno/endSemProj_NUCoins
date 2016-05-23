@@ -363,20 +363,44 @@ function($scope, $stateParams, $http, $firebaseArray, $firebaseObject) {
   })
 }]);
 
-NCMainControllers.controller('FaqCtrl', ['$scope', '$http',
-function($scope, $http) {
-  $http.get('content/faq_data/faq.json').success(function(data) {
+NCMainControllers.controller('FaqCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject',
+function($scope, $http, $firebaseArray, $firebaseObject) {
+
+  var $load = jq('.fullbodyloading').show()
+  , db = new Firebase("https://nustcoin.firebaseio.com/faqs")
+  db.on('value', function () {
+    $load.hide();
     jq("#myview").removeClass('noview');
-    $scope.faq = data;
-  });
+  })
+
+  var ref = new Firebase("https://nustcoin.firebaseio.com/faqs");
+  // download the data into a local object
+
+  var obj = new $firebaseObject(ref);
+  obj.$loaded().then(function() {
+    $scope.faq = $firebaseArray(ref);
+  })
+
 }]);
 
-NCMainControllers.controller('Faq2Ctrl', ['$scope', '$http',
-function($scope, $http) {
-  $http.get('../faq_data/faq.json').success(function(data) {
-    jq("#myview").removeClass('noview');
-    $scope.faq = data;
-  });
+NCMainControllers.controller('Faq2Ctrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject',
+function($scope, $http, $firebaseArray, $firebaseObject) {
+
+    var $load = jq('.fullbodyloading').show()
+    , db = new Firebase("https://nustcoin.firebaseio.com/faqs")
+    db.on('value', function () {
+      $load.hide();
+      jq("#myview").removeClass('noview');
+    })
+
+    var ref = new Firebase("https://nustcoin.firebaseio.com/faqs");
+    // download the data into a local object
+
+    var obj = new $firebaseObject(ref);
+    obj.$loaded().then(function() {
+      $scope.faq = $firebaseArray(ref);
+    })
+
 }]);
 
 NCMainControllers.controller('WithdrawCtrl', function(Authentication, TransactionService, PurchaseService, $scope, $firebaseArray,$firebaseObject, $cookies,$filter,  $location) {
