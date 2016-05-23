@@ -10,7 +10,7 @@
 
     <div>
       <p>For security purposes you are required to enter your password again.
-      <p><input id="pw2" class = "form-control" type="password" ng-model="userPassword" placeholder="password"/><br>
+      <p><input id="pw2" class = "form-control" type="password" ng-model="userPassword" placeholder="Password"/><br>
 
       <button class="buyEventButton form-control" ng-click='eventBuy($event)'>Create Receipt</button></br></br>
     </div>
@@ -18,9 +18,13 @@
     <p class="pwError"> *Incorrect Password. Please try again.</p>
     <p class="pwError2"> *Please enter a password to proceed.</p>
     <p class="stuError2"> *You can't transfer coins in your own account.</p>
-    <div class = "receipt">
-      Your code is {{transactionCode}} <br>
-      Your username is {{username}} <br>
+
+    <div class="receipt">
+      <div class = "container conform">
+        <h2 style="text-align:center">Receipt</h2>
+        Your code is {{transactionCode}} <br>
+        Your username is {{username}} <br>
+      </div>
     </div>
   </div>
 </div>
