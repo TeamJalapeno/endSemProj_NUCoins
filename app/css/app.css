@@ -26,6 +26,9 @@ body {
 button {
   color: black;
 }
+.padding {
+  padding: 20px;
+}
 
 .withdrawalform{
   width: 550px;

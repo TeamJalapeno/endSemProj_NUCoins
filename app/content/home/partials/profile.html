@@ -1,20 +1,20 @@
 <div class = "jumbotron splashscreen"><h1>Your Profile</h1>
 <div class = "container">
   <div class = "row">
-    <div class = "col-md-6">
-      <form class="">
-        <p>First Name: <input type="text" class = "form-control" placeholder="first name" ng-model="user.FirstName" required="" autofocus=""/><br></p>
-        <p>Last Name: <input type="text" class = "form-control" placeholder="last name" ng-model="user.LastName" required=""/></br></p>
-        <p>Feedback (on a scale of 1-10): <input type="number" class = "form-control" ng-model="user.Feedback" min="1" max="10"/></br></p>
-        <button class = "btn" ng-click="Update()">Update</button></br>
+    <div class = "col-md-6 padding">
+      <form class="form-group">
+        <p>First Name: <span style="position:relative;float:right;"><input type="text" class = "form-control" placeholder="First Name" ng-model="user.FirstName" required="" autofocus=""/></span><br></p>
+        <p>Last Name: <span style="position:relative;float:right;"><input type="text" class = "form-control" placeholder="Last Name" ng-model="user.LastName" required=""/></span></br></p>
+        <p>Feedback (1-10): <span style="position:relative;float:right;"><input type="number" class = "form-control" placeholder="Enter a value from 1 to 10"ng-model="user.Feedback" min="1" max="10"/></span></p><br>
+        <button class = "btn btn-primary" style="" ng-click="Update()">Update</button><br>
       </form>
     </div>
-    <div class = "col-md-6">
-      <form class="">
+    <div class = "col-md-6 padding">
+      <form class="form-group">
         <p>Update Password:</br></p>
-        <p>Old Password: <input type="password" class = "form-control"ng-model="oPw" required=""/></p>
-        <p>New Password: <input type="password" class = "form-control"ng-model="nPw" required=""/></p>
-        <button class = "btn" ng-click="Update2()">Update</button></br>
+        <p>Old Password: <span style="position:relative;float:right;"><input type="password" class = "form-control"placeholder="Old Password..."ng-model="oPw" required=""/></span></p>
+        <p>New Password: <span style="position:relative;float:right;"><input type="password" class = "form-control"placeholder="New Password..."ng-model="nPw" required=""/></span></p><br>
+        <button class = "btn btn-primary" style=""ng-click="Update2()">Update</button>
       </form>
     </div>
   </div>
