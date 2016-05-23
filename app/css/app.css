@@ -152,6 +152,12 @@ form input {
   margin-bottom: 20px;
 }
 
+.transactionlist {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  min-height: 50px;
+}
+
 .eventsdiv{
   background-color: rgba(0, 0, 0, 0.5);
   overflow-y: auto;
