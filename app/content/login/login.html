@@ -61,8 +61,8 @@
                     <div class="loading"></div>
                     <button class="emailauth" ng-click="AuthEmail($event)">go</button>
                   </form>
-                  <div class="emailerrormessage">Please enter valid NUST Email ID</div>
-                  <div class="sessionexpired">Session expired, login again</div>
+                  <div class="emailerrormessage">*Please enter valid NUST Email ID</div>
+                  <div class="sessionexpired">*Session expired, login again</div>
 
                   <form class="login-form">
                     <input type="email"ng-model="user.email" placeholder="email" disabled=""/>
@@ -70,8 +70,8 @@
                     <div class="loading"></div>
 
                     <button class = "login" ng-click="SignIn($event)">login</button>
-                    <div class="loginerrormessage">You entered an incorrect password</div>
-                    <div class="loginerrormessage2">Please enter a password</div>
+                    <div class="loginerrormessage">*You entered an incorrect password</div>
+                    <div class="loginerrormessage2">*Please enter a password</div>
                     <div class="accountcreation">Your account has been created</div>
 
                   </form>
@@ -85,7 +85,7 @@
                     <input id="pw" type="password" placeholder="password" ng-model="user.password" required=""/>
 
                     <button class = "register" ng-click="RegisterUser($event)">create</button>
-                    <div class="generalError">Please provide all the information to continue</div>
+                    <div class="generalError">*Please provide all the information to continue</div>
 
                   </form>
                   <div class="registerloading"></div>

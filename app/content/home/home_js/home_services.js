@@ -200,9 +200,11 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
         console.log(second);
         console.log(transfer);
         console.log(auth);
-         if(auth == false && auth2 == false)
+         if(auth == false && auth2 == false) {
            jq(".invalidEmail").show();
-         if (!first || !second)
+           jq(".errorMsg3").hide();
+         }
+         else if (!first || !second)
           jq(".errorMsg3").show();
 
         // if user 1 is admin and user 2 is a student

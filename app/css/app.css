@@ -247,3 +247,11 @@ form input {
 #story, #product {
   cursor: pointer;
 }
+
+.errorMsg, .errorMsg2, .invalidEmail, .errorMsg3, .recError, .rechargeMessage1, .balError, .stuError, .pwError2, .recError, .pwError, .stuError2, .feedbackError, .errMessage1, .errMessage2, .errMessage3, .errormessage, .noRecents, .withdrawError, .withdrawError2 {
+  color: red;
+}
+
+.succMessage3, .rechargeMessage2, .succMessage, .succMessage2 {
+  color: green;
+}
