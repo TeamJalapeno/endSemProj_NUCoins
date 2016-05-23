@@ -20,22 +20,6 @@ jq( document ).ready(function() {
 
       <div class = "amountAdder" ng-controller='AddAmountCtrl'>
         <h2>Transaction</h2>
-        <form>
-          <p>Enter Email:
-          <input type="email" placeholder="Receiver's email address" ng-model="user.receiver" required=""/>
-          <p>Enter Amount:
-          <input type="number" placeholder="Transfer amount" ng-model="user.amount" required="" min="10"/><br>
-          <p>Enter Title:
-          <input type="text" placeholder="A title for your transaction" ng-model="user.titles" required=""/>
-          <p>Enter Description:
-          <input type="text" placeholder="Transaction Description" ng-model="user.descriptions" required=""/><br>
-          <p><button ng-click='amount($event);'>Transfer</button><br>
-          <p class = "errorMsg">*You cannot transfer NUCoins to your own account. Please enter a Valid Email Address</p>
-          <p class = "errorMsg2">*Please provide all details to transfer coins.</p>
-          <p class = "invalidEmail">*The email entered doesn't exist in our database. You can only send NUCoins to NUCoin users.</p>
-          <p class = "succMessage3">{{user.amount}} NUCs have successfully been transferred.</p>
-          <p class = "errorMsg3">*The specified user hasn't created an account on NUCoins yet.</p>
-          <p class = "recError">*Your balance is insufficient</p>
         <form class = "form-group">
           <p>Enter Email:<span><input type="email" class = "form-control pull-right" placeholder="Receiver's email address" ng-model="user.receiver" required=""/></span></p><br>
           <p>Enter Amount:<span><input type="number" class = "form-control pull-right" placeholder="Transfer amount" ng-model="user.amount" required="" min="10"/><br></span></p><br>
