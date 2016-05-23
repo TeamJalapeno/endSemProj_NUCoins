@@ -451,7 +451,7 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
 
     }, function(error){
       console.log(error);
-      jq(".withdrawError2").show().fadeOut(5000);
+      jq(".withdrawError2").show().fadeOut(7000);
     });
   }
   $scope.receipt = function(e) {
