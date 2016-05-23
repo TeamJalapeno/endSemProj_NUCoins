@@ -1,12 +1,16 @@
-<script>jq(".homepagelink").attr("href", "#/vendor");</script>
+<script>jq(".homepagelink").attr("href", "#/vendor");
+jq(".eventbutton").hide();
+</script>
 
-<h1> You are a vendor. </h1>
-<div class = "page1" ng-controller='AddAmountCtrl'>
+<div class = "jumbotron splashscreen" ng-controller='AddAmountCtrl'>
 <h1 > Welcome, {{name}}! </h1>
 <h3>Your NUCoins: {{coins}}</h3>
-<h2>Info: {{userType}}</h2>
+</div>
+
+<div class = "container">
+
 <p><h2>Transaction history</h2>
- <button ng-click='details($event);'>Transaction Details</button>
+ <button class = "form-control" ng-click='details($event);'>Transaction Details</button>
 <div class = "transactiondiv" ng-controller = "RecentTransactionControl">
   <br>Your Recent Transactions:
   <ul ng-repeat ="transaction in transactions">
@@ -18,4 +22,6 @@
    <br>
   </ul>
   <p class ="noRecents">You have no transactions to be showed.</p>
+</div>
+
 </div>
