@@ -450,7 +450,8 @@ function(TransactionService, PurchaseService, $location, $cookies, $scope, $stat
   var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('.mainDiv')
   , db = new Firebase("https://nustcoin.firebaseio.com/eventDetails"+$stateParams.eventId)
   db.on('value', function () {
-    $load.hide()
+    $load.hide();
+    jq(".fullbodyloading").hide();
   })
 
   jq(".balError").hide();

@@ -1,25 +1,26 @@
-<h2>Events Buy</h2>
-<div class="jumbotron splashscreen">
-  <h3>Are you sure you want to make a transaction?</h3>
-  <p>Transaction details:</p>
-  <p> Cost for the event: {{event.cost}} </p>
-  <p> Your current balance: {{balance}} </p>
-  <p class="balError"> You've insufficient balance to buy this ticket.</p>
-  <p class="stuError"> You can't buy ticket from yourself.</p>
-  <p class="balance2"> Your balance after buying ticket: {{balance2}} </p></br></br>
+<div class = "container bottompadding ">
+  <div class="jumbotron splashscreen">
+    <h3>Are you sure you want to make a transaction?</h3>
+    <p>Transaction details:</p>
+    <p> Cost for the event: {{event.cost}} </p>
+    <p> Your current balance: {{balance}} </p>
+    <p class="balError"> You've insufficient balance to buy this ticket.</p>
+    <p class="stuError"> You can't buy ticket from yourself.</p>
+    <p class="balance2"> Your balance after buying ticket: {{balance2}} </p></br></br>
 
-  <div class = "amountAdder">
-    For security purposes you are required to enter your password again
-    <input id="pw2" type="password" ng-model="userPassword" placeholder="password"/><br>
+    <div>
+      <p>For security purposes you are required to enter your password again.
+      <p><input id="pw2" class = "form-control" type="password" ng-model="userPassword" placeholder="password"/><br>
 
-    <button class="buyEventButton" ng-click='eventBuy($event)'>Create Receipt</button></br></br>
-  </div>
-  <p class="recError"> Your transaction can't be processed due to insufficient balance.</p>
-  <p class="pwError"> You enterred wrong password, enter again.</p>
-  <p class="pwError2"> Please enter a password to proceed.</p>
-  <p class="stuError2"> You can't transfer coins in your own account.</p>
-  <div class = "receipt">
-    Your code is {{transactionCode}} <br>
-    Your username is {{username}} <br>
+      <button class="buyEventButton form-control" ng-click='eventBuy($event)'>Create Receipt</button></br></br>
+    </div>
+    <p class="recError"> Your transaction can't be processed due to insufficient balance.</p>
+    <p class="pwError"> You enterred wrong password, enter again.</p>
+    <p class="pwError2"> Please enter a password to proceed.</p>
+    <p class="stuError2"> You can't transfer coins in your own account.</p>
+    <div class = "receipt">
+      Your code is {{transactionCode}} <br>
+      Your username is {{username}} <br>
+    </div>
   </div>
 </div>
