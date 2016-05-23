@@ -178,6 +178,10 @@ form input {
   margin-top: 100px;
 }
 
+.bottompadding{
+  margin-bottom: 100px;
+}
+
 @media(max-width:767px){
   .logo {
     position: relative;
