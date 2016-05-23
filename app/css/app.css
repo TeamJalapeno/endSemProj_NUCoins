@@ -290,33 +290,25 @@ form input {
     background-color: #0088b9;
     color:white;
 }
-.transfer{
-    background-color: #00cc00;
+.mybutton:hover{
+    background-color: #004de6;
     color:white;
 }
 .transfer{
-    background-color: #00cc00;
+    background-color: #009900;
     color:white;
 }
-.transfer{
-    background-color: #00cc00;
-    color:white;
-}
-.transfer{
-    background-color: #00cc00;
-    color:white;
-}
-.transfer{
-    background-color: #00cc00;
+.transfer:hover{
+    background-color: #006600;
     color:white;
 }
 
-.transfer{
-    background-color: #00cc00;
-    color:white;
-}
 .recharge{
-  background-color: #ffcc00;
+  background-color: #e6b800;
+  color:white;
+}
+.recharge:hover{
+  background-color:#e68a00;
   color:white;
 }
 .green{
