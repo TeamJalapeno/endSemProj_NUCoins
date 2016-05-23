@@ -302,7 +302,7 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
     console.log(reciever);
 
     if (!reciever)
-    jq('.errorMsg2').show();
+    jq('.errorMsg2').show().fadeOut(5000);
     else {
       if(email != reciever){
         email = email.substring(0, email.indexOf("@"));
@@ -320,10 +320,10 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
           TransactionService.TwoWayTransaction(email, reciever, amount, title, description, tDate, tTime);
         }
         else
-        jq('.errorMsg2').show();
+        jq('.errorMsg2').show().fadeOut(5000);
       }
       else{
-        jq(".errorMsg").show();
+        jq(".errorMsg").show().fadeOut(5000);
       }
     }
   }
