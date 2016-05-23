@@ -27,12 +27,12 @@ jq( document ).ready(function() {
           <p>Enter Description:<span><input type="text"  class = "form-control pull-right"placeholder="Transaction Description" ng-model="user.descriptions" required=""/><br></span></p><br>
         </div>
           <p><button  class = "form-control transfer" ng-click='amount($event);'>Transfer</button></p>
-          <p class = "errorMsg">*You cannot transfer NUCoins to your own account. Please enter a Valid Email Address</p>
+          <p class = "errorMsg">*You cannot transfer NUCoins to your own account. Please enter a Valid Email Address.</p>
           <p class = "errorMsg2">*Please provide all details to transfer coins.</p>
           <p class = "invalidEmail">*The email entered doesn't exist in our database. You can only send NUCoins to NUCoin users.</p>
           <p class = "succMessage3">{{user.amount}} NUCs have successfully been transferred.</p>
           <p class = "errorMsg3">*The specified user hasn't created an account on NUCoins yet.</p>
-          <p class = "recError">*Your balance is insufficient</p>
+          <p class = "recError">*Your balance is insufficient to make this transaction.</p>
         </form>
 
         <p><h2>Transaction history</h2></p><br>
@@ -44,7 +44,7 @@ jq( document ).ready(function() {
           <p><h2 style="text-align: left;">Enter code to recharge NUCoins</h2></p>
           <input type="text" class = "form-control pull-left" placeholder="Recharge code" ng-model="rechargeCode" required=""/><br><br>
           <p><button class = "form-control pull-left recharge" ng-click='recharge($event);'>Recharge</button></p><br>
-          <p class="rechargeMessage1">*You entered wrong code!</p>
+          <br><p class="rechargeMessage1">*You entered invalid code!</p>
           <p class="rechargeMessage2">Coins successfully added!</p>
         </form>
       </div>

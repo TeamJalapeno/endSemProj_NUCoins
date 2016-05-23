@@ -37,7 +37,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
           for(i=0; i< snapshot.val().length; i++) {
             console.log("You entered:" + rechargeCode);
             if (rechargeCode == snapshot.val()[i]) {
-              db2.on("value", function(snapshot){
+              db2.once("value", function(snapshot){
                 var ref2 = new Firebase("https://nustcoin.firebaseio.com/Recharge/codeValues/"+rechargeCode);
                 var obj2 = new $firebaseObject(ref2);
                 obj2.$loaded(),obj3.$loaded().then(function(){
@@ -72,9 +72,12 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
                       });
                     }
                     console.log("Recharge Completed");
+                    jq('.rechargeMessage1').hide();
                     jq('.rechargeMessage2').show();
                   }
                   else{
+                    jq('.rechargeMessage2').hide();
+                    jq('.rechargeMessage1').show();
                     //console.log("This code has been already used. Please use a valid code");
                   }
                 })
@@ -90,6 +93,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
           if(found == false){
             console.log('The code you entered is Invalid. Please enter a valid Recharge Code');
             jq('.rechargeMessage1').show();
+            jq('.rechargeMessage2').hide();
           }
         })
       });//db.on ends here
@@ -127,6 +131,7 @@ MainApp.service('PurchaseService', function ($firebaseAuth) {
           jq(".receipt").show();
         }
         else{
+          jq(".wtDraw").show();
           jq(".withdrawError").show();
           console.log("Insufficient balance. Please Recharge your account");
         }
