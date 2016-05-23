@@ -710,6 +710,8 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
 
   jq('.feedbackError').hide();
   jq("#myview").removeClass('noview');
+  jq(".fullbodyloading").hide();
+
 
   var absUrl = "";
 
@@ -781,7 +783,6 @@ NCMainControllers.controller('ratingCtrl', ['$scope', '$cookies', '$location', '
 function($scope, $cookies, $location, $firebaseObject, $firebaseArray) {
   var rating = 0;
   var numberOfRatings = 0;
-
   var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
   var obj = new $firebaseObject(ref);
 
