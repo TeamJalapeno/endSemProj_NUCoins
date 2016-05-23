@@ -28,8 +28,9 @@ button {
 }
 
 .withdrawalform{
-  width: 500px;
+  width: 550px;
   margin: 0 auto;
+  font-size: 22px;
   line-height: 38px;
 }
 
@@ -99,7 +100,7 @@ button {
 
 .splashscreen {
   width: 100%;
-  margin-top: 11%;
+  margin-top: 80px;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -172,6 +173,9 @@ button {
     background-image:url('../img/portraitforabout.png');
     background-repeat: no-repeat;
     background-size: cover;
+  }
+  .withdrawalform{
+    font-size: 14px;
   }
   .toppadding {
     margin-top: 100px;;
