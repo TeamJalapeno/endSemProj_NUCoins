@@ -52,8 +52,13 @@ body {
   left:0;
   width: 100%;
   height: 100%;
-  background-image:url('../img/blackseamless.jpg');
+  margin: 0 auto;
   background-image:url('../img/loading.gif');
+  background-repeat: no-repeat;
+  background-size: 180px 160px;
+  background-position: center;
+  /*background-color: rgba(0, 0, 0, 0.5);*/
+
 }
 
 .transactiondiv{
