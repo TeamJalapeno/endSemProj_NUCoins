@@ -32,7 +32,7 @@
     </div>
     <div class = "col-md-5">
       <div class = "transactiondiv" ng-controller = "RecentTransactionControl">
-        <p>Your Recent Transactions:</p>
+        <h2 style="text-align: left;">Your Recent Transactions:</h2></br>
         <ul ng-repeat ="transaction in transactions.slice().reverse()">
           <li > <b>Title:</b>{{transaction.Title}} <br>
             <b>Amount:</b>{{transaction.Amount}} <br>
@@ -45,7 +45,7 @@
         </div>
 
         <div class = "eventsdiv" ng-controller = "RecentEventsControl">
-          <br>Latest Events:
+          <h2 style="text-align: left;">Latest Events:</h2></br>
           <ul ng-repeat ="event in events.slice().reverse()">
             <li > <b>Name:</b>{{event.name}} <br>
               <b> Description:</b>  {{event.snippet}}</li> <br>
@@ -59,7 +59,7 @@
 
       <div ng-controller = "RechargeAccountCtrl">
         <form>
-          <p>Enter code to recharge NUCoins</p>
+          <p><h2 style="text-align: left;">Enter code to recharge NUCoins</h2></p>
           <input type="text" class = "form-control pull-left" placeholder="Recharge code" ng-model="rechargeCode" required=""/><br><br>
           <p><button class = "form-control pull-left" ng-click='recharge($event);'>Recharge</button></p><br>
           <p class="rechargeMessage1">You entered wrong code!</p>

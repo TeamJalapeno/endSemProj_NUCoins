@@ -23,7 +23,7 @@ jq( document ).ready(function() {
           <p>Enter Email:
           <input type="email" placeholder="Receiver's email address" ng-model="user.receiver" required=""/>
           <p>Enter Amount:
-          <input type="number" placeholder="Transfer amount" ng-model="user.amount" required=""/><br>
+          <input type="number" placeholder="Transfer amount" ng-model="user.amount" required="" min="10"/><br>
           <p>Enter Title:
           <input type="text" placeholder="A title for your transaction" ng-model="user.titles" required=""/>
           <p>Enter Description:
