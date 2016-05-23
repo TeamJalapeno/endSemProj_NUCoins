@@ -2,32 +2,38 @@
 <div class = "page1 bottompadding" ng-controller='WithdrawCtrl'>
 
   <div class = "amountAdder jumbotron splashscreen">
-    <h2>Please enter the following details of the withdrawal.</h2><br><br>
+    <h2>Please enter the following details of the withdrawal.</h2><br>
     <!-- Enter Email:
     <input type="email" placeholder="email address" ng-model="user.studentid" required="required"/> -->
-    <div class = "container withdrawalform"><form>
-      For security purposes please enter your password again.<br>
-      Your password: <span style="position:relative;float:right;"><input class = "form-control"type="password" ng-model="userPassword" placeholder="Password" required=""/></span><br>
-      Enter Amount: <span style="position:relative;float:right;"><input  class = "form-control" type="number" placeholder="Amount to Withdraw" ng-model="user.amount" required="" min="10"/></span><br>
-      Enter name of beneficiary: <span style="position:relative;float:right;"><input  class = "form-control" type="text" placeholder="Receiver's name" ng-model="user.beneficiary" required=""/></span><br><br>
-      <span style="position:relative;float:center;margin-top:5px;"><button class = "btn btn-primary" ng-click='confirmation($event);'>Create Receipt</button></span><br>
-    </form></div>
-
+    <div class = "container withdrawalform wtDraw">
+      <form>
+        For security purposes please enter your password again.<br>
+        Your password: <span style="position:relative;float:right;"><input class = "form-control"type="password" ng-model="userPassword" placeholder="Password" required=""/></span><br>
+        Enter Amount: <span style="position:relative;float:right;"><input  class = "form-control" type="number" placeholder="Amount to Withdraw" ng-model="user.amount" required="" min="10"/></span><br>
+        Enter name of beneficiary: <span style="position:relative;float:right;"><input  class = "form-control" type="text" placeholder="Receiver's name" ng-model="user.beneficiary" required=""/></span><br><br>
+        <span style="position:relative;float:center;margin-top:5px;"><button class = "btn btn-primary" ng-click='confirmation($event);'>Create Receipt</button></span><br>
+      </form>
+    </div>
+    <br><p class = "withdrawError">*Your Balance is Insufficient for the amount entered. Please Recharge your Account.</p>
+    <p class = "withdrawError2">*The specified user account password is incorrect.</p>
+    <div class="confirmation">
+      <div class = "container conform">
+        Are you sure you want to continue? This can't be undone.<br><br>
+        <button class = "btn btn-danger cButton" ng-click='receipt($event);'>Yes</button>
+      </div>
+    </div>
+    <div class="receipt">
+      <div class = "container conform">
+        <h2 style="text-align:center">Receipt</h2>
+        Your code is {{transactionCode}} <br>
+        Your email is {{email}} <br>
+        Beneficiary is {{user.beneficiary}} <br>
+      </div>
+    </div>
   </div>
 
-  <div class="confirmation">
-    Are you sure you want to continue? This can't be undone.
-    <button class = "btn btn-danger" ng-click='receipt($event);'>Yes</button>
-  </div>
 
-  <div class = "receipt">
-    Your code is {{transactionCode}} <br>
-    Your email is {{email}} <br>
-    Beneficiary is {{user.beneficiary}} <br>
-  </div>
 
-  <p class = "withdrawError">*Your Balance is Insufficient for the amount entered. Please Recharge your Account.</p>
-  <p class = "withdrawError2">*The specified user account password is incorrect.</p>
 
 </div>
 </div>

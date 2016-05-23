@@ -42,15 +42,7 @@ button {
 }
 
 .receipt {
-  color: black;
-  background-color: white;
-  border-style: double;
-  border-radius: 10px;
-  border-radius: 5px;
-  border-color: green;
-  width: 450px;
-  height: 100px;
-  margin: 0 auto;
+
 }
 /*ui-view {
   display: none;
@@ -329,4 +321,26 @@ form input {
 }
 .red:hover{
   background-color: #b30000;
+}
+
+.confirmation {
+  font-family: Regencie;
+  font-size: 18px;
+  text-align: center;
+}
+
+.cButton {
+  width: 30px;
+}
+
+.conform {
+  width: 550px;
+  margin: 0 auto;
+  font-size: 22px;
+  line-height: 38px;
+  padding: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: grey;
+  margin-bottom: 20px;
 }
