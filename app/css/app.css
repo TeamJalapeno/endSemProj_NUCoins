@@ -139,6 +139,17 @@ form input {
   display: none;
 }
 
+.eventlist {
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-right: 20px;
+  margin-top: 30px;
+}
+
+.events {
+  margin-top: 130px;
+  margin-bottom: 100px;
+}
+
 .logo {
   max-width: 250px;
   margin: 0 auto;
@@ -151,6 +162,12 @@ form input {
 .eventimage {
   width:100px;
 }
+
+.refreshevents{
+  position:relative;
+  width: 100px;
+}
+
 
 .appTitle {
   font-size: 36px;
@@ -198,7 +215,9 @@ form input {
     text-align: justify;
     font-size: 26px;
   }
-
+  .refreshevents{
+    width: 20px;
+  }
 }
 /*
 @media(max-width:992px){
