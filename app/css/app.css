@@ -92,17 +92,23 @@ form input {
 .transactiondiv{
   background-color: rgba(0, 0, 0, 0.5);
   overflow-y: auto;
-  height: 200px;
+  height: 220px;
+  padding: 30px;
+  margin-bottom: 30px;
 }
 
 .amountAdder{
   background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .eventsdiv{
   background-color: rgba(0, 0, 0, 0.5);
   overflow-y: auto;
-  height: 200px;
+  height: 220px;
+  padding: 30px;
+  margin-bottom: 10px;
 }
 
 .splashscreen {
