@@ -249,6 +249,7 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
   jq(".invalidEmail").hide();
   jq('.succMessage3').hide();
   jq(".errorMsg3").hide();
+  jq(".recError").hide();
 
   updateCoins();
   function updateCoins() {
@@ -280,12 +281,12 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
   }
 
   $scope.amount = function(e){
-
     jq(".errorMsg").hide();
     jq('.errorMsg2').hide();
     jq(".invalidEmail").hide();
     jq('.succMessage3').hide();
     jq(".errorMsg3").hide();
+    jq(".recError").hide();
     var ref = new Firebase("https://nustcoin.firebaseio.com");
     var authData = ref.getAuth();
     var absoluteUrl = "";

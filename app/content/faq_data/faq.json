@@ -2,8 +2,8 @@
     {
         "age": 0,
         "id": "question1",
-        "question": "Q: Why do you mean by valid NUST email ID?",
-        "answer": "A: Email ID provided to you by your department when you joined NUST. It will have yor department name after @ for example efatima.bscs@seecs.edu.pk"
+        "question": "Q: What do you mean by valid NUST email ID?",
+        "answer": "A: Email ID provided to you by your department when you joined NUST. It will have your department name after @ for example 14bscsefatima@seecs.edu.pk"
     },
     {
         "age": 1,
@@ -25,7 +25,7 @@
     },
     {
       "age": 4,
-      "id": "question6",
+      "id": "question5",
       "question": "Q: How many types of accounts are there?",
       "answer": "There are three types of accounts. Student account for current students only. Admin account for NUST staff and teachers. Vendor account for cafe staff"
     },
@@ -33,9 +33,9 @@
 
 
       "age": 5,
-      "id": "question5",
+      "id": "question6",
       "question": "Q: Why is my transaction INVALID?",
-      "answer": "An admin can only transfer NUCOins to a student account. A student can transfer to a student or a vendor account. Please make sure your transaction falls in one of the mentioned categories. "
+      "answer": "A: An admin can only transfer NUCOins to a student account. A student can transfer to a student or a vendor account. Please make sure your transaction falls in one of the mentioned categories. "
 
     },
     {
@@ -61,5 +61,42 @@
         "id": "question10",
         "question": "Q: What is the benefit of buying a ticket through NUCoins?",
         "answer": "A: After transfer is complete and receipt has been generated, no one else can take your seat in the workshop/event. So you can confirm your ticket by paying from home."
+    },
+    {
+        "age": 10,
+        "id": "question11",
+        "question": "Q: Who will receive the ticket money?",
+        "answer": "A: Every event has a student representative for collecting the money for the event. Your NUCoins will be automatically transferred to the concerned person."
+    },
+    {
+        "age": 11,
+        "id": "question12",
+        "question": "Q: Can I update my password?",
+        "answer": "A: Yes. Select the 'Profile' option from the navbar. You can update your password on that page."
+    },
+    {
+        "age": 12,
+        "id": "question13",
+        "question": "Q:Specified user hasn't created account yet. Explain?",
+        "answer": "A: The email ID entered is in our list of valid emails but the User hasn't registered on our website. Ask the user to register and you'll be able to transfer after that"
+    },
+    {
+        "age": 13,
+        "id": "question14",
+        "question": "Q: Can anyone else see my profile? ",
+        "answer": "A: No, only you can see your profile."
+    },
+    {
+        "age": 14,
+        "id": "question15",
+        "question": "Q: What is the benefit of buying a ticket through NUCoins?",
+        "answer": "A: After transfer is complete and receipt has been generated, no one else can take your seat in the workshop/event. So you can confirm your ticket by paying from home."
+    },
+    {
+        "age": 15,
+        "id": "question16",
+        "question": "Q: What is the benefit of buying a ticket through NUCoins?",
+        "answer": "A: After transfer is complete and receipt has been generated, no one else can take your seat in the workshop/event. So you can confirm your ticket by paying from home."
     }
+
 ]
