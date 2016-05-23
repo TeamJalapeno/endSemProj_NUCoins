@@ -19,8 +19,8 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
     // }
 
     //check for cookie, if exists keep log in, if not redirect the user to login page
-    var cookie = $cookies.get('sessionCookie');
-    console.log(cookie);
+    // var cookie = $cookies.get('sessionCookie');
+    // console.log(cookie);
     // $scope.user.savedemail = cookie;
 
     var ref = new Firebase("https://nustcoin.firebaseio.com");
@@ -41,8 +41,8 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
     //delete cookie here
 
     $cookies.remove('sessionCookie', {path: 'app/content/login'});
-    var cookie = $cookies.get('sessionCookie');
-    console.log(cookie);
+    // var cookie = $cookies.get('sessionCookie');
+    // console.log(cookie);
 
     absUrl = $location.absUrl();
     absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
@@ -51,10 +51,20 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
   }
 });
 
-NCMainControllers.controller('RecentTransactionControl', function($scope, $firebaseArray, $cookies) {
+NCMainControllers.controller('RecentTransactionControl', function($scope, $firebaseArray, $cookies, $location) {
+
   jq(".noRecents").hide();
   var ref = new Firebase("https://nustcoin.firebaseio.com");
   var authData = ref.getAuth();
+
+  var absoluteUrl = "";
+  if (!authData) {
+    absoluteUrl = $location.absUrl();
+    absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+    absoluteUrl = absoluteUrl + "/login/login.html";
+    window.location.replace(absoluteUrl);
+  }
+
   var email = authData.password.email;
   email = email.substring(0, email.indexOf("@"));
   email = email.toLowerCase();
@@ -82,7 +92,9 @@ NCMainControllers.controller('RecentTransactionControl', function($scope, $fireb
 
 });
 
-NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $scope, $firebaseArray, $cookies, $filter) {
+NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $scope, $firebaseArray, $firebaseObject, $filter, $location) {
+  var absoluteUrl = "";
+
   jq('.rechargeMessage1').hide();
   jq('.rechargeMessage2').hide();
   $scope.recharge = function(e) {
@@ -91,6 +103,14 @@ NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $s
     var code = $scope.rechargeCode;
     var ref = new Firebase("https://nustcoin.firebaseio.com");
     var authData = ref.getAuth();
+
+    if (!authData) {
+      absoluteUrl = $location.absUrl();
+      absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+      absoluteUrl = absoluteUrl + "/login/login.html";
+      window.location.replace(absoluteUrl);
+    }
+
     var email = authData.password.email;
     var adminEmailAuth = new Firebase("https://nustcoin.firebaseio.com/users/adminEmail");
     var admin;
@@ -105,7 +125,6 @@ NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $s
           admin = false;  //could be a student or a vendor
         }
       }
-      //  console.log(admin);
 
       email = email.substring(0, email.indexOf("@"));
       email = email.toString();
@@ -115,9 +134,7 @@ NCMainControllers.controller('RechargeAccountCtrl', function(RechargeService, $s
       var tDate = $scope.ddMMyyyy;
       var tTime = $scope.hhmmsstt;
       RechargeService.Recharge(email, code, tDate, tTime, admin);
-
     });
-
   }
 });
 
@@ -129,6 +146,8 @@ NCMainControllers.controller('RecentEventsControl', function($scope, $firebaseAr
 });
 
 NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $filter) {
+
+
   var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('.ev')
   , db = new Firebase("https://nustcoin.firebaseio.com/events")
   db.on('value', function () {
@@ -168,10 +187,18 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $
 
 //This control redirects to the Transaction Details page after clicking a button on homepage
 NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebaseArray, $firebaseObject, $cookies, $location) {
+
   jq('.errormessage').hide();
 
   var ref = new Firebase("https://nustcoin.firebaseio.com");
   var authData = ref.getAuth();
+  var absoluteUrl = "";
+  if (!authData) {
+    absoluteUrl = $location.absUrl();
+    absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+    absoluteUrl = absoluteUrl + "/login/login.html";
+    window.location.replace(absoluteUrl);
+  }
   var email = authData.password.email;
   email = email.substring(0, email.indexOf("@"));
   email = email.toLowerCase();
@@ -201,7 +228,7 @@ NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebas
 
 });
 
-NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope,$firebaseObject, $cookies, $location, $filter) {
+NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scope, $firebaseObject, $cookies, $location, $filter) {
 
   jq(".errorMsg").hide();
   jq('.errorMsg2').hide();
@@ -213,6 +240,13 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
   function updateCoins() {
     var ref = new Firebase("https://nustcoin.firebaseio.com");
     var authData = ref.getAuth();
+    var absoluteUrl = "";
+    if (!authData) {
+      absoluteUrl = $location.absUrl();
+      absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+      absoluteUrl = absoluteUrl + "/login/login.html";
+      window.location.replace(absoluteUrl);
+    }
     var email = authData.password.email;
     email = email.substring(0, email.indexOf("@"));
     email = email.toLowerCase();
@@ -240,6 +274,13 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
     jq(".errorMsg3").hide();
     var ref = new Firebase("https://nustcoin.firebaseio.com");
     var authData = ref.getAuth();
+    var absoluteUrl = "";
+    if (!authData) {
+      absoluteUrl = $location.absUrl();
+      absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+      absoluteUrl = absoluteUrl + "/login/login.html";
+      window.location.replace(absoluteUrl);
+    }
     var email = authData.password.email;
     var reciever = $scope.user.receiver;
     console.log(reciever);
@@ -282,6 +323,7 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
 
 NCMainControllers.controller('EventDetailCtrl', ['$scope', '$stateParams', '$http', '$firebaseArray', '$firebaseObject',
 function($scope, $stateParams, $http, $firebaseArray, $firebaseObject) {
+
   jq(".outerDiv").hide();
   jq("h1").hide();
   var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('.mainDiv')
@@ -319,6 +361,7 @@ function($scope, $http) {
 }]);
 
 NCMainControllers.controller('WithdrawCtrl', function(Authentication, TransactionService, PurchaseService, $scope, $firebaseArray,$firebaseObject, $cookies,$filter,  $location) {
+
   jq(".withdrawError").hide();
   jq(".withdrawError2").hide();
   jq(".receipt").hide();
@@ -328,6 +371,13 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
     jq(".receipt").hide();
     var ref = new Firebase("https://nustcoin.firebaseio.com");
     var authData = ref.getAuth();
+    var absoluteUrl = "";
+    if (!authData) {
+      absoluteUrl = $location.absUrl();
+      absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+      absoluteUrl = absoluteUrl + "/login/login.html";
+      window.location.replace(absoluteUrl);
+    }
     var userEmail = authData.password.email;
     var userPassword = $scope.userPassword;
     Authentication.login(userEmail, userPassword).then(function(){
@@ -355,6 +405,7 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
 
 NCMainControllers.controller('AboutCtrl', ['$scope',
 function($scope) {
+
   jq("#paraB").hide();
   jq(document).ready(function(){
     jq('#story').click(function(){
@@ -369,8 +420,9 @@ function($scope) {
   })
 }]);
 
-NCMainControllers.controller('EventsBuyCtrl', ['TransactionService', 'PurchaseService', '$cookies', '$scope', '$stateParams', '$http', '$firebaseObject', 'Authentication', '$filter', '$firebaseArray',
-function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $http, $firebaseObject, Authentication, $filter, $firebaseArray) {
+NCMainControllers.controller('EventsBuyCtrl', ['TransactionService', 'PurchaseService', '$location', '$cookies', '$scope', '$stateParams', '$http', '$firebaseObject', 'Authentication', '$filter', '$firebaseArray',
+function(TransactionService, PurchaseService, $location, $cookies, $scope, $stateParams, $http, $firebaseObject, Authentication, $filter, $firebaseArray) {
+
   // $http.get('events_data/' + $stateParams.eventId + '.json').success(function(data) {
   //   $scope.event = data;
   var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('.mainDiv')
@@ -397,6 +449,13 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
       var stuCheck = true;
       var ref = new Firebase("https://nustcoin.firebaseio.com");
       var authData = ref.getAuth();
+      var absoluteUrl = "";
+      if (!authData) {
+        absoluteUrl = $location.absUrl();
+        absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+        absoluteUrl = absoluteUrl + "/login/login.html";
+        window.location.replace(absoluteUrl);
+      }
       var userEmail = authData.password.email;
 
       userEmail = userEmail.substring(0, userEmail.indexOf("@"));
@@ -407,11 +466,20 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
         $scope.balance = balance;
         $scope.balance2 = balance - parseInt($scope.event.cost);
         var reciever = $scope.event.recEmail;
+
+        if (!authData) {
+          absoluteUrl = $location.absUrl();
+          absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+          absoluteUrl = absoluteUrl + "/login/login.html";
+          window.location.replace(absoluteUrl);
+        }
+
+        var email = authData.password.email;
         if($scope.balance2 < 0) {
           jq(".balance2").hide();
           jq(".balError").show();
         }
-        else if ($cookies.get('sessionCookie') == reciever) {
+        else if (email == reciever) {
           jq(".stuError").show();
           jq(".balance2").hide();
           stuCheck = false;
@@ -421,7 +489,17 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
           $scope.eventBuy = function(e) {
             jq(".pwError").hide();
             jq(".pwError2").hide();
-            var userEmail = $cookies.get('sessionCookie');
+            var ref = new Firebase("https://nustcoin.firebaseio.com");
+            var authData = ref.getAuth();
+
+            if (!authData) {
+              absoluteUrl = $location.absUrl();
+              absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+              absoluteUrl = absoluteUrl + "/login/login.html";
+              window.location.replace(absoluteUrl);
+            }
+
+            var userEmail = authData.password.email;
             var userPassword = $scope.userPassword;
             if(!userPassword)
             jq('.pwError2').show();
@@ -470,6 +548,7 @@ function(TransactionService, PurchaseService, $cookies, $scope, $stateParams, $h
 
 NCMainControllers.controller('profileCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject', '$firebaseArray',
 function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArray) {
+
   //var absUrl = "";
   $scope.user = {};
   jq('.succMessage').hide();
@@ -480,6 +559,14 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
 
   var ref = new Firebase("https://nustcoin.firebaseio.com");
   var authData = ref.getAuth();
+  var absoluteUrl = "";
+  if (!authData) {
+    absoluteUrl = $location.absUrl();
+    absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+    absoluteUrl = absoluteUrl + "/login/login.html";
+    window.location.replace(absoluteUrl);
+  }
+
   var email = authData.password.email;
   email = email.substring(0, email.indexOf("@"));
   console.log(email);
@@ -509,8 +596,19 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
         jq('.succMessage2').hide();
         var oPw = $scope.oPw;
         var nPw = $scope.nPw;
+        var ref = new Firebase("https://nustcoin.firebaseio.com");
+        var authData = ref.getAuth();
+        var absoluteUrl = "";
+        if (!authData) {
+          absoluteUrl = $location.absUrl();
+          absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+          absoluteUrl = absoluteUrl + "/login/login.html";
+          window.location.replace(absoluteUrl);
+        }
+
+        var userEmail = authData.password.email;
         ref.changePassword({
-          email: $cookies.get('sessionCookie'),
+          email: userEmail,
           oldPassword: oPw,
           newPassword: nPw
         }, function(error) {
@@ -542,11 +640,19 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
 
 NCMainControllers.controller('feedbackCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject',
 function($scope, $cookies, $location, $rootScope, $firebaseObject) {
+
   jq('.feedbackError').hide();
   var absUrl = "";
 
   var ref3 = new Firebase("https://nustcoin.firebaseio.com");
   var authData = ref3.getAuth();
+  if (!authData) {
+    absUrl = $absUrl.absUrl();
+    absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+    absUrl = absUrl + "/login/login.html";
+    window.location.replace(absUrl);
+  }
+
   var email = authData.password.email;
   email = email.substring(0, email.indexOf("@"));
 
@@ -575,6 +681,12 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
     else {
       var ref = new Firebase("https://nustcoin.firebaseio.com");
       var authData = ref.getAuth();
+      if (!authData) {
+        absUrl = $location.absUrl();
+        absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
+        absUrl = absUrl + "/login/login.html";
+        window.location.replace(absUrl);
+      }
       var userEmail = authData.password.email;
       userEmail = userEmail.substring(0, userEmail.indexOf("@"));
       var ref = new Firebase("https://nustcoin.firebaseio.com/usersData");   // accesing user 1's balance from the databse
