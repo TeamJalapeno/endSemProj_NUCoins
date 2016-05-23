@@ -1,21 +1,23 @@
 
 <html ng-app ="NCMainControllers" ng-controller ="TransactionDetailsCtrl">
 
-<div class ="Page1">
-<h1> Transaction Details Page </h1>
-<p>Search: <input ng-model="query"><br>
-
+<div class = "container bottompadding">
+<div class ="jumbotron splashscreen">
+<h3> Transaction Details</h3>
+<input class = "form-control pull-left" ng-model="query" placeholder="Search..."><br><br>
+</div>
 <h3>
   <ul ng-repeat ="transaction in transactions.slice().reverse() | filter:query">
+  <li > <b>Title:</b>{{transaction.Title }} <b>&nbspAmount:</b>{{transaction.Amount }} <b>&nbspDate:</b> {{transaction.Date }} <b>&nbspTime:</b>
+    {{transaction.Time }} <b>&nbspDescription:</b>  {{transaction.Description}}
+  </li><br>
 
-  <li > <b>Title:</b>{{transaction.Title }} <b>&nbspAmount:</b>{{transaction.Amount }} <b>&nbspDate:</b> {{transaction.Date }} <b>&nbspTime:</b> {{transaction.Time }} <b>&nbspDescription:</b>  {{transaction.Description}}</li><br>
-
- <br><br>
+ <br>
 
 </ul>
 </h3>
 <div class="errormessage">You have no transactions to show.</div>
 
-
+</div>
 </div>
 </html>

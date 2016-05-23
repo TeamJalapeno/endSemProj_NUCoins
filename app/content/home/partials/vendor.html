@@ -7,10 +7,9 @@ jq(".eventbutton").hide();
 <h3>Your NUCoins: {{coins}}</h3>
 </div>
 
-<div class = "container">
+<div class = "container bottompadding" ng-controller='AddAmountCtrl'>
 
 <p><h2>Transaction history</h2>
- <button class = "form-control" ng-click='details($event);'>Transaction Details</button>
 <div class = "transactiondiv" ng-controller = "RecentTransactionControl">
   <br>Your Recent Transactions:
   <ul ng-repeat ="transaction in transactions">
@@ -21,6 +20,7 @@ jq(".eventbutton").hide();
       <b> Description:</b>  {{transaction.Description}}</li> <br>
    <br>
   </ul>
+  <button class = "form-control" ng-click='details($event);'>Transaction Details</button>
   <p class ="noRecents">You have no Recent Transactions to show</p>
 </div>
 

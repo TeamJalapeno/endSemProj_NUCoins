@@ -196,13 +196,14 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $
     })
 
   }
-
 });
 
 //This control redirects to the Transaction Details page after clicking a button on homepage
 NCMainControllers.controller('TransactionDetailsCtrl', function($scope, $firebaseArray, $firebaseObject, $cookies, $location) {
 
   jq('.errormessage').hide();
+  jq("#myview").removeClass('noview');
+  jq(".fullbodyloading").hide();
 
   var ref = new Firebase("https://nustcoin.firebaseio.com");
   var authData = ref.getAuth();
