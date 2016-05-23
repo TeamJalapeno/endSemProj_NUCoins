@@ -1,8 +1,9 @@
+<div class = "background3">
 <div class = "jumbotron splashscreen"><h1>Your Profile</h1>
 <div class = "container">
   <div class = "row">
     <div class = "col-md-6 padding">
-      <form class="form-group">
+      <form class="form-group profileform">
         <p>First Name: <span style="position:relative;float:right;"><input type="text" class = "form-control" placeholder="First Name" ng-model="user.FirstName" required="" autofocus=""/></span><br></p>
         <p>Last Name: <span style="position:relative;float:right;"><input type="text" class = "form-control" placeholder="Last Name" ng-model="user.LastName" required=""/></span></br></p>
         <p>Feedback (1-10): <span style="position:relative;float:right;"><input type="number" class = "form-control" placeholder="Enter a value from 1 to 10"ng-model="user.Feedback" min="1" max="10"/></span></p><br>
@@ -10,8 +11,8 @@
       </form>
     </div>
     <div class = "col-md-6 padding">
-      <form class="form-group">
-        <p>Update Password:</br></p>
+      <form class="form-group profileform">
+        <p style = "text-align:center;">Update Password</p>
         <p>Old Password: <span style="position:relative;float:right;"><input type="password" class = "form-control"placeholder="Old Password..."ng-model="oPw" required=""/></span></p>
         <p>New Password: <span style="position:relative;float:right;"><input type="password" class = "form-control"placeholder="New Password..."ng-model="nPw" required=""/></span></p><br>
         <button class = "btn btn-primary" style=""ng-click="Update2()">Update</button>
@@ -26,4 +27,5 @@
 <p class="errMessage3"> *Error changing password </p>
 <p class="succMessage2"> User password changed successfully! </p>
 
+</div>
 </div>

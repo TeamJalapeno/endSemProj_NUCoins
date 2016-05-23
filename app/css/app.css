@@ -63,6 +63,16 @@ button {
   background-size: cover;
 }
 
+.background3 {
+  position:absolute;
+  margin: 0 auto;
+  padding: 0 auto;
+  width:100%;
+  height: 100%;
+  background-image:url('../img/bg6.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .jumbotron {
   padding: 20px;
 }
@@ -88,6 +98,13 @@ form input {
   background-position: center;
   /*background-color: rgba(0, 0, 0, 0.5);*/
 }
+
+.profileform{
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: grey;
+  }
 
 .transactiondiv{
   background-color: rgba(0, 0, 0, 0.5);
@@ -212,10 +229,13 @@ form input {
     font-size: 14px;
   }
   .toppadding {
-    margin-top: 100px;;
+    margin-top: 50px;;
   }
   .logodiv {
     margin-top: 100px;;
+  }
+  .splashscreen {
+    margin-top: 30px;
   }
   .splashscreen p {
     text-align: justify;
