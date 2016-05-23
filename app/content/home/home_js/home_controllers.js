@@ -83,6 +83,9 @@ NCMainControllers.controller('RecentTransactionControl', function($scope, $fireb
   if(history == false){
     jq(".noRecents").show();
   }
+  else{
+      jq(".noRecents").hide();
+  }
 });
 
   $scope.messages = $firebaseArray(myaccount);
