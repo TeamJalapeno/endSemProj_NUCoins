@@ -8,11 +8,11 @@
 <div class="ev">
   <ul class="events">
     <li ng-repeat="event in events | filter:query | orderBy:orderProp" class="eventlist">
-      <a href="#/events/{{event.id}}"><img class = "img-circle eventimage" ng-src="{{event.imageUrl}}" alt="{{event.name}}"></a>
-      <a href="#/events/{{event.id}}">{{event.name}}</a>
-      <a class="eButton" href="#/eventsbuy/{{event.id}}">Buy Ticket</a>
-      <p>{{event.cost}} NUCs</p>
+      <span><a href="#/events/{{event.id}}"><img class = "img-circle eventimage" ng-src="{{event.imageUrl}}" alt="{{event.name}}"></a>
+      <a href="#/events/{{event.id}}">{{event.name}}</a></span>
+      <span class = "eventcost pull-right"><p>Cost: {{event.cost}} NUCs</p></span>
       <p>{{event.snippet}}</p>
+      <button class="btn btn-primary eButton" href="#/eventsbuy/{{event.id}}">Buy Ticket</button>
     </li>
   </ul>
 </div>
