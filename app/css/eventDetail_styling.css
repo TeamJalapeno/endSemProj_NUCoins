@@ -67,7 +67,6 @@ div {
   margin:0 auto;
   position: relative;
   float: right;
-  z-index: 0;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
   cursor: pointer;
