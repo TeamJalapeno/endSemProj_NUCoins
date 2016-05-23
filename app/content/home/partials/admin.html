@@ -49,13 +49,16 @@ jq( document ).ready(function() {
     </div>
     <div class = "col-md-4">
       <div class="siteRating" ng-controller="ratingCtrl">
-        <br><h2>Site Average Rating:</h2></br>
-        <b> Average Rating:</b> {{rating}} <br>
-        <b>Number of Users:</b> {{numberOfRatings}} <br>
+        <br><h2 style="text-align: left;">Site Average Rating:</h2></br>
+        <ul>
+          <li>
+        <b> Average Rating:</b> {{rating}} <br></li>
+        <li>
+        <b>Number of Users:</b> {{numberOfRatings}} <br></li>
       </div>
 
       <div class="frequentUsers" ng-controller="frequentUsersCtrl">
-        <br><h2>Frequent Users:</h2></br>
+        <h2 style="text-align: left;">Frequent Users:</h2></br>
         <ul>
           <li><b> First:</b> {{user1}} <br>
               <b> Number of Transactions:</b> {{user1Transactions}}
@@ -67,7 +70,7 @@ jq( document ).ready(function() {
       </div>
 
       <div class = "transactiondiv" ng-controller = "RecentTransactionControl">
-        <br>Your Recent Transactions:
+        <h3><br>Your Recent Transactions:</h3></br>
         <ul ng-repeat ="transaction in transactions">
           <li > <b>Title:</b>{{transaction.Title}} <br>
             <b>Amount:</b>{{transaction.Amount}} <br>
