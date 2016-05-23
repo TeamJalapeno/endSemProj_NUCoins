@@ -35,6 +35,10 @@ button {
   margin: 0 auto;
   font-size: 22px;
   line-height: 38px;
+  padding: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: grey;
 }
 
 .receipt {
@@ -142,7 +146,7 @@ form input {
 .splashscreen {
   width: 100%;
   margin-top: 80px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .splashscreen h1 {
