@@ -457,6 +457,8 @@ function(TransactionService, PurchaseService, $location, $cookies, $scope, $stat
   jq(".pwError2").hide();
   jq(".stuError").hide();
   jq(".stuError2").hide();
+  jq("#myview").removeClass('noview');
+
 
   var ref = new Firebase("https://nustcoin.firebaseio.com/eventDetails/"+$stateParams.eventId);
   var obj = new $firebaseObject(ref);

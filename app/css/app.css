@@ -23,6 +23,27 @@ body {
   font-family: Oxygen;
 }
 
+button {
+  color: black;
+}
+
+.withdrawalform{
+  width: 500px;
+  margin: 0 auto;
+  line-height: 38px;
+}
+
+.receipt {
+  color: black;
+  background-color: white;
+  border-style: double;
+  border-radius: 10px;
+  border-radius: 5px;
+  border-color: green;
+  width: 450px;
+  height: 100px;
+  margin: 0 auto;
+}
 /*ui-view {
   display: none;
 }*/
@@ -58,7 +79,6 @@ body {
   background-size: 180px 160px;
   background-position: center;
   /*background-color: rgba(0, 0, 0, 0.5);*/
-
 }
 
 .transactiondiv{
