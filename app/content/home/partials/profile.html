@@ -1,23 +1,29 @@
-<div class = "jumbotron splashscreen"><h1>{{user.FirstName}}'s Profile</h1>
-<form class="">
-  <p>First Name: <input type="text" placeholder="first name" ng-model="user.FirstName" required="" autofocus=""/><br></p>
-  <p>Last Name: <input type="text" placeholder="last name" ng-model="user.LastName" required=""/></br></p>
-  <p>Feedback (on a scale of 1-10): <input type="number" ng-model="user.Feedback" min="1" max="10"/></br></p>
-  <button class = "" ng-click="Update()">Update</button></br>
-</form>
+<div class = "jumbotron splashscreen"><h1>Your Profile</h1>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-md-6">
+      <form class="">
+        <p>First Name: <input type="text" placeholder="first name" ng-model="user.FirstName" required="" autofocus=""/><br></p>
+        <p>Last Name: <input type="text" placeholder="last name" ng-model="user.LastName" required=""/></br></p>
+        <p>Feedback (on a scale of 1-10): <input type="number" ng-model="user.Feedback" min="1" max="10"/></br></p>
+        <button class = "" ng-click="Update()">Update</button></br>
+      </form>
+    </div>
+    <div class = "col-md-6">
+      <form class="">
+        <p>Update Password:</br></p>
+        <p>Old Password: <input type="password" ng-model="oPw" required=""/></p>
+        <p>New Password: <input type="password" ng-model="nPw" required=""/></p>
+        <button class = "" ng-click="Update2()">Update</button></br>
+      </form>
+    </div>
+  </div>
 </div>
 
-<div clas = "jumbotron splashscreen">
 <p class="succMessage"> Profile updated successfully! </p></br></br>
-
-<form class="">
-  <p>Update Password:</br></p>
-  <p>Old Password: <input type="password" ng-model="oPw" required=""/></p>
-  <p>New Password: <input type="password" ng-model="nPw" required=""/></p>
-  <button class = "" ng-click="Update2()">Update</button></br>
-</form>
-</div>
 <p class="errMessage1"> The specified user account password is incorrect. </p>
 <p class="errMessage2"> The specified user account does not exist. </p>
 <p class="errMessage3"> Error changing password </p>
 <p class="succMessage2"> User password changed successfully! </p>
+
+</div>

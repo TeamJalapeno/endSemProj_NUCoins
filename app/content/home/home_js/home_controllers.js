@@ -579,6 +579,7 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
   jq('.errMessage2').hide();
   jq('.errMessage3').hide();
   jq('.succMessage2').hide();
+  jq(".fullbodyloading").hide();
   jq("#myview").removeClass('noview');
 
 
