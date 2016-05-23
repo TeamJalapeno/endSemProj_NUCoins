@@ -418,7 +418,7 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
       var tDate = $scope.ddMMyyyy;
       var tTime = $scope.hhmmsstt;
       if (amount >= 10 && beneficiary)
-        jq(".confirmation").show().fadeOut(5000);
+        jq(".confirmation").show();
 
     }, function(error){
       console.log(error);
