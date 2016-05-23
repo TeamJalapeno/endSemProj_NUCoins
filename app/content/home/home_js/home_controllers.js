@@ -383,13 +383,52 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
   jq(".withdrawError").hide();
   jq(".withdrawError2").hide();
   jq(".receipt").hide();
+  jq(".confirmation").hide();
   jq(".fullbodyloading").hide();
   jq("#myview").removeClass('noview');
   console.log('test');
 
+  $scope.confirmation = function(e) {
+    jq(".withdrawError").hide();
+    jq(".withdrawError2").hide();
+    jq(".receipt").hide();
+    jq(".confirmation").hide();
+    jq(".fullbodyloading").hide();
+    var ref = new Firebase("https://nustcoin.firebaseio.com");
+    var authData = ref.getAuth();
+    var absoluteUrl = "";
+    if (!authData) {
+      absoluteUrl = $location.absUrl();
+      absoluteUrl = absoluteUrl.substring(0, absoluteUrl.indexOf("/home/home.html"));
+      absoluteUrl = absoluteUrl + "/login/login.html";
+      window.location.replace(absoluteUrl);
+    }
+    var userEmail = authData.password.email;
+    var userPassword = $scope.userPassword;
+    var beneficiary = $scope.user.beneficiary;
+
+    Authentication.login(userEmail, userPassword).then(function(){
+      //use authData
+      $scope.email = userEmail;
+      var amount = parseInt($scope.user.amount);
+      userEmail = userEmail.substring(0, userEmail.indexOf("@"));
+      var date = new Date();
+      $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
+      $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
+      var tDate = $scope.ddMMyyyy;
+      var tTime = $scope.hhmmsstt;
+      if (amount >= 10 && beneficiary)
+        jq(".confirmation").show();
+
+    }, function(error){
+      console.log(error);
+      jq(".withdrawError2").show();
+    });
+  }
   $scope.receipt = function(e) {
     jq(".withdrawError").hide();
     jq(".withdrawError2").hide();
+    jq(".confirmation").hide();
     jq(".receipt").hide();
     var ref = new Firebase("https://nustcoin.firebaseio.com");
     var authData = ref.getAuth();
