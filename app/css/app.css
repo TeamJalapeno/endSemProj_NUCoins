@@ -64,6 +64,10 @@ button {
   padding: 20px;
 }
 
+form input {
+  color: black;
+}
+
 .noview {
   display: none;
 }
