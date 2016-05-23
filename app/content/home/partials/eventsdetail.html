@@ -2,12 +2,18 @@
 <h1><img ng-src="{{event.images[0]}}" class="img-circle eventimage"> {{event.name}}</h1></span><br>
 
 <div class="mainDiv">
-  <div class="outerDiv">
+  <div class="container outerDiv">
     <h2>Cost: {{event.cost}} NUCs</h2>
 
-    <div class="imgDiv">
-      <img ng-src="{{event.images[1]}}" class="mainImage">
-      <img ng-src="{{event.images[2]}}" class="mainImage">
+    <div class="container imgDiv">
+      <div class = "row">
+        <div class = "col-md-6">
+          <img ng-src="{{event.images[1]}}" class="mainImage img-responsive">
+        </div>
+        <div class = "col-md-6">
+          <img ng-src="{{event.images[2]}}" class="mainImage img-responsive">
+        </div>
+      </div>
     </div>
 
     <div class="desEvent">
