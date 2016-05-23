@@ -39,11 +39,11 @@ jq( document ).ready(function() {
       </div>
       <div ng-controller = "RechargeAccountCtrl">
         <form>
-          <p>Enter code to recharge NUCoins
-          <input type="text" placeholder="Recharge code" ng-model="rechargeCode" required=""/><br>
-          <p><button ng-click='recharge($event);'>Recharge</button>
-            <p class="rechargeMessage1">*You entered wrong code!</p>
-            <p class="rechargeMessage2">Coins successfully added!</p>
+          <p><h2 style="text-align: left;">Enter code to recharge NUCoins</h2></p>
+          <input type="text" class = "form-control pull-left" placeholder="Recharge code" ng-model="rechargeCode" required=""/><br><br>
+          <p><button class = "form-control pull-left" ng-click='recharge($event);'>Recharge</button></p><br>
+          <p class="rechargeMessage1">*You entered wrong code!</p>
+          <p class="rechargeMessage2">Coins successfully added!</p>
         </form>
       </div>
     </div>
