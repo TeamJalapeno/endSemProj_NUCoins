@@ -64,7 +64,9 @@ NCMainControllers.controller('RecentTransactionControl', function($scope, $fireb
   var $load = jq('<div style = "width:100px;height:100px;"><img style = "width:150px;height:150px;"src="../../img/loading.gif"></div>').appendTo('.transactiondiv')
   , myaccount = new Firebase("https://nustcoin.firebaseio.com/transactionDetails/"+email)
   myaccount.on('value', function () {
-    $load.hide()
+    $load.hide();
+    jq("#myview").removeClass('noview');
+    jq(".fullbodyloading").hide();
   })
   myaccount.on("value", function(snapshot) {
   var history = snapshot.exists();
@@ -132,7 +134,8 @@ NCMainControllers.controller('EventListCtrl', function($scope, $firebaseArray, $
   var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('.ev')
   , db = new Firebase("https://nustcoin.firebaseio.com/events")
   db.on('value', function () {
-    $load.hide()
+    $load.hide();
+    jq("#myview").removeClass('noview');
   })
 
   var ref = new Firebase("https://nustcoin.firebaseio.com/events");
@@ -307,6 +310,7 @@ function($scope, $stateParams, $http, $firebaseArray, $firebaseObject) {
 NCMainControllers.controller('FaqCtrl', ['$scope', '$http',
 function($scope, $http) {
   $http.get('content/faq_data/faq.json').success(function(data) {
+    jq("#myview").removeClass('noview');
     $scope.faq = data;
   });
 }]);
@@ -314,6 +318,7 @@ function($scope, $http) {
 NCMainControllers.controller('Faq2Ctrl', ['$scope', '$http',
 function($scope, $http) {
   $http.get('../faq_data/faq.json').success(function(data) {
+    jq("#myview").removeClass('noview');
     $scope.faq = data;
   });
 }]);
@@ -322,6 +327,8 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
   jq(".withdrawError").hide();
   jq(".withdrawError2").hide();
   jq(".receipt").hide();
+  jq("#myview").removeClass('noview');
+
   $scope.receipt = function(e) {
     jq(".withdrawError").hide();
     jq(".withdrawError2").hide();
@@ -355,6 +362,7 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
 
 NCMainControllers.controller('AboutCtrl', ['$scope',
 function($scope) {
+  jq("#myview").removeClass('noview');
   jq("#paraB").hide();
   jq(document).ready(function(){
     jq('#story').click(function(){
@@ -477,6 +485,8 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
   jq('.errMessage2').hide();
   jq('.errMessage3').hide();
   jq('.succMessage2').hide();
+  jq("#myview").removeClass('noview');
+
 
   var ref = new Firebase("https://nustcoin.firebaseio.com");
   var authData = ref.getAuth();
@@ -543,6 +553,8 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
 NCMainControllers.controller('feedbackCtrl', ['$scope', '$cookies', '$location', '$rootScope', '$firebaseObject',
 function($scope, $cookies, $location, $rootScope, $firebaseObject) {
   jq('.feedbackError').hide();
+  jq("#myview").removeClass('noview');
+
   var absUrl = "";
 
   var ref3 = new Firebase("https://nustcoin.firebaseio.com");
@@ -558,6 +570,8 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
   })
 
   $scope.LogOut = function() {
+    jq("#myview").removeClass('noview');
+
     var ref = new Firebase("https://nustcoin.firebaseio.com");
     ref.unauth();
     $cookies.remove('sessionCookie', {path: '/app/content/login'});
