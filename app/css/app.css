@@ -308,3 +308,17 @@ form input {
   background-color: #ffcc00;
   color:white;
 }
+.green{
+  background-color: #33cc33;
+  color:white;
+}
+.green:hover{
+  background-color: #009933;
+}
+.red{
+  background-color: #e60000;
+  color:white;
+}
+.red:hover{
+  background-color: #b30000;
+}
