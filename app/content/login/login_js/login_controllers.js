@@ -16,14 +16,7 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', 'LoginService'
     $scope.user.email = cookie;
     jq(".sessionexpired").show();
   }
-  //
-  // var ref = new Firebase("https://nustcoin.firebaseio.com");
-  // // ref.unauth();
-  // var authData = ref.getAuth();
-  // if (authData) {
-  //   console.log("Authenticated user with uid:", authData.password.email);
-  //   $scope.user.email = authData.password.email;
-  // }
+
 
   $scope.AuthEmail = function(e) {
     e.preventDefault();
@@ -40,9 +33,7 @@ NCLoginController.controller('LoginCtrl', ['$scope', '$location', 'LoginService'
     var password = $scope.user.password;
     LoginService.SignIn(username, password);
   }
-  // if ($scope.user.firstName && $scope.user.lastName && $scope.user.gender && $scope.user.email && $scope.user.password) {
-  //   jq('#signupRegister').removeAttr('disabled');
-  // }
+
   $scope.RegisterUser = function(e) {
         jq('.generalError').hide();
     e.preventDefault();

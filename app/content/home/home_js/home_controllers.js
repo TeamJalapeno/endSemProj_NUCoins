@@ -369,6 +369,7 @@ NCMainControllers.controller('WithdrawCtrl', function(Authentication, Transactio
   jq(".withdrawError").hide();
   jq(".withdrawError2").hide();
   jq(".receipt").hide();
+  jq(".fullbodyloading").hide();
   jq("#myview").removeClass('noview');
 
   $scope.receipt = function(e) {
