@@ -612,7 +612,7 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
           "FirstName" : user.FirstName,
           "LastName" : user.LastName
         });
-        jq('.succMessage').show();
+        jq(".succMessage").show().fadeOut(5000);
       }
 
       $scope.Update2 = function() {
@@ -642,19 +642,19 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject, $firebaseArra
             switch (error.code) {
               case "INVALID_PASSWORD":
               console.log("The specified user account password is incorrect.");
-              jq('.errMessage1').show();
+              jq('.errMessage1').show().fadeOut(5000);
               break;
               case "INVALID_USER":
               console.log("The specified user account does not exist.");
-              jq('.errMessage2').show();
+              jq('.errMessage2').show().fadeOut(5000);
               break;
               default:
               console.log("Error changing password:", error);
-              jq('.errMessage3').show();
+              jq('.errMessage3').show().fadeOut(5000);
             }
           } else {
             console.log("User password changed successfully!");
-            jq('.succMessage2').show();
+            jq('.succMessage2').show().fadeOut(5000);
           }
         });
       }
