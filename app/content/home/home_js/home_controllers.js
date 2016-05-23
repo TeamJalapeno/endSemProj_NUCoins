@@ -338,7 +338,8 @@ NCMainControllers.controller('AddAmountCtrl', function(TransactionService, $scop
 
 NCMainControllers.controller('EventDetailCtrl', ['$scope', '$stateParams', '$http', '$firebaseArray', '$firebaseObject',
 function($scope, $stateParams, $http, $firebaseArray, $firebaseObject) {
-
+  jq("#myview").removeClass('noview');
+  jq(".fullbodyloading").hide();
   jq(".outerDiv").hide();
   jq("h1").hide();
   var $load = jq('<div class="loading"><img class="loadingimg" src="../../img/loading.gif"></div>').appendTo('.mainDiv')
