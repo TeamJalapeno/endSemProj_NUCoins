@@ -37,7 +37,8 @@ jq( document ).ready(function() {
         <p><h2>Transaction history</h2></p><br>
         <button class = "form-control mybutton" ng-click='details($event);'>Transaction Details</button>
       </div>
-      <div ng-controller = "RechargeAccountCtrl">
+
+      <div class = "transactiondiv" ng-controller = "RechargeAccountCtrl">
         <form>
           <p><h2 style="text-align: left;">Enter code to recharge NUCoins</h2></p>
           <input type="text" class = "form-control pull-left" placeholder="Recharge code" ng-model="rechargeCode" required=""/><br><br>
@@ -48,27 +49,6 @@ jq( document ).ready(function() {
       </div>
     </div>
     <div class = "col-md-4">
-      <div class="siteRating" ng-controller="ratingCtrl">
-        <br><h2 style="text-align: left;">Site Average Rating:</h2></br>
-        <ul>
-          <li>
-        <b> Average Rating:</b> {{rating}} <br></li>
-        <li>
-        <b>Number of Users:</b> {{numberOfRatings}} <br></li>
-      </div>
-
-      <div class="frequentUsers" ng-controller="frequentUsersCtrl">
-        <h2 style="text-align: left;">Frequent Users:</h2></br>
-        <ul>
-          <li><b> First:</b> {{user1}} <br>
-              <b> Number of Transactions:</b> {{user1Transactions}}
-          </li> <br>
-          <li><b>Second:</b> {{user2}} <br>
-              <b> Number of Transactions:</b> {{user2Transactions}}
-          </li> <br>
-        <ul>
-      </div>
-
       <div class = "transactiondiv" ng-controller = "RecentTransactionControl">
         <h3><br>Your Recent Transactions:</h3></br>
         <ul ng-repeat ="transaction in transactions">
@@ -81,7 +61,26 @@ jq( document ).ready(function() {
         </ul>
         <p class ="noRecents">You have no Recent Transactions to show</p>
       </div>
+      <div class="siteRating transactiondiv" ng-controller="ratingCtrl">
+        <br><h2 style="text-align: left;">Site Average Rating:</h2></br>
+        <ul>
+          <li>
+        <b> Average Rating:</b> {{rating}} <br></li>
+        <li>
+        <b>Number of Users:</b> {{numberOfRatings}} <br></li>
+      </div>
 
+      <div class="frequentUsers transactiondiv" ng-controller="frequentUsersCtrl">
+        <h2 style="text-align: left;">Frequent Users:</h2></br>
+        <ul>
+          <li><b> First:</b> {{user1}} <br>
+              <b> Number of Transactions:</b> {{user1Transactions}}
+          </li> <br>
+          <li><b>Second:</b> {{user2}} <br>
+              <b> Number of Transactions:</b> {{user2Transactions}}
+          </li> <br>
+        <ul>
+      </div>
     </div>
 
   </div>
