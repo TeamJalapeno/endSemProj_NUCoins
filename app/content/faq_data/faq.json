@@ -83,20 +83,20 @@
     {
         "age": 13,
         "id": "question14",
-        "question": "Q: Can anyone else see my profile? ",
+        "question": "Q: Can anyone else see my profile?",
         "answer": "A: No, only you can see your profile."
     },
     {
         "age": 14,
         "id": "question15",
-        "question": "Q: What is the benefit of buying a ticket through NUCoins?",
-        "answer": "A: After transfer is complete and receipt has been generated, no one else can take your seat in the workshop/event. So you can confirm your ticket by paying from home."
+        "question": "Q: Does transaction history only store Account to account transfer of NUCoins?",
+        "answer": "A: It stores information regarding all your transactions including transfer, receiving, withdrawal, recharge as well as ticket buying."
     },
     {
         "age": 15,
         "id": "question16",
-        "question": "Q: What is the benefit of buying a ticket through NUCoins?",
-        "answer": "A: After transfer is complete and receipt has been generated, no one else can take your seat in the workshop/event. So you can confirm your ticket by paying from home."
+        "question": "Q: Can i buy multiple tickets of one event from my account?",
+        "answer": "A: Yes you can. This feature has been added so you can buy an event tickets for your friends too. Also the electronic ticket is just a proof of payment. You need to get the actual ticket in your name from the representatives."
     }
 
 ]
