@@ -1,6 +1,7 @@
 <script>jq(".homepagelink").attr("href", "#/student");</script>
 
-<div class = "jumbotron splashscreen" ng-controller='AddAmountCtrl'>
+<div class = "">
+<div class = "jumbotron splashscreen " ng-controller='AddAmountCtrl'>
   <h1 > Welcome, {{name}}! </h1>
   <h3>Your NUCoins: {{coins}}</h3>
 </div>
@@ -10,7 +11,7 @@
     <div class = "col-md-7">
 
       <div class = "amountAdder" ng-controller='AddAmountCtrl'>
-        <h2>Transaction</h2>
+        <h2>Transaction</h2><br>
         <form class = "form-group">
           <p>Enter Email:<span><input type="email" class = "form-control pull-right" placeholder="Receiver's email address" ng-model="user.receiver" required=""/></span></p><br>
           <p>Enter Amount:<span><input type="number" class = "form-control pull-right" placeholder="Transfer amount" ng-model="user.amount" required="" min="10"/><br></span></p><br>
@@ -52,14 +53,13 @@
               <br>
             </ul>
           </div>
-
         </div>
       </div>
 
 
-      <div ng-controller = "RechargeAccountCtrl">
+      <div class = "transactiondiv" ng-controller = "RechargeAccountCtrl">
         <form>
-          <p><h2 style="text-align: left;">Enter code to recharge NUCoins</h2></p>
+          <p><h2 style="text-align: left;">Enter code to recharge NUCoins</h2></p><br>
           <input type="text" class = "form-control pull-left" placeholder="Recharge code" ng-model="rechargeCode" required=""/><br><br>
           <p><button class = "form-control pull-left recharge" ng-click='recharge($event);'>Recharge</button></p><br>
           <p class="rechargeMessage1">*You entered wrong code!</p>
@@ -67,3 +67,4 @@
         </form>
       </div>
     </div>
+</div>

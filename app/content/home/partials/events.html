@@ -1,7 +1,7 @@
 <div class = "jumbotron questions">
   <div class="heading1 pull-left">Events</div>
   <input class="form-control eventsearch pull-left" ng-model="query" placeholder="Search...">
-  <button class = "btn btn-default pull-right refreshevents" style = "width: 120px;position:relative;" ng-click = "updateEvents()">Update Events</button>
+  <button class = "btn btn-default pull-right mybutton" style = "width: 120px;position:relative;" ng-click = "updateEvents()">Update Events</button>
 </div>
 </div>
 
@@ -12,7 +12,7 @@
       <a href="#/events/{{event.id}}">{{event.name}}</a></span>
       <span class = "eventcost pull-right"><p>Cost: {{event.cost}} NUCs</p></span>
       <p>{{event.snippet}}</p>
-      <button class="btn btn-primary eButton" href="#/eventsbuy/{{event.id}}">Buy Ticket</button>
+      <a class="btn btn-primary eButton" href="#/eventsbuy/{{event.id}}">Buy Ticket</a>
     </li>
   </ul>
 </div>
