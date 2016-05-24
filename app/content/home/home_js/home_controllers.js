@@ -47,7 +47,7 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
   $scope.logOut = function() {
     //delete cookie here
 
-    $cookies.remove('sessionCookie', {path: 'app/content/login'});
+    $cookies.remove('sessionCookie', {path: '/content/login'});
     // var cookie = $cookies.get('sessionCookie');
     // console.log(cookie);
 
@@ -775,8 +775,8 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
 
     var ref = new Firebase("https://nustcoin.firebaseio.com");
     ref.unauth();
-    $cookies.remove('sessionCookie', {path: 'app/content/login'});
-    $cookies.remove('pageCookie', {path: 'app/content/home'});
+    $cookies.remove('sessionCookie', {path: '/app/content/login'});
+    $cookies.remove('pageCookie', {path: '/app/content/home'});
 
     absUrl = $location.absUrl();
     absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
