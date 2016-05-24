@@ -13,15 +13,22 @@ NCMainControllers.controller('LoginCheck', function($scope, $cookies, $location,
     // and one special property 'targetView'
     // viewConfig.targetView
     var absUrl = "";
+    var link = "";
+    link = $cookies.get('pageCookie');
+    console.log(link);
+    var str = link.substring(link.indexOf("#") + 2);
+    console.log(str);
+    if (str === "admin") {
+      console.log("admin");
+      jq(".purchasebutton").hide();
+      jq(".eventbutton").hide();
+    }
+    else if (str === "vendor") {
+      console.log("vendor");
+      jq(".eventbutton").hide();
+    }
 
-    // if (authData) {
-    //   console.log("Authenticated user with uid:", authData.password.email);
-    // }
-
-    //check for cookie, if exists keep log in, if not redirect the user to login page
-    // var cookie = $cookies.get('sessionCookie');
-    // console.log(cookie);
-    // $scope.user.savedemail = cookie;
+    jq(".homepagelink").attr("href", link);
 
     var ref = new Firebase("https://nustcoin.firebaseio.com");
     var authData = ref.getAuth();
@@ -768,7 +775,9 @@ function($scope, $cookies, $location, $rootScope, $firebaseObject) {
 
     var ref = new Firebase("https://nustcoin.firebaseio.com");
     ref.unauth();
-    $cookies.remove('sessionCookie', {path: '/app/content/login'});
+    $cookies.remove('sessionCookie', {path: 'app/content/login'});
+    $cookies.remove('pageCookie', {path: 'app/content/home'});
+
     absUrl = $location.absUrl();
     absUrl = absUrl.substring(0, absUrl.indexOf("/home/home.html"));
     absUrl = absUrl + "/login/login.html";

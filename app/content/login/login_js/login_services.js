@@ -178,6 +178,7 @@ NCLoginServices.service('LoginService', function ($firebaseAuth, $cookies, $loca
             console.log("The read failed: " + errorObject.code);
           });
           jq('.loading').hide();
+          $cookies.put('pageCookie', absUrl , {path: '/app/content/home/home.html'});
           window.location.replace(absUrl);
         }
       });
