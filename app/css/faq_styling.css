@@ -1,15 +1,28 @@
 @import url(https://fonts.googleapis.com/css?family=Oxygen);
 
+body{
+  padding-top: 80px;
+}
+
+.nu-footer{
+  text-align: center;
+  padding: 10px 0;
+  background: #222;
+  position: fixed;
+  bottom:0;
+  width: 100%;
+}
 
 .questions {
-  position: fixed;
-  top:50px;
-  background-color: #020202;
-  padding: 10px;
+  /*position: fixed;*/
+  /*top:50px;*/
+  background-color: rgba(0, 0, 0, 0.39);
+  padding: 50px 0;
   width: 100%;
   text-align: center;
   z-index: 10;
-  /*margin-top: 50px;;*/
+  /*margin-top: 50px;*/
+
 }
 
 .heading1 {
@@ -17,13 +30,13 @@
   margin-left: auto;
   margin-right: auto;
   font-family: Oxygen;
-  font-size: 28px;
-  margin-right: 20px;
+  font-size: 40px;
+  margin-bottom: 25px;
 }
 
 .div1 {
   text-align: center;
-  margin-top: 200px;;
+  margin-top: 30px;
   font-family: Oxygen;
   margin-bottom: 60px;;
 }
@@ -36,13 +49,13 @@
 }
 .form-control {
   margin:0 auto;
-  width: 200px;
+  /*width: 200px;*/
 }
 
 
 @media(max-width:767px){
   .questions {
-    top: 50px;
+    /*top: 50px;*/
     font-size: 12px;
     text-align: center;
   }
@@ -62,4 +75,8 @@
     background-color: rgba(0, 0, 0, 0.0);
 
   }
+}
+
+.input{
+
 }
